@@ -42,7 +42,38 @@ app.use(express.json());
             }
         })
     )
-
 app.use(routes);
+
+app.use((req,res,next) => {
+    const err = new Error("The requested resource couldn't be found.")
+    err.title = 'Resource not found';
+    err.errors = ["The requested resource couldn't be found."];
+    err.status = 404
+    next(err)
+})
+
+
+const { ValidationError } = require('sequelize')
+
+app.use((err,req,res,next) => {
+    if(err instanceof ValidationError){
+        err.errors = err.errors.map((e) => e.message);
+        err.title = 'Validation error'
+    }
+    next(err)
+})
+
+app.use((err,req,res,next) => {
+    res.status(err.status || 500);
+    console.error(err);
+    res.json({
+        title: err.title || 'Server Error',
+        message: err.message,
+        errors: err.errors,
+        stack: isProduction ? null : err.stack
+    })
+})
+
+
 
 module.exports = app;
