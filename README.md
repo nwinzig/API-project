@@ -1474,3 +1474,5 @@ Return spots filtered by query parameters.
       }
     }
     ```
+![DB Schema Code](/Screen%20Shot%202022-09-21%20at%205.02.36%20PM.png)
+![DB Schema](/Screen%20Shot%202022-09-21%20at%205.03.41%20PM.png)
