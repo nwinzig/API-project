@@ -44,13 +44,16 @@ app.use(express.json());
     )
 app.use(routes);
 
+
+//error handlers
+
 app.use((req,res,next) => {
     const err = new Error("The requested resource couldn't be found.")
     err.title = 'Resource not found';
     err.errors = ["The requested resource couldn't be found."];
     err.status = 404
     next(err)
-})
+});
 
 
 const { ValidationError } = require('sequelize')
@@ -61,7 +64,7 @@ app.use((err,req,res,next) => {
         err.title = 'Validation error'
     }
     next(err)
-})
+});
 
 app.use((err,req,res,next) => {
     res.status(err.status || 500);
@@ -72,7 +75,7 @@ app.use((err,req,res,next) => {
         errors: err.errors,
         stack: isProduction ? null : err.stack
     })
-})
+});
 
 
 
