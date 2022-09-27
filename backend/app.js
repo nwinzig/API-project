@@ -7,6 +7,7 @@ const helmet = require('helmet');
 const cookieParser = require('cookie-parser');
 const routes = require('./routes')
 
+const { ValidationError } = require('sequelize')
 
 const { environment } = require('./config');
 const isProduction = environment === 'production';
@@ -56,7 +57,6 @@ app.use((req,res,next) => {
 });
 
 
-const { ValidationError } = require('sequelize')
 
 app.use((err,req,res,next) => {
     if(err instanceof ValidationError){
