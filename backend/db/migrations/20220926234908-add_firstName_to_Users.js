@@ -13,7 +13,13 @@ module.exports = {
     await queryInterface.addColumn('Users',
       'firstName', {
         type: DataTypes.STRING,
-        allowNull: false
+
+      }
+    )
+
+    await queryInterface.addColumn('Users',
+      'lastName', {
+        type: DataTypes.STRING
       }
     )
   },
