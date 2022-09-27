@@ -18,7 +18,8 @@ router.get('/', async (req,res) => {
             include: [
                 {
                     model: SpotImage,
-                    attributes: ['url']
+                    attributes: ['url'],
+
                 }
             ]
         }
