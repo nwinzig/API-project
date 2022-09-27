@@ -54,7 +54,9 @@ const restoreUser = (req,res,next) => {
 
 // require Auth
 
-const requireAuth = function (req, _res, next) {
+const requireAuth = [
+    restoreUser,
+    function (req, _res, next) {
     if (req.user) return next();
 
     const err = new Error('Unauthorized');
@@ -62,7 +64,7 @@ const requireAuth = function (req, _res, next) {
     err.errors = ['Unauthorized'];
     err.status = 401;
     return next(err);
-}
+}]
 
 
 module.exports = { setTokenCookie, restoreUser, requireAuth}
