@@ -60,13 +60,19 @@ router.post('/', validateSignup, async (req, res, next) => {
     )
 
     if(existingEmail.length >= 1){
-        let error = new Error()
-            error.message = "User already exists"
-            error.status = 403
-            error.errors = {
-                "email": "User with that email already exists"
-            }
-            return next(error)
+        // let error = new Error()
+        //     error.message = "User already exists"
+        //     error.status = 403
+        //     error.errors = {
+        //         "email": "User with that email already exists"
+        //     }
+        //     return next(error)
+            return next({
+                message: "User already exists",
+                status: 403,
+                errors: {
+                    "email": "User with that email already exists"}
+            })
     }
 
     let existingUsername = await User.findAll(
@@ -92,16 +98,16 @@ router.post('/', validateSignup, async (req, res, next) => {
         })
     }
 
-
     const user = await User.signup({ firstName,lastName, email, username, password });
 
-
     let token = await setTokenCookie(res, user);
+
 
     user.toJSON()
     user.firstName = firstName;
     user.lastName = lastName;
     user.token = token;
+
 
     return res.json(
     user
