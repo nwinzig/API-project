@@ -21,8 +21,19 @@ const validateLogin = [
     handleValidationErrors
 ];
 
-router.post('/', validateLogin, async (req, res, next) => {
+router.post('/', async (req, res, next) => {
     const { credential, password } = req.body;
+
+    if(!credential || !password){
+        return next({
+            message: "Validation Error",
+            status: 400,
+            errors: {
+                "credential": "Email or username is required",
+                "password": "Password is required"
+            }
+        })
+    }
 
     const user = await User.login({ credential, password });
 
@@ -36,7 +47,14 @@ router.post('/', validateLogin, async (req, res, next) => {
 
     await setTokenCookie(res, user);
 
-    return res.json({user});
+    return res.json({
+        "id": user.id,
+        "firstName": user.firstName,
+        "lastName": user.lastName,
+        "email": user.email,
+        "username": user.username,
+        "token": ""
+    });
 
 });
 
