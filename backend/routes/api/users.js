@@ -31,7 +31,7 @@ const validateSignup = [
 router.post('/', validateSignup, async (req, res, next) => {
     const { firstName, lastName, email, password, username } = req.body;
 
-    let existingEmail = User.findAll(
+    let existingEmail = await User.findAll(
         {
             where: {
                 email: email,
@@ -42,14 +42,14 @@ router.post('/', validateSignup, async (req, res, next) => {
     if(existingEmail.length >= 1){
         let error = new Error()
             error.message = "User already exists"
-            error.statusCode = 403
+            error.status = 403
             error.errors = {
                 "email": "User with that email already exists"
             }
             return next(error)
     }
 
-    let existingUsername = User.findAll(
+    let existingUsername = await User.findAll(
         {
             where: {
                 username: username,
@@ -58,13 +58,18 @@ router.post('/', validateSignup, async (req, res, next) => {
     )
 
     if(existingUsername.length >= 1){
-        let error = new Error()
-        error.message = "User already exists"
-        error.statusCode = 403
-        error.errors = {
-            "email": "User with that username already exists"
-        }
-        return next(error)
+        // let error = new Error()
+        // error.message = "User already exists"
+        // error.status = 403
+        // error.errors = {
+        //     "email": "User with that username already exists"
+        // }
+        return next({
+            message: "User already exists",
+            status: 403,
+            errors: {
+                "username": "User with that username already exists"}
+        })
     }
 
 
@@ -72,10 +77,14 @@ router.post('/', validateSignup, async (req, res, next) => {
 
 
     let token = await setTokenCookie(res, user);
-    console.log("this is a test ////////////-----",user)
-    user.token = token
+
+    user.toJSON()
+    user.firstName = firstName;
+    user.lastName = lastName;
+    user.token = token;
+
     return res.json(
-        user
+    user
     );
 }
 );
