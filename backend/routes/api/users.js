@@ -57,7 +57,7 @@ router.post('/', validateSignup, async (req, res, next) => {
         }
     )
 
-    if(existingUsername >= 1){
+    if(existingUsername.length >= 1){
         let error = new Error()
         error.message = "User already exists"
         error.statusCode = 403
@@ -68,7 +68,8 @@ router.post('/', validateSignup, async (req, res, next) => {
     }
 
 
-    const user = await User.signup({ firstName,lastName, email, username, password });
+    const user = await User.signup({ email, username, password,firstName,lastName, });
+
 
     let token = await setTokenCookie(res, user);
     console.log("this is a test ////////////-----",user)
