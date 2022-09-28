@@ -22,6 +22,11 @@ module.exports = {
         type: DataTypes.STRING
       }
     )
+    await queryInterface.addColumn('Users',
+    'token', {
+      type: DataTypes.STRING,
+    }
+  )
   },
 
   async down (queryInterface, Sequelize) {
@@ -34,5 +39,7 @@ module.exports = {
     await queryInterface.removeColumn('Users', 'firstName')
 
     await queryInterface.removeColumn('Users', 'lastName')
+
+    await queryInterface.removeColumn('Users', 'token')
   }
 };
