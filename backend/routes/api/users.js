@@ -7,6 +7,10 @@ const router = express.Router();
 
 
 const validateSignup = [
+    // check('firstName')
+    //     .exists({ checkFalsy: true })
+    //     .isString()
+    //     .withMessage
     check('email')
         .exists({ checkFalsy: true })
         .isEmail()
@@ -30,6 +34,18 @@ const validateSignup = [
 //sign up
 router.post('/', validateSignup, async (req, res, next) => {
     const { firstName, lastName, email, password, username } = req.body;
+
+    if(!req.body){
+        return next({
+            message: "Validation error",
+            status: 400,
+            errors: {
+                "email": "Invalid email",
+                "username": "Username is required",
+                "firstName": "First Name is required",
+                "lastName": "Last Name is required"}
+        })
+    }
 
     let existingEmail = await User.findAll(
         {
@@ -73,7 +89,7 @@ router.post('/', validateSignup, async (req, res, next) => {
     }
 
 
-    const user = await User.signup({ email, username, password,firstName,lastName, });
+    const user = await User.signup({ firstName,lastName, email, username, password });
 
 
     let token = await setTokenCookie(res, user);
