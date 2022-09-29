@@ -4,10 +4,11 @@ const { Spot } = require('../../db/models');
 const { SpotImage } = require('../../db/models')
 const { Review } = require('../../db/models');
 const spot = require('../../db/models/spot');
+const {User} = require('../../db/models')
 const router = express.Router();
 const { setTokenCookie, restoreUser, requireAuth } = require('../../utils/auth');
 
-//get all spots
+////////// get all spots /////////
 
 router.get('/', async (req,res) => {
 
@@ -103,7 +104,7 @@ router.get('/', async (req,res) => {
 
 
 
-// create a spot
+////////  create a spot //////////
 
 router.post('/', requireAuth, async (req,res,next) => {
     const {address, city, state, country, lat, lng, name, description, price} = req.body;
@@ -147,7 +148,7 @@ router.post('/', requireAuth, async (req,res,next) => {
     res.json(newSpot)
 })
 
-//create a image for a spot
+//////// create a image for a spot ////////
 
 router.post('/:spotId/images',requireAuth, async (req,res,next) => {
     const { url, preview } = req.body;
@@ -159,6 +160,7 @@ router.post('/:spotId/images',requireAuth, async (req,res,next) => {
         return next({
             status:404,
             "message": "Spot couldn't be found",
+            statusCode: 404
             })
     }
 
@@ -179,7 +181,7 @@ router.post('/:spotId/images',requireAuth, async (req,res,next) => {
     )
 })
 
-// get spots for current user
+////// get spots for current user /////
 
 router.get('/current', requireAuth, async (req,res,next) => {
 
@@ -251,6 +253,94 @@ router.get('/current', requireAuth, async (req,res,next) => {
 
 })
 
+
+
+///// get details for a spot from an id ////
+
+router.get('/:spotId', async (req,res,next) => {
+    const spotId = req.params.spotId;
+
+    let spots = await Spot.findByPk(spotId,
+        {
+            include: [
+                // {
+                //     model: Review,
+
+                // },
+                {
+                    model: SpotImage,
+                    attributes: {
+                        exclude: ['createdAt', 'updatedAt', 'spotId']
+                    }
+                },
+                {
+                    model: User,
+                    as: 'Owner',
+                    attributes: ['id','firstName', 'lastName']
+                }
+            ]
+        }
+    )
+    if(!spots){
+
+        return next({
+            message: "User already exists",
+            statusCode: 404,
+            })
+        }
+        spots = spots.toJSON()
+        let results = {...spots};
+
+        let numReviews;
+
+
+        let totalreviews = await Review.count(
+            {
+                where: {
+                    spotId: spotId
+                }
+            }
+        )
+
+        let avgReviews = await Review.findAll({
+            where: {
+                spotId: spotId
+            },
+            attributes: [
+                [sequelize.fn("AVG", sequelize.col('stars')), "avgRating"]
+            ]
+
+        })
+
+        results.avgStarReviews = avgReviews[0].dataValues.avgRating;
+        results.numReviews = totalreviews;
+        console.log(avgReviews)
+    // let allSpots = [];
+    // spots.forEach(spot => {
+    //     allSpots.push(spot.toJSON())
+    // });
+    // allSpots.forEach(spot => {
+    //     let sum = 0;
+    //     let count = 0;
+    //     spot.Reviews.forEach(review => {
+    //         if(review.stars){
+    //         sum += review.stars;
+    //         count++
+    //         delete spot.Reviews;
+    //     }
+    //     })
+    //     const avg = sum/count;
+    //     if(!isNaN(avg)){
+    //         spot.avgStarRating = avg
+    //         spot.numReviews = count
+    //     }
+    // })
+
+
+    //return
+
+    res.json(results)
+})
 
 
 module.exports = router;

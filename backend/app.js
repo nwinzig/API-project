@@ -72,6 +72,7 @@ app.use((err,req,res,next) => {
     res.json({
         // title: err.title || 'Server Error',
         message: err.message,
+        statusCode: err.statusCode,
         errors: err.errors,
         // stack: isProduction ? null : err.stack
     })
