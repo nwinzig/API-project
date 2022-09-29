@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       Spot.belongsTo(
         models.User,
-          {foreignKey: 'ownerId'}
+          {as: 'Owner', foreignKey: 'ownerId'}
       )
 
       Spot.hasMany(
@@ -76,6 +76,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Spot',
+
   });
   return Spot;
 };
