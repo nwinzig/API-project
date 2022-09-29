@@ -110,4 +110,47 @@ router.get('/current', requireAuth, async (req,res,next) => {
 
 
 
+/////// edit a review //////
+
+router.put('/:reviewId', requireAuth, async (req,res,next) => {
+    const userId = req.user.id;
+    const { review, stars } = req.body;
+    const reviewId = req.params.reviewId;
+
+    if(!review || !stars){
+        return next({
+            status:400,
+            "message": "Validation Error",
+            statusCode: 400,
+            "errors": {
+                "review": "Review text is required",
+                "stars": "Stars must be an integer from 1 to 5",
+            }
+            })
+    }
+
+    star = parseInt(stars);
+
+    let desiredReview = await Review.findByPk(reviewId)
+
+    if(!desiredReview){
+        return next({
+            status: 404,
+            message: "Review couldn't be found",
+            statusCode: 404,
+        })
+    }
+
+
+    desiredReview.update({
+        "review": review,
+        "stars": star
+    })
+
+    res.status(200)
+    res.json(desiredReview)
+})
+
+
+
 module.exports = router;
