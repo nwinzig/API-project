@@ -101,12 +101,8 @@ router.get('/current', requireAuth, async (req,res,next) => {
         desiredSpot = desiredSpot.toJSON()
         desiredSpot.previewImage = review.ReviewImages[0].dataValues.url
 
-
         review.Spot.dataValues.previewImage = review.ReviewImages[0].dataValues.url
-
-
     })
-
 
     res.status(200)
     res.json({"Reviews": allReviews})
