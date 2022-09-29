@@ -343,4 +343,67 @@ router.get('/:spotId', async (req,res,next) => {
 })
 
 
+////////// edit a spot ///////
+
+router.put('/:spotId', requireAuth, async (req,res,next) => {
+    const { address, city, state, country, lat, lng, name, description, price } = req.body;
+    const spotId = req.params.spotId
+    const userId = req.user.id;
+
+    //validation error
+    if(!address || !city || !state || !country || !lat || !lng || !name || !description || !price){
+        return next({
+            status:400,
+            "message": "Validation Error",
+            statusCode: 400,
+            "errors": {
+                "address": "Street address is required",
+                "city": "City is required",
+                "state": "State is required",
+                "country": "Country is required",
+                "lat": "Latitude is not valid",
+                "lng": "Longitude is not valid",
+                "name": "Name must be less than 50 characters",
+                "description": "Description is required",
+                "price": "Price per day is required"
+            }
+            })
+    }
+  //find spot
+    let desiredSpot = await Spot.findByPk(spotId)
+    //couldn't find spot or isnt valid owner
+
+    if(!desiredSpot){
+        return next({
+            message: "Spot couldn't be found",
+            statusCode: 404,
+        })
+    }
+    if(desiredSpot.ownerId !== userId){
+        return next({
+            message: "You cannot change this spot",
+            statusCode: 404,
+        })
+    }
+
+    desiredSpot.update({
+        "address": address,
+        "city": city,
+        "state": state,
+        "country": country,
+        "lat": lat,
+        "lng": lng,
+        "name": name,
+        "description": description,
+        "price": price
+    })
+    desiredSpot = desiredSpot.toJSON()
+
+    res.status(200)
+    res.json(
+        desiredSpot
+    )
+})
+
+
 module.exports = router;
