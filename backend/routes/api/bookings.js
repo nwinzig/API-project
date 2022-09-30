@@ -57,4 +57,127 @@ router.get('/current', requireAuth, async (req,res,next) => {
 })
 
 
+
+/////// edit a booking //////
+
+router.put('/:bookingId', requireAuth, async (req,res,next) => {
+    const userId = req.user.id;
+    const bookingId = req.params.bookingId;
+    const {startDate, endDate} = req.body
+
+    // validation error
+
+    if(!startDate || !endDate || endDate <= startDate){
+
+        return next({
+            status:400,
+            "message": "Validation Error",
+            statusCode: 400,
+            "errors": {
+                "endDate": "endDate cannot come before startDate"
+            }
+            })
+    }
+
+    let desiredBooking = await Booking.findByPk(bookingId)
+
+    //if there is no booking
+
+    if(!desiredBooking){
+        return next({
+            status:404,
+            message: "Booking couldn't be found",
+            statusCode: 404,
+        })
+    }
+
+    //if booking doesnt belong to user
+
+    if(userId !== desiredBooking.userId){
+        return next({
+            status:404,
+            message: "This booking does not belong to you",
+            statusCode: 404,
+        })
+    }
+    //if end date is already past
+    //need to split off timezone
+    // let currentEndDate = desiredBooking.endDate
+    // console.log(currentEndDate.valueOf())
+    // console.log(endDate.valueOf())
+    // console.log(endDate.toString())
+    // console.log(endDate.toISOString())
+    // console.log(currentEndDate.toISOString())
+    let incomingDate = new Date(endDate)
+    let currentEndDate = new Date(desiredBooking.endDate)
+    console.log(incomingDate, currentEndDate)
+    // currentEndDate = currentEndDate.toString()
+    // let dateString = currentEndDate.split('T')[0]
+    // console.log("this is what i want to compare   ", dateString)
+    if(incomingDate > currentEndDate){
+        return next({
+            status:403,
+            message: "Past bookings can't be modified",
+            statusCode: 403,
+        })
+    }
+
+    /// checking desired booking vs current bookings
+
+    const currentBookings = await Booking.findAll({
+        where: {
+            spotId: desiredBooking.spotId
+        },
+        where: {
+            [Op.or]: [
+                {
+                    startDate: {
+                        [Op.lte]: startDate
+                    },
+                    endDate: {
+                        [Op.gte]: endDate
+                    }
+                },
+                {
+                    [Op.or]: [
+                        {
+                            startDate: {
+                                [Op.between]: [startDate, endDate]
+                            }
+                        },
+                        {
+                            endDate: {
+                                [Op.between]: [startDate, endDate]
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    })
+
+    if(currentBookings.length > 0){
+        return next({
+            status:403,
+            message: "Sorry, this spot is already booked for the specified dates",
+            statusCode: 403,
+            errors: {
+                "startDate": "Start date conflicts with an existing booking",
+                "endDate": "End date conflicts with an existing booking"
+            }
+        })
+    }
+
+
+    desiredBooking.update({
+        startDate: startDate,
+        endDate: endDate
+    })
+
+    res.status(200)
+    res.json(desiredBooking)
+})
+
+
+
 module.exports = router;
