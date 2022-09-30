@@ -35,21 +35,21 @@ router.get('/current', requireAuth, async (req,res,next) => {
     })
 
 
-    // currentBookings.forEach(booking => {
-    //     let desiredSpot = booking.Spot
-    //     console.log("this is the spot object",desiredSpot.toJSON())
+    currentBookings.forEach(booking => {
+        let desiredSpot = booking.Spot
+        console.log("this is the spot object",desiredSpot.toJSON())
 
 
-    //     // let desiredReviewImage = desiredReview.ReviewImages
-    //     desiredSpot = desiredSpot.toJSON()
-    //     console.log("this should be just review", desiredSpot.Reviews)
-    //     desiredSpot.previewImage = desiredSpot.Reviews.ReviewImages[0].dataValues.url
-    //     console.log("this should be reviewImages", desiredSpot.Reviews.ReviewImages)
-    //     booking.Spot.dataValues.previewImage = desiredSpot.ReviewImages[0].dataValues.url
+        // let desiredReviewImage = desiredReview.ReviewImages
+        desiredSpot = desiredSpot.toJSON()
+        console.log("this should be just review", desiredSpot.Reviews)
+        desiredSpot.previewImage = desiredSpot.Reviews.ReviewImages[0].dataValues.url
+        console.log("this should be reviewImages", desiredSpot.Reviews.ReviewImages)
+        booking.Spot.dataValues.previewImage = desiredSpot.ReviewImages[0].dataValues.url
 
-    //     delete booking.Spot.Reviews.ReviewImages
-    //     delete booking.Spot.Reviews
-    // })
+        delete booking.Spot.Reviews.ReviewImages
+        delete booking.Spot.Reviews
+    })
 
 
     res.status(200)
