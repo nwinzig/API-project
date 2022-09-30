@@ -234,10 +234,10 @@ router.get('/', async (req,res,next) => {
         // console.log(sum)
         // console.log(count)
 
-        const avg = sum/count;
-
-        // console.log(avg)
-
+        let avg = sum/count;
+        avg = avg.toFixed(2)
+        // using fixed and parsefloat to keep num at 2 decimal places while being an integer
+        avg = parseFloat(avg)
         if(!isNaN(avg)){
             spot.avgRating = avg
         }
