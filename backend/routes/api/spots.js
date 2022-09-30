@@ -7,6 +7,8 @@ const { Review } = require('../../db/models');
 const {User} = require('../../db/models')
 const router = express.Router();
 const { setTokenCookie, restoreUser, requireAuth } = require('../../utils/auth');
+const { Booking } = require('../../db/models')
+
 
 ////////// get all spots /////////
 
@@ -252,6 +254,43 @@ router.get('/current', requireAuth, async (req,res,next) => {
     res.json(allSpots)
 
 })
+
+
+
+
+///// create a booking from a spots id ////
+
+router.post('/:spotId/bookings', requireAuth, async (req,res,next) => {
+    const { startDate, endDate } = req.body;
+    let userId = req.user.id;
+    let spotId = req.params.spotId;
+
+    //validation
+    if(!startDate || !endDate || endDate <= startDate){
+        return next({
+            status:400,
+            "message": "Validation Error",
+            statusCode: 400,
+            "errors": {
+                "endDate": "endDate cannot be on or before startDate"
+            }
+            })
+    }
+
+    const desiredSpot = Spot.findByPk(spotId)
+    //error if they own it
+    if(desiredSpot.ownerId === userId){
+        return next({
+            status:404,
+            "message": "You cannot book a stay at a spot you own",
+            statusCode: 404
+            })
+    }
+
+
+})
+
+
 
 
 

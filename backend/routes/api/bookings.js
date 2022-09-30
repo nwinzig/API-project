@@ -11,7 +11,4 @@ const { Booking } = require('../../db/models')
 
 
 
-
-
-
 module.exports = router;
