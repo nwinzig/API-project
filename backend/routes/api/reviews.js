@@ -104,8 +104,91 @@ router.get('/current', requireAuth, async (req,res,next) => {
         review.Spot.dataValues.previewImage = review.ReviewImages[0].dataValues.url
     })
 
+
     res.status(200)
     res.json({"Reviews": allReviews})
+})
+
+
+
+/////// edit a review //////
+
+router.put('/:reviewId', requireAuth, async (req,res,next) => {
+    const userId = req.user.id;
+    const { review, stars } = req.body;
+    const reviewId = req.params.reviewId;
+
+    if(!review || !stars){
+        return next({
+            status:400,
+            "message": "Validation Error",
+            statusCode: 400,
+            "errors": {
+                "review": "Review text is required",
+                "stars": "Stars must be an integer from 1 to 5",
+            }
+            })
+    }
+
+    star = parseInt(stars);
+
+    let desiredReview = await Review.findByPk(reviewId)
+
+    if(!desiredReview){
+        return next({
+            status: 404,
+            message: "Review couldn't be found",
+            statusCode: 404,
+        })
+    }
+
+
+    desiredReview.update({
+        "review": review,
+        "stars": star
+    })
+
+    res.status(200)
+    res.json(desiredReview)
+})
+
+
+
+/////// delete a review /////
+
+
+router.delete('/:reviewId',requireAuth, async (req,res,next) => {
+    const reviewId = req.params.reviewId;
+    const userId = req.user.id;
+
+    let desiredReview = await Review.findByPk(reviewId)
+
+    //for no review
+    if(!desiredReview){
+        return next({
+            status:404,
+            "message": "Review couldn't be found",
+            statusCode: 404
+            })
+    }
+
+
+    //if user is not owner
+    if(userId !== desiredReview.userId){
+        return next({
+            status:403,
+            "message": "You cannot delete this image",
+            statusCode: 403
+            })
+    }
+
+    await desiredReview.destroy()
+    res.status(200)
+    res.json({
+        "message": "Successfully deleted",
+        "statusCode": 200
+    })
+
 })
 
 

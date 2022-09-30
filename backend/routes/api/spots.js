@@ -1,19 +1,165 @@
 const express = require('express');
-const sequelize = require('sequelize')
+const {Sequelize, Op} = require('sequelize')
 const { Spot } = require('../../db/models');
 const { SpotImage } = require('../../db/models')
 const { Review } = require('../../db/models');
 // const spot = require('../../db/models/spot');
+const { ReviewImage } = require('../../db/models')
 const {User} = require('../../db/models')
 const router = express.Router();
 const { setTokenCookie, restoreUser, requireAuth } = require('../../utils/auth');
+const { Booking } = require('../../db/models')
+
 
 ////////// get all spots /////////
 
-router.get('/', async (req,res) => {
+router.get('/', async (req,res,next) => {
 
-    const spots = await Spot.findAll(
-        {
+    let { page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice} = req.query;
+    if(!page){
+        page = 1
+    }
+    if(page > 10){
+        page = 1
+    }
+    if(!size){
+        size = 20
+    }
+    if(size > 20){
+        size = 20
+    }
+    console.log(page, size)
+    let pagination = {};
+    if(page >= 1 && size >= 1){
+        pagination.offset = size * (page-1)
+        pagination.limit = size
+    }
+
+    let where = {};
+
+    if (minLat) {
+        if (isNaN(minLat)) {
+            return next({
+                "message": "Validation Error",
+                "statusCode": 400,
+                status: 400,
+                "errors": {
+                    "page": "Page must be greater than or equal to 1",
+                    "size": "Size must be greater than or equal to 1",
+                    "maxLat": "Maximum latitude is invalid",
+                    "minLat": "Minimum latitude is invalid",
+                    "minLng": "Maximum longitude is invalid",
+                    "maxLng": "Minimum longitude is invalid",
+                    "minPrice": "Maximum price must be greater than or equal to 0",
+                    "maxPrice": "Minimum price must be greater than or equal to 0"
+                }
+            })
+        }
+        where.lat = {[Op.gte]: minLat}
+    }
+
+    if (maxLat) {
+        if (isNaN(maxLat)) {
+            return next({
+                "message": "Validation Error",
+                "statusCode": 400,
+                status: 400,
+                "errors": {
+                    "page": "Page must be greater than or equal to 1",
+                    "size": "Size must be greater than or equal to 1",
+                    "maxLat": "Maximum latitude is invalid",
+                    "minLat": "Minimum latitude is invalid",
+                    "minLng": "Maximum longitude is invalid",
+                    "maxLng": "Minimum longitude is invalid",
+                    "minPrice": "Maximum price must be greater than or equal to 0",
+                    "maxPrice": "Minimum price must be greater than or equal to 0"
+                }
+            })
+        }
+        where.lat = {[Op.lte]: maxLat}
+    }
+
+    if (minLng) {
+        if (isNaN(minLng)) {
+            return next({
+                "message": "Validation Error",
+                "statusCode": 400,
+                status: 400,
+                "errors": {
+                    "page": "Page must be greater than or equal to 1",
+                    "size": "Size must be greater than or equal to 1",
+                    "maxLat": "Maximum latitude is invalid",
+                    "minLat": "Minimum latitude is invalid",
+                    "minLng": "Maximum longitude is invalid",
+                    "maxLng": "Minimum longitude is invalid",
+                    "minPrice": "Maximum price must be greater than or equal to 0",
+                    "maxPrice": "Minimum price must be greater than or equal to 0"
+                }
+            })
+        }
+        where.lng = {[Op.gte]: minLng}
+    }
+    if (maxLng) {
+        if (isNaN(maxLng)) {
+            return next({
+                "message": "Validation Error",
+                "statusCode": 400,
+                status: 400,
+                "errors": {
+                    "page": "Page must be greater than or equal to 1",
+                    "size": "Size must be greater than or equal to 1",
+                    "maxLat": "Maximum latitude is invalid",
+                    "minLat": "Minimum latitude is invalid",
+                    "minLng": "Maximum longitude is invalid",
+                    "maxLng": "Minimum longitude is invalid",
+                    "minPrice": "Maximum price must be greater than or equal to 0",
+                    "maxPrice": "Minimum price must be greater than or equal to 0"
+                }
+            })
+        }
+        where.lng = {[Op.lte]: maxLng}
+    }
+    if (minPrice) {
+        if (isNaN(minPrice) || minPrice < 0) {
+            return next({
+                "message": "Validation Error",
+                "statusCode": 400,
+                status: 400,
+                "errors": {
+                    "page": "Page must be greater than or equal to 1",
+                    "size": "Size must be greater than or equal to 1",
+                    "maxLat": "Maximum latitude is invalid",
+                    "minLat": "Minimum latitude is invalid",
+                    "minLng": "Maximum longitude is invalid",
+                    "maxLng": "Minimum longitude is invalid",
+                    "minPrice": "Maximum price must be greater than or equal to 0",
+                    "maxPrice": "Minimum price must be greater than or equal to 0"
+                }
+            })
+        }
+        where.price = {[Op.gte]: minPrice}
+    }
+    if (maxPrice) {
+        if (isNaN(maxPrice) || maxPrice < 0) {
+            return next({
+                "message": "Validation Error",
+                "statusCode": 400,
+                status: 400,
+                "errors": {
+                    "page": "Page must be greater than or equal to 1",
+                    "size": "Size must be greater than or equal to 1",
+                    "maxLat": "Maximum latitude is invalid",
+                    "minLat": "Minimum latitude is invalid",
+                    "minLng": "Maximum longitude is invalid",
+                    "maxLng": "Minimum longitude is invalid",
+                    "minPrice": "Maximum price must be greater than or equal to 0",
+                    "maxPrice": "Minimum price must be greater than or equal to 0"
+                }
+            })
+        }
+        where.price = {[Op.lte]: maxPrice}
+    }
+    const spots = await Spot.findAll({
             // attributes: {
             //     include: [
             //         [sequelize.fn('AVG',sequelize.col('Reviews.stars')), 'avgRating']
@@ -27,9 +173,10 @@ router.get('/', async (req,res) => {
                 {
                     model: SpotImage,
                 }
-            ]
-        }
-    )
+            ],
+            ...pagination,
+            where
+        })
     //finding preview image url
     let allSpots = [];
 
@@ -84,12 +231,12 @@ router.get('/', async (req,res) => {
             delete spot.Reviews;
         }
         })
-        console.log(sum)
-        console.log(count)
+        // console.log(sum)
+        // console.log(count)
 
         const avg = sum/count;
 
-        console.log(avg)
+        // console.log(avg)
 
         if(!isNaN(avg)){
             spot.avgRating = avg
@@ -98,7 +245,7 @@ router.get('/', async (req,res) => {
 
     //return
 
-    res.json(allSpots)
+    res.json({"Spots": allSpots, "Page": page, "Size": size})
     // res.json({"Spots": spots})
 } )
 
@@ -253,6 +400,242 @@ router.get('/current', requireAuth, async (req,res,next) => {
 
 })
 
+//// get all reviews by a spot id ////
+
+router.get('/:spotId/reviews', async (req,res,next) => {
+    let spotId = req.params.spotId;
+    spotId = parseInt(spotId)
+
+    let reviews = await Review.findAll({
+        where: {
+            spotId: spotId
+        },
+        include: [
+            {
+                model: User,
+                attributes: ['id', 'firstName', 'lastName']
+            },
+            {
+                model: ReviewImage,
+                attributes: ['id', 'url']
+            }
+        ]
+    })
+
+    if(reviews.length < 1){
+        return next({
+            status:404,
+            "message": "Spot couldn't be found",
+            statusCode: 404
+            })
+    }
+
+    res.status(200)
+    res.json({"Reviews": reviews})
+})
+
+
+
+
+/////// get all bookings for a spot based on spot id //////
+
+
+router.get('/:spotId/bookings', requireAuth, async (req,res,next) => {
+    const spotId = req.params.spotId;
+    const userId = req.user.id;
+
+    let requestedSpot = await Spot.findByPk(spotId)
+
+    //no spot
+    if(!requestedSpot){
+        return next({
+            status:404,
+            "message": "Spot couldn't be found",
+            statusCode: 404
+        })
+    }
+    let requestedBookings = await Booking.findAll({
+        where: {
+            spotId: spotId,
+        },
+        attributes: ['id', 'spotId', 'userId', 'startDate', 'endDate', 'createdAt', 'updatedAt']
+    })
+
+    //if your the owner
+    // console.log('user---', userId)
+    // console.log('owner---', requestedSpot.ownerId )
+
+
+    if(userId === requestedSpot.ownerId){
+        // //seperate bookings in array
+        // let allBookings = [];
+        // // requestedBookings.forEach(booking => {
+        // //     allBookings.push(booking.toJSON())
+        // // })
+        // //return the booking with details on user that booked
+        // requestedBookings.forEach(async (booking) => {
+        //     //user id that booked
+        //     booking = booking.toJSON()
+        //     let bookingUser = booking.userId
+        //     //find user that booked
+        //     let renter = await User.findByPk(bookingUser, {
+        //         attributes: ['id', 'firstName', 'lastName']
+        //     })
+        //     //add renter to their booking
+
+        //     console.log("just the booking ------ ", booking)
+        //     // let user = {}
+        //     // user.id = renter.id;
+        //     // user.firstName = renter.firstName;
+        //     // user.lastName = renter.lastName
+        //     renter = renter.toJSON()
+        //     console.log('just the renter---', renter)
+        //     booking.User = renter
+        //     console.log('testing object', booking)
+        //     // booking.User = user
+        //     // console.log("the booking afte the fact=-=---", booking)
+        //     // booking.User.id = renter.id
+        //     // booking.User.firstName = renter.firstName
+        //     // booking.User.lastName = renter.lastName
+        // })
+
+        let requestedBookings = await Booking.findAll({
+            where: {
+                spotId: spotId,
+            },
+            attributes: ['id', 'spotId', 'userId', 'startDate', 'endDate', 'createdAt', 'updatedAt'],
+            include: {
+                model: User,
+                attributes: ['id', 'firstName', 'lastName']
+            }
+        })
+
+        res.status(200)
+        res.json({"Bookings":requestedBookings})
+    }
+
+    if(userId !== requestedSpot.ownerId){
+        let requestedBookings = await Booking.findAll({
+            where: {
+                spotId: spotId,
+            },
+            attributes: ['spotId','startDate', 'endDate'],
+        })
+
+        res.status(200)
+        res.json({"Bookings":requestedBookings})
+    }
+
+
+
+
+})
+
+
+
+
+
+///// create a booking from a spots id ////
+
+router.post('/:spotId/bookings', requireAuth, async (req,res,next) => {
+    const { startDate, endDate } = req.body;
+    let userId = req.user.id;
+    let spotId = req.params.spotId;
+
+    //validation
+    if(!startDate || !endDate || endDate <= startDate){
+        return next({
+            status:400,
+            "message": "Validation Error",
+            statusCode: 400,
+            "errors": {
+                "endDate": "endDate cannot be on or before startDate"
+            }
+            })
+    }
+
+    const desiredSpot = await Spot.findByPk(spotId)
+
+    //doesn't exist
+    if(!desiredSpot){
+        return next({
+            status:404,
+            "message": "Spot couldn't be found",
+            statusCode: 404
+            })
+    }
+
+    //error if they own it
+    if(desiredSpot.ownerId === userId){
+        return next({
+            status:404,
+            "message": "You cannot book a stay at a spot you own",
+            statusCode: 404
+            })
+    }
+
+    //find current bookings that conflict with desired booking
+    const currentBookings = await Booking.findAll({
+        where: {
+            spotId: spotId
+        },
+        where: {
+            [Op.or]: [
+                {
+                    startDate: {
+                        [Op.lte]: startDate
+                    },
+                    endDate: {
+                        [Op.gte]: endDate
+                    }
+                },
+                {
+                    [Op.or]: [
+                        {
+                            startDate: {
+                                [Op.between]: [startDate, endDate]
+                            }
+                        },
+                        {
+                            endDate: {
+                                [Op.between]: [startDate, endDate]
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    })
+
+if(currentBookings.length > 0){
+    return next({
+        status:403,
+        "message": "Sorry, this spot is already booked for the specified dates",
+        statusCode: 403,
+        "errors": {
+            "startDate": "Start date conflicts with an existing booking",
+            "endDate": "End date conflicts with an existing booking"
+            }
+        })
+}
+console.log(currentBookings)
+//create the new booking
+
+    let newBooking = await Booking.create({
+        "spotId": spotId,
+        "userId": userId,
+        "startDate": startDate,
+        "endDate": endDate
+    })
+
+    res.status(200)
+    res.json(
+        newBooking
+    )
+})
+
+
+
 
 
 ///// get details for a spot from an id ////
@@ -301,20 +684,23 @@ router.get('/:spotId', async (req,res,next) => {
                 }
             }
         )
-
+            console.log("do we make it here 1")
         let avgReviews = await Review.findAll({
             where: {
                 spotId: spotId
             },
-            attributes: [
-                [sequelize.fn("AVG", sequelize.col('stars')), "avgRating"]
-            ]
+            attributes: {
+                include: [
+                [Sequelize.fn("AVG", Sequelize.col('stars')), "avgRating"]
+                ]
+            }
 
         })
-
+        console.log(' do we make it here 2')
         results.avgStarReviews = avgReviews[0].dataValues.avgRating;
         results.numReviews = totalreviews;
         console.log(avgReviews)
+        console.log('do we make it here 3')
     // let allSpots = [];
     // spots.forEach(spot => {
     //     allSpots.push(spot.toJSON())
@@ -464,6 +850,47 @@ router.post('/:spotId/reviews', requireAuth, async (req,res,next) => {
     res.json(newReview)
 
 })
+
+
+////// delete a spot /////
+
+
+router.delete('/:spotId',requireAuth, async (req,res,next) => {
+    const spotId = req.params.spotId;
+    const userId = req.user.id;
+
+    let desiredSpot = await Spot.findByPk(spotId)
+
+    //for no spot
+    if(!desiredSpot){
+        return next({
+            status:404,
+            "message": "Spot couldn't be found",
+            statusCode: 404
+            })
+    }
+    console.log(userId)
+    console.log(desiredSpot.ownerId)
+
+    //if user is not owner
+    if(userId !== desiredSpot.ownerId){
+        return next({
+            status:403,
+            "message": "You cannot delete this Spot",
+            statusCode: 403
+            })
+    }
+
+    await desiredSpot.destroy()
+    res.status(200)
+    res.json({
+        "message": "Successfully deleted",
+        "statusCode": 200
+    })
+
+})
+
+
 
 
 module.exports = router;
