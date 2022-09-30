@@ -7,7 +7,8 @@ const {User} = require('../../db/models')
 const router = express.Router();
 const { setTokenCookie, restoreUser, requireAuth } = require('../../utils/auth');
 const { Booking } = require('../../db/models')
-const { ReviewImage } = require('../../db/models')
+const { ReviewImage } = require('../../db/models');
+const e = require('express');
 
 ////// get all the current users bookings //////
 
@@ -22,38 +23,37 @@ router.get('/current', requireAuth, async (req,res,next) => {
         include: [
             {
                 model: Spot,
-                include: {
-                    model: Review,
-                    include: {
-                        model: ReviewImage
-                    }
-                }
+                attributes: {
+                    exclude: ['description', 'createdAt', 'updatedAt']
+                },
+                include: [{
+                    model: SpotImage
+                }]
 
             },
         ]
 
     })
+    let allBookings = [];
 
+    currentBookings.forEach(booking =>{
+        allBookings.push(booking.toJSON())
 
-    // currentBookings.forEach(booking => {
-    //     let desiredSpot = booking.Spot
-    //     console.log("this is the spot object",desiredSpot.toJSON())
+    })
 
+    allBookings.forEach(booking => {
+        let desiredSpot = booking.Spot
 
-    //     // let desiredReviewImage = desiredReview.ReviewImages
-    //     desiredSpot = desiredSpot.toJSON()
-    //     console.log("this should be just review", desiredSpot.Reviews)
-    //     desiredSpot.previewImage = desiredSpot.Reviews.ReviewImages[0].dataValues.url
-    //     console.log("this should be reviewImages", desiredSpot.Reviews.ReviewImages)
-    //     booking.Spot.dataValues.previewImage = desiredSpot.ReviewImages[0].dataValues.url
+        desiredSpot.previewImage = desiredSpot.SpotImages[0].url
 
-    //     delete booking.Spot.Reviews.ReviewImages
-    //     delete booking.Spot.Reviews
-    // })
+        delete booking.Spot.SpotImages
+        // console.log(delete booking.Spot.SpotImages)
+    })
 
 
     res.status(200)
-    res.json({"Bookings":currentBookings})
+    res.json({"Bookings":allBookings})
+    // res.json({'Bookings': currentBookings})
 })
 
 

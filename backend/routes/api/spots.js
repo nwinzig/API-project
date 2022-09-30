@@ -1,5 +1,5 @@
 const express = require('express');
-const {sequelize, Op} = require('sequelize')
+const {Sequelize, Op} = require('sequelize')
 const { Spot } = require('../../db/models');
 const { SpotImage } = require('../../db/models')
 const { Review } = require('../../db/models');
@@ -445,20 +445,23 @@ router.get('/:spotId', async (req,res,next) => {
                 }
             }
         )
-
+            console.log("do we make it here 1")
         let avgReviews = await Review.findAll({
             where: {
                 spotId: spotId
             },
-            attributes: [
-                [sequelize.fn("AVG", sequelize.col('stars')), "avgRating"]
-            ]
+            attributes: {
+                include: [
+                [Sequelize.fn("AVG", Sequelize.col('stars')), "avgRating"]
+                ]
+            }
 
         })
-
+        console.log(' do we make it here 2')
         results.avgStarReviews = avgReviews[0].dataValues.avgRating;
         results.numReviews = totalreviews;
         console.log(avgReviews)
+        console.log('do we make it here 3')
     // let allSpots = [];
     // spots.forEach(spot => {
     //     allSpots.push(spot.toJSON())
