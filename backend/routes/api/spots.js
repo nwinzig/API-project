@@ -732,7 +732,7 @@ router.delete('/:spotId',requireAuth, async (req,res,next) => {
     if(userId !== desiredSpot.ownerId){
         return next({
             status:403,
-            "message": "You cannot delete this image",
+            "message": "You cannot delete this Spot",
             statusCode: 403
             })
     }
