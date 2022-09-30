@@ -154,4 +154,43 @@ router.put('/:reviewId', requireAuth, async (req,res,next) => {
 
 
 
+/////// delete a review /////
+
+
+router.delete('/:reviewId',requireAuth, async (req,res,next) => {
+    const reviewId = req.params.reviewId;
+    const userId = req.user.id;
+
+    let desiredReview = await Review.findByPk(reviewId)
+
+    //for no image
+    if(!desiredReview){
+        return next({
+            status:404,
+            "message": "Review couldn't be found",
+            statusCode: 404
+            })
+    }
+
+
+    //if user is not owner
+    if(userId !== desiredReview.userId){
+        return next({
+            status:403,
+            "message": "You cannot delete this image",
+            statusCode: 403
+            })
+    }
+
+    await desiredReview.destroy()
+    res.status(200)
+    res.json({
+        "message": "Successfully deleted",
+        "statusCode": 200
+    })
+
+})
+
+
+
 module.exports = router;
