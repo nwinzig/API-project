@@ -708,4 +708,45 @@ router.post('/:spotId/reviews', requireAuth, async (req,res,next) => {
 })
 
 
+////// delete a spot /////
+
+
+router.delete('/:spotId',requireAuth, async (req,res,next) => {
+    const spotId = req.params.spotId;
+    const userId = req.user.id;
+
+    let desiredSpot = await Spot.findByPk(spotId)
+
+    //for no spot
+    if(!desiredSpot){
+        return next({
+            status:404,
+            "message": "Spot couldn't be found",
+            statusCode: 404
+            })
+    }
+    console.log(userId)
+    console.log(desiredSpot.ownerId)
+
+    //if user is not owner
+    if(userId !== desiredSpot.ownerId){
+        return next({
+            status:403,
+            "message": "You cannot delete this image",
+            statusCode: 403
+            })
+    }
+
+    await desiredSpot.destroy()
+    res.status(200)
+    res.json({
+        "message": "Successfully deleted",
+        "statusCode": 200
+    })
+
+})
+
+
+
+
 module.exports = router;

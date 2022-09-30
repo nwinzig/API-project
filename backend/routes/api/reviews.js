@@ -163,7 +163,7 @@ router.delete('/:reviewId',requireAuth, async (req,res,next) => {
 
     let desiredReview = await Review.findByPk(reviewId)
 
-    //for no image
+    //for no review
     if(!desiredReview){
         return next({
             status:404,
