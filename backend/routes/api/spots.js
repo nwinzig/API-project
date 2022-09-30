@@ -351,6 +351,7 @@ console.log(currentBookings)
         "endDate": endDate
     })
 
+    res.status(200)
     res.json(
         newBooking
     )
