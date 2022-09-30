@@ -236,7 +236,7 @@ router.get('/', async (req,res,next) => {
 
         let avg = sum/count;
         avg = avg.toFixed(2)
-        // console.log(avg)
+        // using fixed and parsefloat to keep num at 2 decimal places while being an integer
         avg = parseFloat(avg)
         if(!isNaN(avg)){
             spot.avgRating = avg
