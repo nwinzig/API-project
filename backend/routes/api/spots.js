@@ -13,10 +13,153 @@ const { Booking } = require('../../db/models')
 
 ////////// get all spots /////////
 
-router.get('/', async (req,res) => {
+router.get('/', async (req,res,next) => {
 
-    const spots = await Spot.findAll(
-        {
+    let { page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice} = req.query;
+    if(!page){
+        page = 1
+    }
+    if(page > 10){
+        page = 1
+    }
+    if(!size){
+        size = 20
+    }
+    if(size > 20){
+        size = 20
+    }
+    console.log(page, size)
+    let pagination = {};
+    if(page >= 1 && size >= 1){
+        pagination.offset = size * (page-1)
+        pagination.limit = size
+    }
+
+    let where = {};
+
+    if (minLat) {
+        if (isNaN(minLat)) {
+            return next({
+                "message": "Validation Error",
+                "statusCode": 400,
+                status: 400,
+                "errors": {
+                    "page": "Page must be greater than or equal to 1",
+                    "size": "Size must be greater than or equal to 1",
+                    "maxLat": "Maximum latitude is invalid",
+                    "minLat": "Minimum latitude is invalid",
+                    "minLng": "Maximum longitude is invalid",
+                    "maxLng": "Minimum longitude is invalid",
+                    "minPrice": "Maximum price must be greater than or equal to 0",
+                    "maxPrice": "Minimum price must be greater than or equal to 0"
+                }
+            })
+        }
+        where.lat = {[Op.gte]: minLat}
+    }
+
+    if (maxLat) {
+        if (isNaN(maxLat)) {
+            return next({
+                "message": "Validation Error",
+                "statusCode": 400,
+                status: 400,
+                "errors": {
+                    "page": "Page must be greater than or equal to 1",
+                    "size": "Size must be greater than or equal to 1",
+                    "maxLat": "Maximum latitude is invalid",
+                    "minLat": "Minimum latitude is invalid",
+                    "minLng": "Maximum longitude is invalid",
+                    "maxLng": "Minimum longitude is invalid",
+                    "minPrice": "Maximum price must be greater than or equal to 0",
+                    "maxPrice": "Minimum price must be greater than or equal to 0"
+                }
+            })
+        }
+        where.lat = {[Op.lte]: maxLat}
+    }
+
+    if (minLng) {
+        if (isNaN(minLng)) {
+            return next({
+                "message": "Validation Error",
+                "statusCode": 400,
+                status: 400,
+                "errors": {
+                    "page": "Page must be greater than or equal to 1",
+                    "size": "Size must be greater than or equal to 1",
+                    "maxLat": "Maximum latitude is invalid",
+                    "minLat": "Minimum latitude is invalid",
+                    "minLng": "Maximum longitude is invalid",
+                    "maxLng": "Minimum longitude is invalid",
+                    "minPrice": "Maximum price must be greater than or equal to 0",
+                    "maxPrice": "Minimum price must be greater than or equal to 0"
+                }
+            })
+        }
+        where.lng = {[Op.gte]: minLng}
+    }
+    if (maxLng) {
+        if (isNaN(maxLng)) {
+            return next({
+                "message": "Validation Error",
+                "statusCode": 400,
+                status: 400,
+                "errors": {
+                    "page": "Page must be greater than or equal to 1",
+                    "size": "Size must be greater than or equal to 1",
+                    "maxLat": "Maximum latitude is invalid",
+                    "minLat": "Minimum latitude is invalid",
+                    "minLng": "Maximum longitude is invalid",
+                    "maxLng": "Minimum longitude is invalid",
+                    "minPrice": "Maximum price must be greater than or equal to 0",
+                    "maxPrice": "Minimum price must be greater than or equal to 0"
+                }
+            })
+        }
+        where.lng = {[Op.lte]: maxLng}
+    }
+    if (minPrice) {
+        if (isNaN(minPrice) || minPrice < 0) {
+            return next({
+                "message": "Validation Error",
+                "statusCode": 400,
+                status: 400,
+                "errors": {
+                    "page": "Page must be greater than or equal to 1",
+                    "size": "Size must be greater than or equal to 1",
+                    "maxLat": "Maximum latitude is invalid",
+                    "minLat": "Minimum latitude is invalid",
+                    "minLng": "Maximum longitude is invalid",
+                    "maxLng": "Minimum longitude is invalid",
+                    "minPrice": "Maximum price must be greater than or equal to 0",
+                    "maxPrice": "Minimum price must be greater than or equal to 0"
+                }
+            })
+        }
+        where.price = {[Op.gte]: minPrice}
+    }
+    if (maxPrice) {
+        if (isNaN(maxPrice) || maxPrice < 0) {
+            return next({
+                "message": "Validation Error",
+                "statusCode": 400,
+                status: 400,
+                "errors": {
+                    "page": "Page must be greater than or equal to 1",
+                    "size": "Size must be greater than or equal to 1",
+                    "maxLat": "Maximum latitude is invalid",
+                    "minLat": "Minimum latitude is invalid",
+                    "minLng": "Maximum longitude is invalid",
+                    "maxLng": "Minimum longitude is invalid",
+                    "minPrice": "Maximum price must be greater than or equal to 0",
+                    "maxPrice": "Minimum price must be greater than or equal to 0"
+                }
+            })
+        }
+        where.price = {[Op.lte]: maxPrice}
+    }
+    const spots = await Spot.findAll({
             // attributes: {
             //     include: [
             //         [sequelize.fn('AVG',sequelize.col('Reviews.stars')), 'avgRating']
@@ -30,9 +173,10 @@ router.get('/', async (req,res) => {
                 {
                     model: SpotImage,
                 }
-            ]
-        }
-    )
+            ],
+            ...pagination,
+            where
+        })
     //finding preview image url
     let allSpots = [];
 
@@ -87,12 +231,12 @@ router.get('/', async (req,res) => {
             delete spot.Reviews;
         }
         })
-        console.log(sum)
-        console.log(count)
+        // console.log(sum)
+        // console.log(count)
 
         const avg = sum/count;
 
-        console.log(avg)
+        // console.log(avg)
 
         if(!isNaN(avg)){
             spot.avgRating = avg
@@ -101,7 +245,7 @@ router.get('/', async (req,res) => {
 
     //return
 
-    res.json(allSpots)
+    res.json({"Spots": allSpots, "Page": page, "Size": size})
     // res.json({"Spots": spots})
 } )
 
