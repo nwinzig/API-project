@@ -293,6 +293,101 @@ router.get('/:spotId/reviews', async (req,res,next) => {
 
 
 
+/////// get all bookings for a spot based on spot id //////
+
+
+router.get('/:spotId/bookings', requireAuth, async (req,res,next) => {
+    const spotId = req.params.spotId;
+    const userId = req.user.id;
+
+    let requestedSpot = await Spot.findByPk(spotId)
+
+    //no spot
+    if(!requestedSpot){
+        return next({
+            status:404,
+            "message": "Spot couldn't be found",
+            statusCode: 404
+        })
+    }
+    let requestedBookings = await Booking.findAll({
+        where: {
+            spotId: spotId,
+        },
+        attributes: ['id', 'spotId', 'userId', 'startDate', 'endDate', 'createdAt', 'updatedAt']
+    })
+
+    //if your the owner
+    // console.log('user---', userId)
+    // console.log('owner---', requestedSpot.ownerId )
+
+
+    if(userId === requestedSpot.ownerId){
+        // //seperate bookings in array
+        // let allBookings = [];
+        // // requestedBookings.forEach(booking => {
+        // //     allBookings.push(booking.toJSON())
+        // // })
+        // //return the booking with details on user that booked
+        // requestedBookings.forEach(async (booking) => {
+        //     //user id that booked
+        //     booking = booking.toJSON()
+        //     let bookingUser = booking.userId
+        //     //find user that booked
+        //     let renter = await User.findByPk(bookingUser, {
+        //         attributes: ['id', 'firstName', 'lastName']
+        //     })
+        //     //add renter to their booking
+
+        //     console.log("just the booking ------ ", booking)
+        //     // let user = {}
+        //     // user.id = renter.id;
+        //     // user.firstName = renter.firstName;
+        //     // user.lastName = renter.lastName
+        //     renter = renter.toJSON()
+        //     console.log('just the renter---', renter)
+        //     booking.User = renter
+        //     console.log('testing object', booking)
+        //     // booking.User = user
+        //     // console.log("the booking afte the fact=-=---", booking)
+        //     // booking.User.id = renter.id
+        //     // booking.User.firstName = renter.firstName
+        //     // booking.User.lastName = renter.lastName
+        // })
+
+        let requestedBookings = await Booking.findAll({
+            where: {
+                spotId: spotId,
+            },
+            attributes: ['id', 'spotId', 'userId', 'startDate', 'endDate', 'createdAt', 'updatedAt'],
+            include: {
+                model: User,
+                attributes: ['id', 'firstName', 'lastName']
+            }
+        })
+
+        res.status(200)
+        res.json({"Bookings":requestedBookings})
+    }
+
+    if(userId !== requestedSpot.ownerId){
+        let requestedBookings = await Booking.findAll({
+            where: {
+                spotId: spotId,
+            },
+            attributes: ['spotId','startDate', 'endDate'],
+        })
+
+        res.status(200)
+        res.json({"Bookings":requestedBookings})
+    }
+
+
+
+
+})
+
+
 
 
 
