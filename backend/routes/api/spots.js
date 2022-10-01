@@ -695,9 +695,7 @@ router.get('/:spotId', async (req,res,next) => {
                 [Sequelize.fn("AVG", Sequelize.col('stars')), "avgRating"]
                 ]
             },
-            include: {
-                group: ['Review.id']
-            }
+            group: ['Review.id']
 
 
         })
