@@ -690,20 +690,34 @@ router.get('/:spotId', async (req,res,next) => {
             where: {
                 spotId: spotId
             },
-            attributes: {
-                include: [
-                [Sequelize.fn("AVG", Sequelize.col('stars')), "avgRating"]
-                ]
-            },
-            group: ['spotId']
-
-
+            // attributes: {
+            //     include: [
+            //     [Sequelize.fn("AVG", Sequelize.col('stars')), "avgRating"]
+            //     ]
+            // },
+            group: ['Review.Id']
         })
+        // console.log(avgReviews)
+        let reviewArr = []
+        avgReviews.forEach(review => {
+            reviewArr.push(review.toJSON())
+        })
+        console.log(reviewArr)
+        let sum = 0;
+        let count = 0;
+        reviewArr.forEach(review => {
+
+            sum += review.stars
+            count++
+        })
+        // console.log(sum,count)
+        let avgStarReviews = sum/count
+        // console.log( Math.round(avgStarReviews * 100) / 100)
         // console.log(' do we make it here 2')
         // console.log(avgReviews[0].dataValues)
         // console.log('break between console logs')
         // console.log(avgReviews[0].dataValues.avgRating)
-        avgStarReviews = avgReviews[0].dataValues.avgRating
+        // avgStarReviews = avgReviews[0].dataValues.avgRating
         // console.log(Math.round(avgStarReviews * 100) / 100)
         // results.avgStarReviews = avgReviews[0].dataValues.avgRating;
         results.avgStarReviews = Math.round(avgStarReviews * 100) / 100
