@@ -291,7 +291,7 @@ router.post('/', requireAuth, async (req,res,next) => {
         "description": description,
         "price": price
     })
-    res.status(200)
+    res.status(201)
     res.json(newSpot)
 })
 
@@ -667,8 +667,9 @@ router.get('/:spotId', async (req,res,next) => {
     if(!spots){
 
         return next({
-            message: "User already exists",
+            message: "Spot couldn't be found",
             statusCode: 404,
+            status: 404
             })
         }
         spots = spots.toJSON()
@@ -684,7 +685,7 @@ router.get('/:spotId', async (req,res,next) => {
                 }
             }
         )
-            console.log("do we make it here 1")
+            // console.log("do we make it here 1")
         let avgReviews = await Review.findAll({
             where: {
                 spotId: spotId
@@ -696,11 +697,11 @@ router.get('/:spotId', async (req,res,next) => {
             }
 
         })
-        console.log(' do we make it here 2')
+        // console.log(' do we make it here 2')
         results.avgStarReviews = avgReviews[0].dataValues.avgRating;
         results.numReviews = totalreviews;
-        console.log(avgReviews)
-        console.log('do we make it here 3')
+        // console.log(avgReviews)
+        // console.log('do we make it here 3')
     // let allSpots = [];
     // spots.forEach(spot => {
     //     allSpots.push(spot.toJSON())
@@ -763,6 +764,7 @@ router.put('/:spotId', requireAuth, async (req,res,next) => {
         return next({
             message: "Spot couldn't be found",
             statusCode: 404,
+            status: 404
         })
     }
     if(desiredSpot.ownerId !== userId){
