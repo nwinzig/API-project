@@ -700,9 +700,9 @@ router.get('/:spotId', async (req,res,next) => {
 
         })
         // console.log(' do we make it here 2')
-        console.log(avgReviews[0].dataValues)
-        console.log('break between console logs')
-        console.log(avgReviews[0].dataValues.avgRating)
+        // console.log(avgReviews[0].dataValues)
+        // console.log('break between console logs')
+        // console.log(avgReviews[0].dataValues.avgRating)
         results.avgStarReviews = avgReviews[0].dataValues.avgRating;
         results.numReviews = totalreviews;
         // console.log(avgReviews)
