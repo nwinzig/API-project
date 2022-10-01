@@ -855,7 +855,7 @@ router.post('/:spotId/reviews', requireAuth, async (req,res,next) => {
         }
     })
 
-    if(findPastReview.length>1){
+    if(findPastReview.length>0){
         return next({
             status:403,
             message: "User already has a review for this spot",
