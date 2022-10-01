@@ -97,10 +97,13 @@ router.get('/current', requireAuth, async (req,res,next) => {
     })
 
     allReviews.forEach(review => {
+        // console.log(userId)
         let desiredSpot = review.Spot
-        desiredSpot = desiredSpot.toJSON()
-        desiredSpot.previewImage = review.ReviewImages[0].dataValues.url
 
+        desiredSpot = desiredSpot.toJSON()
+        // console.log(desiredSpot)
+        // console.log("review",review.toJSON())
+        desiredSpot.previewImage = review.ReviewImages[0].dataValues.url
         review.Spot.dataValues.previewImage = review.ReviewImages[0].dataValues.url
     })
 
