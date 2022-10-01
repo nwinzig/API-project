@@ -695,7 +695,7 @@ router.get('/:spotId', async (req,res,next) => {
                 [Sequelize.fn("AVG", Sequelize.col('stars')), "avgRating"]
                 ]
             },
-            group: ['Review.id', 'spotId']
+            group: ['spotId']
 
 
         })
@@ -703,7 +703,10 @@ router.get('/:spotId', async (req,res,next) => {
         // console.log(avgReviews[0].dataValues)
         // console.log('break between console logs')
         // console.log(avgReviews[0].dataValues.avgRating)
-        results.avgStarReviews = avgReviews[0].dataValues.avgRating;
+        avgStarReviews = avgReviews[0].dataValues.avgRating
+        // console.log(Math.round(avgStarReviews * 100) / 100)
+        // results.avgStarReviews = avgReviews[0].dataValues.avgRating;
+        results.avgStarReviews = Math.round(avgStarReviews * 100) / 100
         results.numReviews = totalreviews;
         // console.log(avgReviews)
         // console.log('do we make it here 3')
