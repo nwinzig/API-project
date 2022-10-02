@@ -333,7 +333,7 @@ router.post('/:spotId/images',requireAuth, async (req,res,next) => {
 router.get('/current', requireAuth, async (req,res,next) => {
 
     const userId = req.user.id;
-    console.log(userId)
+    // console.log(userId)
 
     const spots = await Spot.findAll(
         {
@@ -351,52 +351,58 @@ router.get('/current', requireAuth, async (req,res,next) => {
             ]
         }
     )
-    //finding preview image url
+        //seperate each spot in an array
     let allSpots = [];
 
     spots.forEach(spot => {
         allSpots.push(spot.toJSON())
     });
 
-    allSpots.forEach(spot => {
-        spot.SpotImages.forEach(image => {
-
-            if(image.preview === true){
-            spot.previewImage = image.url
-        }
-            if(image.preview === false){
-                spot.previewImage = "No image url"
-            }
-        })
-        delete spot.SpotImages;
-    })
 
     //finding average rating
     allSpots.forEach(spot => {
+        //if there aren't reviews
+        if(spot.Reviews.length === 0){
+            delete spot.Reviews;
+            spot.avgRating = "There are currently no Reviews for this Spot."
+        }
+
+        //if there are reviews
         let sum = 0;
         let count = 0;
-        spot.Reviews.forEach(review => {
-            if(review.stars){
-            sum += review.stars;
-            count++
-            delete spot.Reviews;
-        }
+        if(spot.Reviews.length > 0){
+            spot.Reviews.forEach(review => {
+                console.log("here",review.stars)
+                if(review.stars){
+                    sum += review.stars;
+                    count++
+                    delete spot.Reviews;
+                }
+            })}
+            const avg = sum/count;
+            if(!isNaN(avg)){
+                spot.avgRating = avg
+            }
+
         })
-        console.log(sum)
-        console.log(count)
 
-        const avg = sum/count;
+        //finding preview image url
+        allSpots.forEach(spot => {
+            spot.SpotImages.forEach(image => {
 
-        console.log(avg)
-
-        if(!isNaN(avg)){
-            spot.avgRating = avg
-        }
-    })
+                if(image.preview === true){
+                spot.previewImage = image.url
+            }
+                if(image.preview === false){
+                    spot.previewImage = "No image url"
+                }
+            })
+            delete spot.SpotImages;
+        })
 
     //return
 
-    res.json(allSpots)
+    res.json({"Spots": allSpots})
 
 })
 
