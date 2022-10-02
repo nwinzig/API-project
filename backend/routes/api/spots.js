@@ -362,34 +362,54 @@ router.get('/current', requireAuth, async (req,res,next) => {
     //finding average rating
     allSpots.forEach(spot => {
         //if there aren't reviews
-        if(spot.Reviews.length === 0){
-            delete spot.Reviews;
-            spot.avgRating = "There are currently no Reviews for this Spot."
-        }
-
+        // console.log(spot.Reviews.length)
+        // console.log(spot.Reviews)
+        // if(spot.Reviews.length === 0){
+        //     delete spot.Reviews;
+        //     spot.avgRating = "There are currently no Reviews for this Spot."
+        // }
+        // console.log(!spot.Reviews[0])
+            if(!spot.Reviews[0]){
+                spot.avgRating = "There are currently no reviews for this spot."
+            }
         //if there are reviews
         let sum = 0;
         let count = 0;
-        if(spot.Reviews.length > 0){
+        // console.log('inside rating pt 1')
             spot.Reviews.forEach(review => {
                 console.log("here",review.stars)
                 if(review.stars){
                     sum += review.stars;
                     count++
-                    delete spot.Reviews;
+                    // delete spot.Reviews;
                 }
-            })}
+            })
+
             const avg = sum/count;
             if(!isNaN(avg)){
                 spot.avgRating = avg
             }
-
+            // console.log(spot.Reviews[0])
+        //for no reviews, remove review property
+        // if(!spot.Reviews.stars){
+        //     spot.avgRating = "There are currently no Reviews for this Spot."
+        //     delete spot.Reviews
+        // }
+            delete spot.Reviews
         })
-
+        // console.log('before spot')
         //finding preview image url
         allSpots.forEach(spot => {
+            // console.log('in spot pt1')
+            // console.log(spot.SpotImages)
+            // console.log(spot)
+            // console.log(!spot.SpotImages[0])
+            if(!spot.SpotImages[0]){
+                spot.previewImage = "There are currently no images for this spot."
+            }
+            if(spot.SpotImages[0]){
             spot.SpotImages.forEach(image => {
-
+                // console.log('in spot pt2')
                 if(image.preview === true){
                 spot.previewImage = image.url
             }
@@ -397,6 +417,8 @@ router.get('/current', requireAuth, async (req,res,next) => {
                     spot.previewImage = "No image url"
                 }
             })
+        }
+
             delete spot.SpotImages;
         })
 
