@@ -750,9 +750,6 @@ router.get('/:spotId', async (req,res,next) => {
         // console.log(sum,count)
         let avgStarReviews = sum/count
 
-        if(totalreviews = 0){
-            results.avgStarReviews = 0
-        }
 
         // console.log( Math.round(avgStarReviews * 100) / 100)
         // console.log(' do we make it here 2')
@@ -762,7 +759,13 @@ router.get('/:spotId', async (req,res,next) => {
         // avgStarReviews = avgReviews[0].dataValues.avgRating
         // console.log(Math.round(avgStarReviews * 100) / 100)
         // results.avgStarReviews = avgReviews[0].dataValues.avgRating;
+        results.numReviews = totalreviews;
+        if(totalreviews>0){
         results.avgStarReviews = Math.round(avgStarReviews * 100) / 100
+        }
+        if(totalreviews = 0){
+            results.avgStarReviews = 0
+        }
         results.numReviews = totalreviews;
         // console.log(avgReviews)
         // console.log('do we make it here 3')
@@ -786,7 +789,6 @@ router.get('/:spotId', async (req,res,next) => {
     //         spot.numReviews = count
     //     }
     // })
-
 
     //return
 
