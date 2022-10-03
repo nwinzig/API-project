@@ -739,7 +739,7 @@ router.get('/:spotId', async (req,res,next) => {
         avgReviews.forEach(review => {
             reviewArr.push(review.toJSON())
         })
-        console.log(reviewArr)
+        // console.log(reviewArr)
         let sum = 0;
         let count = 0;
         reviewArr.forEach(review => {
@@ -759,14 +759,15 @@ router.get('/:spotId', async (req,res,next) => {
         // avgStarReviews = avgReviews[0].dataValues.avgRating
         // console.log(Math.round(avgStarReviews * 100) / 100)
         // results.avgStarReviews = avgReviews[0].dataValues.avgRating;
-        results.numReviews = totalreviews;
+
+        // console.log(totalreviews)
         if(totalreviews>0){
         results.avgStarReviews = Math.round(avgStarReviews * 100) / 100
         }
-        if(totalreviews = 0){
+        if(count < 1){
             results.avgStarReviews = 0
         }
-        results.numReviews = totalreviews;
+        results.numReviews = count;
         // console.log(avgReviews)
         // console.log('do we make it here 3')
     // let allSpots = [];
