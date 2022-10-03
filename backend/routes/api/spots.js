@@ -711,9 +711,9 @@ router.get('/:spotId', async (req,res,next) => {
         }
         spots = spots.toJSON()
 
-        console.log(spots)
+        // console.log(spots)
         if(!spots.SpotImages[0]){
-            console.log('here')
+            // console.log('here')
             spots.SpotImages = "There are currently no images for this spot"
         }
 
