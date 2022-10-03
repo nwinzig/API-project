@@ -107,7 +107,7 @@ router.post('/', validateSignup, async (req, res, next) => {
     user.firstName = firstName;
     user.lastName = lastName;
     // user.token = token;
-    user.token = ""
+    user.token = token
 
     return res.json(
     user
