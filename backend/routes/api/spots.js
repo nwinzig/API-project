@@ -472,8 +472,19 @@ router.get('/:spotId/reviews', async (req,res,next) => {
             })
     }
 
+    // console.log(reviews)
+    let allreviews = [];
+    reviews.forEach(review => {
+        allreviews.push(review.toJSON())
+    })
+    // console.log(allreviews)
+    allreviews.forEach(review => {
+        if(!review.ReviewImages[0]){
+            review.ReviewImages = "There are no review images for this review"
+        }
+    })
     res.status(200)
-    res.json({"Reviews": reviews})
+    res.json({"Reviews": allreviews})
 })
 
 
