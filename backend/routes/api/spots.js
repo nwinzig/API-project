@@ -252,6 +252,11 @@ router.get('/', async (req,res,next) => {
 
     })
 
+
+    allSpots.forEach(spot => {
+        spot.price = parseFloat(spot.price)
+    })
+
     //return
 
     res.json({"Spots": allSpots, "Page": page, "Size": size})
