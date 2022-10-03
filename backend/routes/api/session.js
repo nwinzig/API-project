@@ -45,15 +45,16 @@ router.post('/', async (req, res, next) => {
         })
     }
 
-    await setTokenCookie(res, user);
-
+    let token = await setTokenCookie(res, user);
+    // console.log(token)
+    user.token = token
     return res.json({
         "id": user.id,
         "firstName": user.firstName,
         "lastName": user.lastName,
         "email": user.email,
         "username": user.username,
-        "token": ""
+        "token": user.token
     });
 
 });

@@ -87,7 +87,13 @@ router.get('/current', requireAuth, async (req,res,next) => {
                 model: Spot,
                 attributes: {
                     exclude: ['description', 'createdAt', 'updatedAt']
-                }
+                },
+                include: [
+                    {
+                    model: SpotImage,
+                    attributes: ['url']
+                    }
+                ]
             },
             {
                 model: ReviewImage,
@@ -96,20 +102,101 @@ router.get('/current', requireAuth, async (req,res,next) => {
         ]
     })
 
-    allReviews.forEach(review => {
-        // console.log(userId)
-        let desiredSpot = review.Spot
+    let everyReview = [];
 
-        desiredSpot = desiredSpot.toJSON()
-        // console.log(desiredSpot)
-        // console.log("review",review.toJSON())
-        desiredSpot.previewImage = review.ReviewImages[0].dataValues.url
-        review.Spot.dataValues.previewImage = review.ReviewImages[0].dataValues.url
+    allReviews.forEach(review => {
+        everyReview.push(review.toJSON())
+    })
+
+    everyReview.forEach(async (review) => {
+        if(!review.Spot.SpotImages[0]){
+            review.Spot.previewImage = "There are no images for this spot"
+        }
+        if(!review.ReviewImages[0]){
+            review.ReviewImages = "There are no review images for this spot"
+        }
+        let imagesIndex = review.Spot.SpotImages.length-1
+        review.Spot.previewImage = review.Spot.SpotImages[imagesIndex].url
+        delete review.Spot.SpotImages
+
+        console.log(review)
+        console.log(review.Spot.SpotImages)
     })
 
 
+
+    // allReviews.forEach(async (review) => {
+    //     // console.log(userId)
+    //     let desiredSpot = review.Spot
+    //     let spotId = review.Spot.id
+    //     // console.log(desiredSpot)
+    //     desiredSpot = desiredSpot.toJSON()
+    //     console.log(spotId)
+    //     let image = await SpotImage.findAll({
+    //         where: {
+    //             spotId: spotId,
+    //             preview: true
+    //         }
+    //     })
+    //     console.log("image", image[0].toJSON())
+    //     console.log("desired spot",desiredSpot)
+
+    //     if(!image){
+    //         desiredSpot.previewImage = "There are no images for this spot"
+    //         console.log('here')
+    //         review.Spot.dataValues.previewImage = "There are no images for this spot"
+    //     }
+    //     if(image){
+    //         image = image[0].toJSON()
+    //         desiredSpot.previewImage = image.url
+    //         console.log('here3')
+    //         review.Spot.dataValues.previewImage = image.url
+    //         console.log(review.toJSON())
+    //     }
+    //     // if(review.Spot.SpotImages[0]){
+    //     //     desiredSpot.previewImage = review.Spot.SpotImages[0].dataValues.url
+    //     //     console.log('here')
+    //     //     review.Spot.dataValues.previewImage = review.Spot.SpotImages[0].dataValues.url
+    //     //     console.log("desired spot------->",desiredSpot)
+    //     //     let images = desiredSpot.SpotImages
+    //     //     console.log('images before', images)
+    //     //     // images.forEach(object => {
+    //     //     //     delete object
+    //     //     // })
+    //     //     images = images.pop()
+    //     //     console.log('images after', images)
+    //     //     desiredSpot.SpotImages = images
+    //     //     delete desiredSpot.SpotImages
+    //     //     console.log('after images stuff',desiredSpot)
+
+    //     //     console.log('after after', review)
+    //         // console.log("pushing",desiredSpot.SpotImages.slice())
+    //         // let deleteItems = desiredSpot.SpotImages.shift()
+    //         // console.log("deleting", deleteItems)
+    //         // // console.log(desiredSpot.SpotImages)
+    //         // delete desiredSpot.SpotImages
+    //         // delete review.Spot.SpotImages
+    //         // }
+
+    //     // console.log("review",review.toJSON())
+    //     // console.log(!review.ReviewImages[0])
+    //     // if(!review.ReviewImages[0]){
+    //     //     review = review.toJSON()
+    //     //     // console.log("just the whole review",review)
+    //     //     review.ReviewImages.id = "There are no images for this review"
+    //     //     review.ReviewImages.url = "There is no image for this review"
+    //     //     // review.ReviewImages.url = "Please provide an image"
+    //     //     // console.log(review.ReviewImages)
+    //     //     // review.ReviewImages[0] = review.ReviewImages
+    //     //     // delete review.ReviewImages
+    //     //     // review.ReviewImages = "There are no images for this review"
+    //     // }
+    //     console.log('here2')
+    // })
+
+
     res.status(200)
-    res.json({"Reviews": allReviews})
+    res.json({"Reviews": everyReview})
 })
 
 

@@ -220,8 +220,10 @@ router.get('/', async (req,res,next) => {
         // if(!spotAvgReview){
         //     spot.spotRating = "Not enough Reviews"
         // }
-
-
+        // if(!spot.Reviews[0]){
+        //     spot.Reviews = "There are currently no reviews for this spot."
+        // }
+        if(spot.Reviews[0]){
         let sum = 0;
         let count = 0;
         spot.Reviews.forEach(review => {
@@ -241,6 +243,13 @@ router.get('/', async (req,res,next) => {
         if(!isNaN(avg)){
             spot.avgRating = avg
         }
+        }
+        //no reviews
+            if(!spot.avgRating){
+            spot.avgRating = "There are currently no reviews for this spot."
+            delete spot.Reviews
+        }
+
     })
 
     //return
@@ -377,7 +386,7 @@ router.get('/current', requireAuth, async (req,res,next) => {
         let count = 0;
         // console.log('inside rating pt 1')
             spot.Reviews.forEach(review => {
-                console.log("here",review.stars)
+                // console.log("here",review.stars)
                 if(review.stars){
                     sum += review.stars;
                     count++
