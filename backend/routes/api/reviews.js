@@ -107,7 +107,11 @@ router.get('/current', requireAuth, async (req,res,next) => {
     allReviews.forEach(review => {
         everyReview.push(review.toJSON())
     })
-
+    if(!everyReview[0]){
+        everyReview= "This user does not have any reviews"
+        res.status(404)
+        res.json({"Reviews": everyReview})
+    }
     everyReview.forEach(async (review) => {
         if(!review.Spot.SpotImages[0]){
             review.Spot.previewImage = "There are no images for this spot"
