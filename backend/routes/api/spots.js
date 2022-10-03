@@ -749,6 +749,11 @@ router.get('/:spotId', async (req,res,next) => {
         })
         // console.log(sum,count)
         let avgStarReviews = sum/count
+
+        if(totalreviews = 0){
+            results.avgStarReviews = 0
+        }
+
         // console.log( Math.round(avgStarReviews * 100) / 100)
         // console.log(' do we make it here 2')
         // console.log(avgReviews[0].dataValues)
