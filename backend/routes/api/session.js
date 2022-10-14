@@ -79,7 +79,7 @@ router.get('/', restoreUser, (req, res) => {
             "email": user.email,
             "username": user.username
         });
-    } else return res.json({user:null});
+    } else return res.json(null);
 }
 );
 
