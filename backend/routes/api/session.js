@@ -71,7 +71,7 @@ router.delete('/',(_req, res) => {
 router.get('/', restoreUser, (req, res) => {
     const { user } = req;
     if (user) {
-        console.log(user)
+        // console.log(user)
         return res.json({
             "id": user.id,
             "firstName": user.firstName,

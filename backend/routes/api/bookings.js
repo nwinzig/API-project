@@ -110,7 +110,7 @@ router.put('/:bookingId', requireAuth, async (req,res,next) => {
     // console.log(currentEndDate.toISOString())
     let incomingDate = new Date(endDate)
     let currentEndDate = new Date(desiredBooking.endDate)
-    console.log(incomingDate, currentEndDate)
+    // console.log(incomingDate, currentEndDate)
     // currentEndDate = currentEndDate.toString()
     // let dateString = currentEndDate.split('T')[0]
     // console.log("this is what i want to compare   ", dateString)

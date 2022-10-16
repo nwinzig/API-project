@@ -11,9 +11,9 @@ let enhancer;
 
 if (process.env.NODE_ENV === "production") {
   enhancer = applyMiddleware(thunk);
-  console.log('do you trigger')
+  // console.log('do you trigger')
 } else {
-  console.log('do you trigger in the else')
+  // console.log('do you trigger in the else')
   const logger = require("redux-logger").default;
   const composeEnhancers =
     window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

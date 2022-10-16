@@ -28,7 +28,7 @@ router.get('/', async (req,res,next) => {
     if(size > 20){
         size = 20
     }
-    console.log(page, size)
+    // console.log(page, size)
     let pagination = {};
     if(page >= 1 && size >= 1){
         pagination.offset = size * (page-1)
@@ -333,7 +333,7 @@ router.post('/:spotId/images',requireAuth, async (req,res,next) => {
 router.get('/current', requireAuth, async (req,res,next) => {
 
     const userId = req.user.id;
-    console.log(userId)
+    // console.log(userId)
 
     const spots = await Spot.findAll(
         {
@@ -382,12 +382,12 @@ router.get('/current', requireAuth, async (req,res,next) => {
             delete spot.Reviews;
         }
         })
-        console.log(sum)
-        console.log(count)
+        // console.log(sum)
+        // console.log(count)
 
         const avg = sum/count;
 
-        console.log(avg)
+        // console.log(avg)
 
         if(!isNaN(avg)){
             spot.avgRating = avg
@@ -618,7 +618,7 @@ if(currentBookings.length > 0){
             }
         })
 }
-console.log(currentBookings)
+// console.log(currentBookings)
 //create the new booking
 
     let newBooking = await Booking.create({
@@ -684,7 +684,7 @@ router.get('/:spotId', async (req,res,next) => {
                 }
             }
         )
-            console.log("do we make it here 1")
+            // console.log("do we make it here 1")
         let avgReviews = await Review.findAll({
             where: {
                 spotId: spotId
@@ -696,11 +696,11 @@ router.get('/:spotId', async (req,res,next) => {
             }
 
         })
-        console.log(' do we make it here 2')
+        // console.log(' do we make it here 2')
         results.avgStarReviews = avgReviews[0].dataValues.avgRating;
         results.numReviews = totalreviews;
-        console.log(avgReviews)
-        console.log('do we make it here 3')
+        // console.log(avgReviews)
+        // console.log('do we make it here 3')
     // let allSpots = [];
     // spots.forEach(spot => {
     //     allSpots.push(spot.toJSON())
@@ -869,8 +869,8 @@ router.delete('/:spotId',requireAuth, async (req,res,next) => {
             statusCode: 404
             })
     }
-    console.log(userId)
-    console.log(desiredSpot.ownerId)
+    // console.log(userId)
+    // console.log(desiredSpot.ownerId)
 
     //if user is not owner
     if(userId !== desiredSpot.ownerId){
