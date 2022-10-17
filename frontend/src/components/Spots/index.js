@@ -1,7 +1,7 @@
 
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Route, Switch, NavLink, Link } from 'react-router-dom';
+import { Route, Switch, Link } from 'react-router-dom';
 import { getSpots } from '../../store/spots';
 
 import './spots.css'
