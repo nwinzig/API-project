@@ -1,0 +1,48 @@
+.cardHolder{
+    padding-top: 30px;
+    padding-right: 40px;
+    padding-left: 40px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 1rem;
+    background-color: white;
+    height: 100%;
+}
+
+a{
+    text-decoration: none;
+}
+.card{
+    border-radius: 7%;
+    display: flex;
+    flex-direction: column;
+    max-height: 100%;
+}
+
+.cardImage{
+    height: 70%;
+
+}
+.cardImage img{
+    height: 100%;
+    width: 100%;
+    border-radius: 7%;
+}
+
+.cardInfo{
+    padding-top: 10px;
+    display: grid;
+    grid-template-rows: auto;
+    grid-gap: 1rem;
+    color: black;
+
+}
+
+.location-rating{
+    display: flex;
+    justify-content: space-between;
+
+}
+.cardPrice{
+    font-weight: bold;
+}
