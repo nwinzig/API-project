@@ -411,7 +411,7 @@ router.get('/current', requireAuth, async (req,res,next) => {
            // })
 
 
-            const avg = sum/count;
+            // const avg = sum/count;
             if(!isNaN(avg)){
                 spot.avgRating = avg
             }
