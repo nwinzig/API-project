@@ -220,8 +220,10 @@ router.get('/', async (req,res,next) => {
         // if(!spotAvgReview){
         //     spot.spotRating = "Not enough Reviews"
         // }
-
-
+        // if(!spot.Reviews[0]){
+        //     spot.Reviews = "There are currently no reviews for this spot."
+        // }
+        if(spot.Reviews[0]){
         let sum = 0;
         let count = 0;
         spot.Reviews.forEach(review => {
@@ -241,6 +243,18 @@ router.get('/', async (req,res,next) => {
         if(!isNaN(avg)){
             spot.avgRating = avg
         }
+        }
+        //no reviews
+            if(!spot.avgRating){
+            spot.avgRating = "There are currently no reviews for this spot."
+            delete spot.Reviews
+        }
+
+    })
+
+
+    allSpots.forEach(spot => {
+        spot.price = parseFloat(spot.price)
     })
 
     //return
@@ -291,7 +305,7 @@ router.post('/', requireAuth, async (req,res,next) => {
         "description": description,
         "price": price
     })
-    res.status(200)
+    res.status(201)
     res.json(newSpot)
 })
 
@@ -351,30 +365,31 @@ router.get('/current', requireAuth, async (req,res,next) => {
             ]
         }
     )
-    //finding preview image url
+        //seperate each spot in an array
     let allSpots = [];
 
     spots.forEach(spot => {
         allSpots.push(spot.toJSON())
     });
 
-    allSpots.forEach(spot => {
-        spot.SpotImages.forEach(image => {
-
-            if(image.preview === true){
-            spot.previewImage = image.url
-        }
-            if(image.preview === false){
-                spot.previewImage = "No image url"
-            }
-        })
-        delete spot.SpotImages;
-    })
 
     //finding average rating
     allSpots.forEach(spot => {
+        //if there aren't reviews
+        // console.log(spot.Reviews.length)
+        // console.log(spot.Reviews)
+        // if(spot.Reviews.length === 0){
+        //     delete spot.Reviews;
+        //     spot.avgRating = "There are currently no Reviews for this Spot."
+        // }
+        // console.log(!spot.Reviews[0])
+            if(!spot.Reviews[0]){
+                spot.avgRating = "There are currently no reviews for this spot."
+            }
+        //if there are reviews
         let sum = 0;
         let count = 0;
+
         spot.Reviews.forEach(review => {
             if(review.stars){
             sum += review.stars;
@@ -382,21 +397,60 @@ router.get('/current', requireAuth, async (req,res,next) => {
             delete spot.Reviews;
         }
         })
-        // console.log(sum)
-        // console.log(count)
-
         const avg = sum/count;
 
-        // console.log(avg)
+//from here till 411 cause merge conflict
+        // console.log('inside rating pt 1')
+            //spot.Reviews.forEach(review => {
+                // console.log("here",review.stars)
+               // if(review.stars){
+                   // sum += review.stars;
+                   // count++
+                    // delete spot.Reviews;
+               // }
+           // })
 
-        if(!isNaN(avg)){
-            spot.avgRating = avg
+
+            const avg = sum/count;
+            if(!isNaN(avg)){
+                spot.avgRating = avg
+            }
+            // console.log(spot.Reviews[0])
+        //for no reviews, remove review property
+        // if(!spot.Reviews.stars){
+        //     spot.avgRating = "There are currently no Reviews for this Spot."
+        //     delete spot.Reviews
+        // }
+            delete spot.Reviews
+        })
+        // console.log('before spot')
+        //finding preview image url
+        allSpots.forEach(spot => {
+            // console.log('in spot pt1')
+            // console.log(spot.SpotImages)
+            // console.log(spot)
+            // console.log(!spot.SpotImages[0])
+            if(!spot.SpotImages[0]){
+                spot.previewImage = "There are currently no images for this spot."
+            }
+            if(spot.SpotImages[0]){
+            spot.SpotImages.forEach(image => {
+                // console.log('in spot pt2')
+                if(image.preview === true){
+                spot.previewImage = image.url
+            }
+                if(image.preview === false){
+                    spot.previewImage = "No image url"
+                }
+            })
         }
-    })
+
+            delete spot.SpotImages;
+        })
 
     //return
 
-    res.json(allSpots)
+    res.json({"Spots": allSpots})
 
 })
 
@@ -430,8 +484,19 @@ router.get('/:spotId/reviews', async (req,res,next) => {
             })
     }
 
+    // console.log(reviews)
+    let allreviews = [];
+    reviews.forEach(review => {
+        allreviews.push(review.toJSON())
+    })
+    // console.log(allreviews)
+    allreviews.forEach(review => {
+        if(!review.ReviewImages[0]){
+            review.ReviewImages = "There are no review images for this review"
+        }
+    })
     res.status(200)
-    res.json({"Reviews": reviews})
+    res.json({"Reviews": allreviews})
 })
 
 
@@ -667,11 +732,20 @@ router.get('/:spotId', async (req,res,next) => {
     if(!spots){
 
         return next({
-            message: "User already exists",
+            message: "Spot couldn't be found",
             statusCode: 404,
+            status: 404
             })
         }
         spots = spots.toJSON()
+
+        // console.log(spots)
+        if(!spots.SpotImages[0]){
+            // console.log('here')
+            spots.SpotImages = "There are currently no images for this spot"
+        }
+
+
         let results = {...spots};
 
         let numReviews;
@@ -689,16 +763,53 @@ router.get('/:spotId', async (req,res,next) => {
             where: {
                 spotId: spotId
             },
-            attributes: {
-                include: [
-                [Sequelize.fn("AVG", Sequelize.col('stars')), "avgRating"]
-                ]
-            }
-
+            // attributes: {
+            //     include: [
+            //     [Sequelize.fn("AVG", Sequelize.col('stars')), "avgRating"]
+            //     ]
+            // },
+            // group: ['Review.Id']
         })
+        // console.log(avgReviews)
+        let reviewArr = []
+        avgReviews.forEach(review => {
+            reviewArr.push(review.toJSON())
+        })
+        // console.log(reviewArr)
+        let sum = 0;
+        let count = 0;
+        reviewArr.forEach(review => {
+
+            sum += review.stars
+            count++
+        })
+
+        // there was a merge conflict with these two lines that should go with lines 770-775
+        // results.avgStarReviews = avgReviews[0].dataValues.avgRating;
+        // results.numReviews = totalreviews;
+
+        // console.log(sum,count)
+        let avgStarReviews = sum/count
+
+
+        // console.log( Math.round(avgStarReviews * 100) / 100)
         // console.log(' do we make it here 2')
-        results.avgStarReviews = avgReviews[0].dataValues.avgRating;
-        results.numReviews = totalreviews;
+        // console.log(avgReviews[0].dataValues)
+        // console.log('break between console logs')
+        // console.log(avgReviews[0].dataValues.avgRating)
+        // avgStarReviews = avgReviews[0].dataValues.avgRating
+        // console.log(Math.round(avgStarReviews * 100) / 100)
+        // results.avgStarReviews = avgReviews[0].dataValues.avgRating;
+
+        // console.log(totalreviews)
+        if(totalreviews>0){
+        results.avgStarReviews = Math.round(avgStarReviews * 100) / 100
+        }
+        if(count < 1){
+            results.avgStarReviews = 0
+        }
+        results.numReviews = count;
+
         // console.log(avgReviews)
         // console.log('do we make it here 3')
     // let allSpots = [];
@@ -721,7 +832,6 @@ router.get('/:spotId', async (req,res,next) => {
     //         spot.numReviews = count
     //     }
     // })
-
 
     //return
 
@@ -763,6 +873,7 @@ router.put('/:spotId', requireAuth, async (req,res,next) => {
         return next({
             message: "Spot couldn't be found",
             statusCode: 404,
+            status: 404
         })
     }
     if(desiredSpot.ownerId !== userId){
@@ -831,7 +942,7 @@ router.post('/:spotId/reviews', requireAuth, async (req,res,next) => {
         }
     })
 
-    if(findPastReview.length>1){
+    if(findPastReview.length>0){
         return next({
             status:403,
             message: "User already has a review for this spot",
@@ -846,7 +957,7 @@ router.post('/:spotId/reviews', requireAuth, async (req,res,next) => {
         "review": review,
         "stars": stars
     })
-
+    res.status(201)
     res.json(newReview)
 
 })
