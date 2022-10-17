@@ -35,8 +35,8 @@ router.delete('/:imageId',requireAuth, async (req,res,next) => {
     })
     findingOwner = findingOwner.toJSON()
 
-    console.log("user id ------- ", userId)
-    console.log("owner id ------- ",findingOwner.Spot.ownerId)
+    // console.log("user id ------- ", userId)
+    // console.log("owner id ------- ",findingOwner.Spot.ownerId)
     //if user is not owner
     if(userId !== findingOwner.Spot.ownerId){
         return next({

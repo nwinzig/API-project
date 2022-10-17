@@ -27,9 +27,11 @@ router.use('/spot-images', spotImagesRouter)
 
 router.use('/review-images', reviewImageRouter)
 
-router.post('/test', (req,res) => {
-    res.json({ requestBody: req.body});
-})
+
+//test removed onse starting frontend
+// router.post('/test', (req,res) => {
+//     res.json({ requestBody: req.body});
+// })
 
 
 //test for user auth middleware

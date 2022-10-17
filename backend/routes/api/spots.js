@@ -28,7 +28,7 @@ router.get('/', async (req,res,next) => {
     if(size > 20){
         size = 20
     }
-    console.log(page, size)
+    // console.log(page, size)
     let pagination = {};
     if(page >= 1 && size >= 1){
         pagination.offset = size * (page-1)
@@ -389,15 +389,27 @@ router.get('/current', requireAuth, async (req,res,next) => {
         //if there are reviews
         let sum = 0;
         let count = 0;
+
+        spot.Reviews.forEach(review => {
+            if(review.stars){
+            sum += review.stars;
+            count++
+            delete spot.Reviews;
+        }
+        })
+        const avg = sum/count;
+
+//from here till 411 cause merge conflict
         // console.log('inside rating pt 1')
-            spot.Reviews.forEach(review => {
+            //spot.Reviews.forEach(review => {
                 // console.log("here",review.stars)
-                if(review.stars){
-                    sum += review.stars;
-                    count++
+               // if(review.stars){
+                   // sum += review.stars;
+                   // count++
                     // delete spot.Reviews;
-                }
-            })
+               // }
+           // })
+
 
             const avg = sum/count;
             if(!isNaN(avg)){
@@ -671,7 +683,7 @@ if(currentBookings.length > 0){
             }
         })
 }
-console.log(currentBookings)
+// console.log(currentBookings)
 //create the new booking
 
     let newBooking = await Booking.create({
@@ -771,6 +783,11 @@ router.get('/:spotId', async (req,res,next) => {
             sum += review.stars
             count++
         })
+
+        // there was a merge conflict with these two lines that should go with lines 770-775
+        // results.avgStarReviews = avgReviews[0].dataValues.avgRating;
+        // results.numReviews = totalreviews;
+
         // console.log(sum,count)
         let avgStarReviews = sum/count
 
@@ -792,6 +809,7 @@ router.get('/:spotId', async (req,res,next) => {
             results.avgStarReviews = 0
         }
         results.numReviews = count;
+
         // console.log(avgReviews)
         // console.log('do we make it here 3')
     // let allSpots = [];
@@ -962,8 +980,8 @@ router.delete('/:spotId',requireAuth, async (req,res,next) => {
             statusCode: 404
             })
     }
-    console.log(userId)
-    console.log(desiredSpot.ownerId)
+    // console.log(userId)
+    // console.log(desiredSpot.ownerId)
 
     //if user is not owner
     if(userId !== desiredSpot.ownerId){
