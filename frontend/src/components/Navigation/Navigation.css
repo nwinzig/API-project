@@ -1,0 +1,18 @@
+.homeBar{
+    display: flex;
+    background-color: yellow;
+    justify-content: center;
+    justify-content: space-between;
+    align-items: center;
+    height: 100px;
+    border-bottom: 1px lightgrey solid;
+    width: 100%;
+}
+
+.homeLogo{
+    padding-left: 5%;
+}
+
+.signlogbuttons{
+    padding-right: 5%;
+}
