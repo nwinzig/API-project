@@ -9,9 +9,9 @@
     height: 100%;
 }
 
-a{
+/* a{
     text-decoration: none;
-}
+} */
 .card{
     border-radius: 7%;
     display: flex;

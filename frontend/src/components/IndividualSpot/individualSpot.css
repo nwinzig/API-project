@@ -1,0 +1,47 @@
+
+h1{
+    margin: 0px;
+}
+
+h2{
+    margin: 0px;
+}
+.spotWrapper{
+    height: 100%;
+    padding-left: 4%;
+    padding-right: 4%;
+}
+
+.titleWrapper{
+    padding-top: 1rem;
+    font-family: 'Montserrat', sans-serif;
+    height: 10%;
+}
+
+.spotTitle{
+    font-weight: 500;
+}
+.spotHeaderDetails{
+    display: flex;
+    font-weight: 400;
+    padding-top: 1rem;
+}
+.spotHeaderDetails div{
+    padding-left: 10px;
+
+}
+
+.spotHeaderDetails a{
+    color: black;
+    padding-left: 10px;
+}
+.imageWrapper{
+    background-color: green;
+    height: 30%;
+}
+
+.bodyWrapper{
+    padding-top: 2rem;
+    font-family: 'Montserrat', sans-serif;
+    height: 100%;
+}

@@ -6,6 +6,7 @@ import SignupFormPage from "./components/SignupFormPage";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import SpotCards from '../src/components/Spots'
+import SpotDetails from "./components/IndividualSpot";
 
 function App() {
   const dispatch = useDispatch();
@@ -21,6 +22,11 @@ function App() {
           <Navigation isLoaded={isLoaded} />
 
           <SpotCards />
+        </Route>
+        <Route exact path={`/spots/:spotId`}>
+        <Navigation isLoaded={isLoaded} />
+
+        <SpotDetails />
         </Route>
       </Switch>
 
