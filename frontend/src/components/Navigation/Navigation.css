@@ -1,6 +1,8 @@
 .homeBar{
+    position: sticky;
+    top: 0px;
     display: flex;
-    background-color: yellow;
+    background-color: white;
     justify-content: center;
     justify-content: space-between;
     align-items: center;
@@ -10,9 +12,21 @@
 }
 
 .homeLogo{
+
+    font-size: 2rem;
     padding-left: 5%;
 }
+.homeLogo a{
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #FF5A5F;
+}
 
+.logoTitle{
+    font-size: smaller;
+    padding-left: 10px;
+}
 .signlogbuttons{
     padding-right: 5%;
 }

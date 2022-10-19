@@ -34,7 +34,14 @@ function Navigation({ isLoaded }) {
     return (
         <div className='homeBar'>
             <div className='homeLogo'>
-            <NavLink exact to="/">Home</NavLink>
+                <NavLink exact to="/">
+                    <div>
+                        <i class="fa-brands fa-airbnb"></i>
+                    </div>
+                    <div className='logoTitle'>
+                        BnB
+                    </div>
+                </NavLink>
             </div>
             <div className='signlogbuttons'>
             {isLoaded && sessionLinks}
