@@ -18,10 +18,33 @@ const SpotDetails = () => {
     // console.log('owner', spot.Owner)
     useEffect(() => {
         dispatch(getSpot(spotId))
-    },[dispatch])
+    },[spotId, dispatch])
 
     const ownerObj = {...spot.Owner}
     console.log('the spot', spot)
+    // const spotImages = {...spot.SpotImages}
+    // console.log("should be object holding objects",spotImages)
+    // let spotImagesArr = Object.values(spotImages)
+    // let manipulateArr = [...spotImagesArr]
+
+    // console.log("manipulating spot image data", spotImagesArr)
+    // console.log('do you have a length', spotImagesArr.length)
+    // console.log('manipulate', manipulateArr[0])
+    // let firstObj = manipulateArr[0]
+    // console.log('first Object', firstObj)
+    // let manipulateObj = function (firstObj){
+
+    // }
+
+
+    // console.log('should be single object', spotImages[0])
+    // let firstImage = spotImages[0].url
+    // console.log('hoping to just have the url of first object',firstImage)
+    // console.log(spotImages[0])
+    // let spotImagesArr = spotImages.map(image => {
+    //     spotImagesArr.push(image)
+    // });
+
     // console.log('name', spot.name)
     // console.log(ownerObj.firstName)
     return (
@@ -32,7 +55,7 @@ const SpotDetails = () => {
                 </div>
                 <div className='spotHeaderDetails'>
                 <i className="fa-solid fa-star"></i>{`${spot.avgStarReviews}`}
-                <Link>
+                <Link to={'/'}>
                     {`${spot.numReviews} reviews`}
                 </Link>
                 <div>

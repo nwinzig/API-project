@@ -7,6 +7,7 @@ import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import SpotCards from '../src/components/Spots'
 import SpotDetails from "./components/IndividualSpot";
+import FooterComp from "./components/Footer";
 
 function App() {
   const dispatch = useDispatch();
@@ -22,6 +23,7 @@ function App() {
           <Navigation isLoaded={isLoaded} />
 
           <SpotCards />
+          <FooterComp />
         </Route>
         <Route exact path={`/spots/:spotId`}>
         <Navigation isLoaded={isLoaded} />

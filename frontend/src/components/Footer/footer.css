@@ -1,0 +1,39 @@
+.footerWrapper{
+    font-family: 'Montserrat', sans-serif;
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px lightgrey solid;
+    bottom: 0px;
+    position: fixed;
+    width: 100%;
+
+
+    background-color: white;
+}
+
+.footerLeft{
+    padding-left: 5%;
+    display: flex;
+    align-items: center;
+    width: 30%;
+}
+.footerLeft a{
+    padding-left: 10%;
+    color: black;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.footerRight{
+    width: 30%;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    padding-right: 5%;
+}
+
+.language{
+    padding-right: 10%;
+}
