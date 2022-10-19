@@ -9,9 +9,9 @@ function FooterComp() {
         <div className="footerWrapper">
             <div className="footerLeft">
             <p>2022 BnB</p>
-                <Link to={'https://github.com/nwinzig'}>
+                <a href='https://github.com/nwinzig'>
                     GitHub
-                </Link>
+                </a>
             </div>
             <div className="footerRight">
                 <p className='language'>
