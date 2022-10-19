@@ -29,6 +29,7 @@ function App() {
         <Navigation isLoaded={isLoaded} />
 
         <SpotDetails />
+        <FooterComp />
         </Route>
       </Switch>
 
