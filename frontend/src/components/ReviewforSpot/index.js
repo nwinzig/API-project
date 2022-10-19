@@ -30,7 +30,7 @@ const ReviewComponent = () => {
             {reviewsListArr.map(review => (
                 <div>
                     <h3>
-                        {review.User.firstName}
+                        user name
                     </h3>
                     <p>
                         {review.review}
