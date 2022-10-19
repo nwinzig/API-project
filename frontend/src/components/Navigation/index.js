@@ -36,7 +36,7 @@ function Navigation({ isLoaded }) {
             <div className='homeLogo'>
                 <NavLink exact to="/">
                     <div>
-                        <i class="fa-brands fa-airbnb"></i>
+                        <i className="fa-brands fa-airbnb"></i>
                     </div>
                     <div className='logoTitle'>
                         BnB

@@ -35,7 +35,14 @@ const SpotDetails = () => {
     // let manipulateObj = function (firstObj){
 
     // }
+    let imagesArr = [];
 
+    if(spot.SpotImages){
+        spot.SpotImages.forEach(image => {
+            imagesArr.push(image)
+        });
+    }
+    console.log('this should be an images array', imagesArr)
 
     // console.log('should be single object', spotImages[0])
     // let firstImage = spotImages[0].url
@@ -64,7 +71,11 @@ const SpotDetails = () => {
                 </div>
             </div>
             <div className='imageWrapper'>
-                image placeholder
+                <ul>
+                    {imagesArr.map(image => (
+                        <img src={image.url} key={image.id} alt='image for the current spot'></img>
+                    ))}
+                </ul>
             </div>
             <div className='bodyWrapper'>
                 <h2 className='spotTitle'>{`${spot.name} hosted by ${ownerObj.firstName}`}</h2>

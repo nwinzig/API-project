@@ -8,6 +8,7 @@ import Navigation from "./components/Navigation";
 import SpotCards from '../src/components/Spots'
 import SpotDetails from "./components/IndividualSpot";
 import FooterComp from "./components/Footer";
+import ReviewComponent from "./components/ReviewforSpot";
 
 function App() {
   const dispatch = useDispatch();
@@ -29,6 +30,7 @@ function App() {
         <Navigation isLoaded={isLoaded} />
 
         <SpotDetails />
+        <ReviewComponent />
         <FooterComp />
         </Route>
       </Switch>
