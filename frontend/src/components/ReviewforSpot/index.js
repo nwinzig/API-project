@@ -37,7 +37,7 @@ const ReviewComponent = () => {
         createReviewLink = (
             <CreateReviewModal />
         )
-    } else if(sessionUser.id === spot.ownerId){
+    } else if(sessionUser && sessionUser.id === spot.ownerId){
         createReviewLink = (
             <>
             <div className='red'>
