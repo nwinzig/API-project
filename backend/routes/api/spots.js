@@ -911,14 +911,34 @@ router.post('/:spotId/reviews', requireAuth, async (req,res,next) => {
     const userId = req.user.id;
     let spotId = req.params.spotId
 
-    if(!review || !stars){
-        return next({
+    // if(!review || !stars){
+    //     return next({
+    //         status:400,
+    //         "message": "Validation Error",
+    //         statusCode: 400,
+    //         "errors": {
+    //             "review": "Review text is required",
+    //             "stars": "Stars must be an integer from 1 to 5",
+    //         }
+    //         })
+    // }
+    if(!stars){
+                return next({
             status:400,
             "message": "Validation Error",
             statusCode: 400,
             "errors": {
-                "review": "Review text is required",
-                "stars": "Stars must be an integer from 1 to 5",
+                "stars": "Stars must be an integer from 1 to 5"
+            }
+            })
+    }
+    if(!review){
+                return next({
+            status:400,
+            "message": "Validation Error",
+            statusCode: 400,
+            "errors": {
+                "review": "Review text is required"
             }
             })
     }

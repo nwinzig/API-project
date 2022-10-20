@@ -46,10 +46,10 @@ export const createSpot = (payload) => async dispatch => {
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(payload)
     })
-    console.log('do we get to response', response)
+
     if(response.ok){
         const data = await response.json()
-        console.log('do we get to data', data)
+
         dispatch(addSpot(data))
         return data
     }

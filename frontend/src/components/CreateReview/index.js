@@ -2,12 +2,16 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
+import { createReview } from "../../store/reviews";
+import { getReviews } from "../../store/reviews";
+function CreateReviewForm({setShowModal}) {
 
-function CreateReviewForm() {
     const history = useHistory()
     const dispatch = useDispatch()
     const { spotId } = useParams()
     const sessionUser = useSelector(state => state.session.user)
+
+
 
     const [review, setReview] = useState('')
     const [stars, setStars] = useState('')
@@ -24,11 +28,14 @@ function CreateReviewForm() {
 
         console.log('should be the payload', payload)
 
-        // let createdReview = await dispatch(createReview(payload))
+        let createdReview = await dispatch(createReview(payload, spotId))
 
-        // if (createdReview) {
-        //     history.push(`/spots/${spotId}`)
-        // }
+        if (createdReview) {
+            setReview('')
+            setStars('')
+            await dispatch(getReviews(spotId))
+            setShowModal(false)
+        }
     }
 
     let errorMessage;
@@ -49,24 +56,24 @@ function CreateReviewForm() {
             </ul>
             <label>
                 How would you rate your stay?
-                <select>
+                <select onChange={(e) => setStars(e.target.value)}>
                     <option value="" disabled>
                         Please choose a number
                     </option>
-                    <option value="1">
-                        1
+                    <option value='5'>
+                        5
                     </option>
-                    <option value="2">
-                        2
-                    </option>
-                    <option value="3">
-                        3
-                    </option>
-                    <option value="4">
+                    <option value='4'>
                         4
                     </option>
-                    <option value="5">
-                        5
+                    <option value='3'>
+                        3
+                    </option>
+                    <option value='2'>
+                        2
+                    </option>
+                    <option value='1'>
+                        1
                     </option>
                 </select>
             </label>
