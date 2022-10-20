@@ -1,0 +1,29 @@
+
+.reviewTitle{
+    font-family: 'Montserrat', sans-serif;
+    padding-top: 2rem;
+    border-top: 1px lightgrey solid;
+    max-width: 80%;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.reviewWrapper{
+    font-family: 'Montserrat', sans-serif;
+    max-height: 100%;
+    max-width: 80%;
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    gap: 10%;
+    padding-top: 1rem;
+    align-items:flex-start;
+    margin: auto;
+    padding-bottom: 50px;
+}
+
+
+.red{
+    color: red;
+}

@@ -5,6 +5,8 @@ import ProfileButton from './ProfileButton';
 import LoginFormModal from '../LoginFormModal';
 import './Navigation.css';
 import  SignupModal from '../SignupFormModal';
+import MyButton from './BnBButton';
+import HostModal from '../CreateSpotModal';
 
 function Navigation({ isLoaded }) {
     const sessionUser = useSelector(state => state.session.user);
@@ -12,7 +14,10 @@ function Navigation({ isLoaded }) {
     let sessionLinks;
     if (sessionUser) {
         sessionLinks = (
+            <>
+            <HostModal />
             <ProfileButton user={sessionUser} />
+            </>
         );
     } else {
         sessionLinks = (
@@ -22,21 +27,14 @@ function Navigation({ isLoaded }) {
             </>
         );
     }
-
-    // return (
-    //     <ul>
-    //         <li>
-    //             <NavLink exact to="/">Home</NavLink>
-    //             {isLoaded && sessionLinks}
-    //         </li>
-    //     </ul>
-    // );
+                // {/* <LoginFormModal />
+                // <SignupModal /> */}
     return (
         <div className='homeBar'>
             <div className='homeLogo'>
                 <NavLink exact to="/">
                     <div>
-                        <i class="fa-brands fa-airbnb"></i>
+                        <i className="fa-brands fa-airbnb"></i>
                     </div>
                     <div className='logoTitle'>
                         BnB
@@ -49,5 +47,24 @@ function Navigation({ isLoaded }) {
         </div>
     );
 }
+//testing
+// return (
+//     <div className='homeBar'>
+//         <div className='homeLogo'>
+//             <NavLink exact to="/">
+//                 <div>
+//                     <i className="fa-brands fa-airbnb"></i>
+//                 </div>
+//                 <div className='logoTitle'>
+//                     BnB
+//                 </div>
+//             </NavLink>
+//         </div>
+//         <div className='signlogbuttons'>
+//         {isLoaded && sessionLinks}
+//         </div>
+//     </div>
+// );
+// }
 
 export default Navigation;

@@ -189,8 +189,9 @@ router.get('/', async (req,res,next) => {
 
             if(image.preview === true){
             spot.previewImage = image.url
+            // console.log("this should set the image url",image.url)
         }
-            if(image.preview === false){
+            if(!image && image.preview === false){
                 spot.previewImage = "No image url"
             }
         })
@@ -270,8 +271,8 @@ router.get('/', async (req,res,next) => {
 router.post('/', requireAuth, async (req,res,next) => {
     const {address, city, state, country, lat, lng, name, description, price} = req.body;
     const userId = req.user.id;
-
-    if(!address || !city || !state || !country || !lat || !lng || !name || !description || !price){
+    console.log("******************",req.body)
+    if(!address || !city || !state || !country || !name || !description || !price){
 
         return next({
             status:400,
@@ -282,8 +283,6 @@ router.post('/', requireAuth, async (req,res,next) => {
                 "city": "City is required",
                 "state": "State is required",
                 "country": "Country is required",
-                "lat": "Latitude is not valid",
-                "lng": "Longitude is not valid",
                 "name": "Name must be less than 50 characters",
                 "description": "Description is required",
                 "price": "Price per day is required"
@@ -912,14 +911,34 @@ router.post('/:spotId/reviews', requireAuth, async (req,res,next) => {
     const userId = req.user.id;
     let spotId = req.params.spotId
 
-    if(!review || !stars){
-        return next({
+    // if(!review || !stars){
+    //     return next({
+    //         status:400,
+    //         "message": "Validation Error",
+    //         statusCode: 400,
+    //         "errors": {
+    //             "review": "Review text is required",
+    //             "stars": "Stars must be an integer from 1 to 5",
+    //         }
+    //         })
+    // }
+    if(!stars){
+                return next({
             status:400,
             "message": "Validation Error",
             statusCode: 400,
             "errors": {
-                "review": "Review text is required",
-                "stars": "Stars must be an integer from 1 to 5",
+                "stars": "Stars must be an integer from 1 to 5"
+            }
+            })
+    }
+    if(!review){
+                return next({
+            status:400,
+            "message": "Validation Error",
+            statusCode: 400,
+            "errors": {
+                "review": "Review text is required"
             }
             })
     }

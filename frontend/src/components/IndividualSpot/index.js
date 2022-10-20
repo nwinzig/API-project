@@ -12,41 +12,83 @@ const SpotDetails = () => {
     const dispatch = useDispatch();
     const {spotId} = useParams();
 
-
     let spot = useSelector(state => state.spots)
 
-    // console.log('owner', spot.Owner)
     useEffect(() => {
         dispatch(getSpot(spotId))
     },[spotId, dispatch])
 
     const ownerObj = {...spot.Owner}
-    console.log('the spot', spot)
-    // const spotImages = {...spot.SpotImages}
-    // console.log("should be object holding objects",spotImages)
-    // let spotImagesArr = Object.values(spotImages)
-    // let manipulateArr = [...spotImagesArr]
+    // console.log('the spot', spot)
+    // console.log('owner', ownerObj)
 
-    // console.log("manipulating spot image data", spotImagesArr)
-    // console.log('do you have a length', spotImagesArr.length)
-    // console.log('manipulate', manipulateArr[0])
-    // let firstObj = manipulateArr[0]
-    // console.log('first Object', firstObj)
-    // let manipulateObj = function (firstObj){
+    let imagesArr = [];
 
-    // }
+    if(spot.SpotImages && typeof spot.SpotImages === 'object'){
+        spot.SpotImages.forEach(image => {
+            imagesArr.push(image.url)
+        });
+    }
 
 
-    // console.log('should be single object', spotImages[0])
-    // let firstImage = spotImages[0].url
-    // console.log('hoping to just have the url of first object',firstImage)
-    // console.log(spotImages[0])
-    // let spotImagesArr = spotImages.map(image => {
-    //     spotImagesArr.push(image)
-    // });
+    let firstInnerImage;
+    if(imagesArr[1]){
+        firstInnerImage = (
+            <img src={imagesArr[1]} alt='spot picture'></img>
+        )
+    } else {
+        firstInnerImage = (
+            <img src='https://res.cloudinary.com/dydhvazpw/image/upload/v1666272842/istockphoto-1357365823-612x612_p6siif.jpg' alt='spot picture'></img>
+        )
+    }
 
-    // console.log('name', spot.name)
-    // console.log(ownerObj.firstName)
+    let secondInnerImage;
+    if(imagesArr[2]){
+        secondInnerImage = (
+            <img src={imagesArr[2]} alt='spot picture'></img>
+        )
+    } else {
+        secondInnerImage = (
+            <img src='https://res.cloudinary.com/dydhvazpw/image/upload/v1666272842/istockphoto-1357365823-612x612_p6siif.jpg' alt='spot picture'></img>
+        )
+    }
+
+    let thirdInnerImage;
+    if(imagesArr[3]){
+        thirdInnerImage = (
+            <img src={imagesArr[3]} alt='spot picture'></img>
+        )
+    } else {
+        thirdInnerImage = (
+            <img src='https://res.cloudinary.com/dydhvazpw/image/upload/v1666272842/istockphoto-1357365823-612x612_p6siif.jpg' alt='spot picture'></img>
+        )
+    }
+
+    let fourthInnerImage;
+    if(imagesArr[4]){
+        fourthInnerImage = (
+            <img src={imagesArr[4]} alt='spot picture'></img>
+        )
+    } else {
+        fourthInnerImage = (
+            <img src='https://res.cloudinary.com/dydhvazpw/image/upload/v1666272842/istockphoto-1357365823-612x612_p6siif.jpg' alt='spot picture'></img>
+        )
+    }
+
+    let previewImage = []
+    if(spot.SpotImages && typeof spot.SpotImages === 'object'){
+        spot.SpotImages.forEach(image => {
+            if(image.preview === true){
+                previewImage.push(image.url)
+            }
+        });
+    } else {
+        previewImage.push('https://res.cloudinary.com/dydhvazpw/image/upload/v1666272842/istockphoto-1357365823-612x612_p6siif.jpg')
+    }
+    previewImage = previewImage[0]
+
+
+
     return (
         <div className='spotWrapper'>
             <div className='titleWrapper'>
@@ -64,7 +106,23 @@ const SpotDetails = () => {
                 </div>
             </div>
             <div className='imageWrapper'>
-                image placeholder
+                <div className='previewImageBlock'>
+                    <img src={previewImage} alt='preview'></img>
+                </div>
+                <div className='imageBlock'>
+                    <div className='firstinnerImage'>
+                        {firstInnerImage}
+                    </div>
+                    <div className='secondinnerImage'>
+                        {secondInnerImage}
+                    </div>
+                    <div className='thirdinnerImage'>
+                        {thirdInnerImage}
+                    </div>
+                    <div className='fourthinnerImage'>
+                        {fourthInnerImage}
+                    </div>
+                </div>
             </div>
             <div className='bodyWrapper'>
                 <h2 className='spotTitle'>{`${spot.name} hosted by ${ownerObj.firstName}`}</h2>

@@ -2,19 +2,19 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { Route, Switch, Link } from 'react-router-dom';
+import {Link } from 'react-router-dom';
 
 import { getSpots } from '../../store/spots';
 
 import './spots.css'
 const SpotCards = () => {
     const dispatch = useDispatch()
-    // const spots = useSelector((state) => state.spots)
+
     const spotsObj = useSelector(state => state.spots)
-    // console.log('spot object',spotsObj)
+
     const spots = Object.values(spotsObj)
     // console.log(spots)
-    // console.log('spots', spots)
+    console.log('spots', spots)
 
     useEffect(() => {
         dispatch(getSpots())
@@ -26,7 +26,7 @@ const SpotCards = () => {
             {spots.map(spot => (
                 <Link to={`/spots/${spot.id}`} className='card' key={spot.id}>
                     <div className='cardImage'>
-                        <img src='https://cdn.thewirecutter.com/wp-content/media/2022/05/sofa-buying-guide-2048px-67.jpg' alt='Couch Image'></img>
+                        <img src={spot.previewImage} alt='Spot preview'></img>
                     </div>
                     <div className='cardInfo'>
                         <div className='location-rating'>

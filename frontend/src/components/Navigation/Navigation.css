@@ -28,5 +28,7 @@
     padding-left: 10px;
 }
 .signlogbuttons{
+    right: 5%;
+    position: absolute;
     padding-right: 5%;
 }

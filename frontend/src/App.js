@@ -8,6 +8,8 @@ import Navigation from "./components/Navigation";
 import SpotCards from '../src/components/Spots'
 import SpotDetails from "./components/IndividualSpot";
 import FooterComp from "./components/Footer";
+import ReviewComponent from "./components/ReviewforSpot";
+import HostASpot from "./components/CreateSpot";
 
 function App() {
   const dispatch = useDispatch();
@@ -25,12 +27,20 @@ function App() {
           <SpotCards />
           <FooterComp />
         </Route>
-        <Route exact path={`/spots/:spotId`}>
-        <Navigation isLoaded={isLoaded} />
 
-        <SpotDetails />
+        <Route exact path={`/spots/create`}>
+        <Navigation isLoaded={isLoaded} />
+        <HostASpot />
         <FooterComp />
         </Route>
+
+        <Route exact path={`/spots/:spotId`}>
+        <Navigation isLoaded={isLoaded} />
+        <SpotDetails />
+        <ReviewComponent />
+        <FooterComp />
+        </Route>
+
       </Switch>
 
     </>
