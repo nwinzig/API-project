@@ -19,18 +19,16 @@ const SpotDetails = () => {
     },[spotId, dispatch])
 
     const ownerObj = {...spot.Owner}
-    console.log('the spot', spot)
+    // console.log('the spot', spot)
 
     let imagesArr = [];
-    // console.log('images arr', typeof imagesArr)
-    // console.log("what do i get for spotImages", spot.SpotImages)
-    // console.log(typeof spot.SpotImages === 'object')
+
     if(spot.SpotImages && typeof spot.SpotImages === 'object'){
         spot.SpotImages.forEach(image => {
             imagesArr.push(image.url)
         });
     }
-    console.log('this should be an images array', imagesArr)
+
 
     let firstInnerImage;
     if(imagesArr[1]){
@@ -39,7 +37,7 @@ const SpotDetails = () => {
         )
     } else {
         firstInnerImage = (
-            <div className='noImage'> No Image</div>
+            <img src='https://res.cloudinary.com/dydhvazpw/image/upload/v1666272842/istockphoto-1357365823-612x612_p6siif.jpg' alt='spot picture'></img>
         )
     }
 
@@ -50,7 +48,7 @@ const SpotDetails = () => {
         )
     } else {
         secondInnerImage = (
-            <div className='noImage'> No Image</div>
+            <img src='https://res.cloudinary.com/dydhvazpw/image/upload/v1666272842/istockphoto-1357365823-612x612_p6siif.jpg' alt='spot picture'></img>
         )
     }
 
@@ -61,7 +59,7 @@ const SpotDetails = () => {
         )
     } else {
         thirdInnerImage = (
-            <div className='noImage'> No Image</div>
+            <img src='https://res.cloudinary.com/dydhvazpw/image/upload/v1666272842/istockphoto-1357365823-612x612_p6siif.jpg' alt='spot picture'></img>
         )
     }
 
@@ -72,7 +70,7 @@ const SpotDetails = () => {
         )
     } else {
         fourthInnerImage = (
-            <div className='noImage'> No Image</div>
+            <img src='https://res.cloudinary.com/dydhvazpw/image/upload/v1666272842/istockphoto-1357365823-612x612_p6siif.jpg' alt='spot picture'></img>
         )
     }
 
@@ -83,6 +81,8 @@ const SpotDetails = () => {
                 previewImage.push(image.url)
             }
         });
+    } else {
+        previewImage.push('https://res.cloudinary.com/dydhvazpw/image/upload/v1666272842/istockphoto-1357365823-612x612_p6siif.jpg')
     }
     previewImage = previewImage[0]
 

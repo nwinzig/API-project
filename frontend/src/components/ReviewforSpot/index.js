@@ -20,17 +20,23 @@ const ReviewComponent = () => {
         dispatch(getReviews(spotId))
     }, [dispatch])
 
+    let reviewArray = [];
 
+    if(reviewsListArr.length >= 1){
+        reviewsListArr.forEach(review => {
+            reviewArray.push(review)
+        })
+    }
     return (
         <>
         <div className='reviewTitle'>
         <h2>Reviews</h2>
         </div>
         <div className='reviewWrapper'>
-            {reviewsListArr.map(review => (
+            {reviewArray.map(review => (
                 <div>
                     <h3>
-                        user name
+                        {review.User.firstName}
                     </h3>
                     <p>
                         {review.review}
