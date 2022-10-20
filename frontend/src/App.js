@@ -27,17 +27,20 @@ function App() {
           <SpotCards />
           <FooterComp />
         </Route>
+
         <Route exact path={`/spots/create`}>
         <Navigation isLoaded={isLoaded} />
         <HostASpot />
         <FooterComp />
         </Route>
+
         <Route exact path={`/spots/:spotId`}>
         <Navigation isLoaded={isLoaded} />
         <SpotDetails />
         <ReviewComponent />
         <FooterComp />
         </Route>
+
       </Switch>
 
     </>
