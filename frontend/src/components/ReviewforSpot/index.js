@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Link, useParams } from 'react-router-dom';
@@ -16,10 +16,22 @@ const ReviewComponent = () => {
     const sessionUser = useSelector(state => state.session.user)
     let spot = useSelector(state => state.spots)
 
-    console.log('specific user', sessionUser)
-    // console.log('user id', sessionUser.id)
+    const reviewsList = useSelector(state => state.reviews)
 
-    console.log('spot owner', spot.ownerId)
+    const reviewsListArr = Object.values(reviewsList)
+    useEffect(() => {
+        dispatch(getReviews(spotId))
+    }, [dispatch])
+
+    let reviewArray = [];
+
+    if (reviewsListArr.length >= 1) {
+        reviewsListArr.forEach(review => {
+            reviewArray.push(review)
+        })
+    }
+
+
     let createReviewLink;
     if (sessionUser && sessionUser.id !== spot.ownerId) {
         createReviewLink = (
@@ -44,24 +56,7 @@ const ReviewComponent = () => {
         )
     }
 
-    // console.log('spot in review', spot)
-    // console.log('spot owner', owner)
-    const reviewsList = useSelector(state => state.reviews)
 
-    // console.log('all reviews for the spot', reviewsList)
-    const reviewsListArr = Object.values(reviewsList)
-    console.log('reviews in an array', reviewsListArr)
-    useEffect(() => {
-        dispatch(getReviews(spotId))
-    }, [dispatch])
-
-    let reviewArray = [];
-
-    if (reviewsListArr.length >= 1) {
-        reviewsListArr.forEach(review => {
-            reviewArray.push(review)
-        })
-    }
     return (
         <>
             <div className='reviewTitle'>
