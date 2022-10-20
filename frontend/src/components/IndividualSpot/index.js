@@ -22,8 +22,10 @@ const SpotDetails = () => {
     console.log('the spot', spot)
 
     let imagesArr = [];
-
-    if(spot.SpotImages){
+    // console.log('images arr', typeof imagesArr)
+    // console.log("what do i get for spotImages", spot.SpotImages)
+    // console.log(typeof spot.SpotImages === 'object')
+    if(spot.SpotImages && typeof spot.SpotImages === 'object'){
         spot.SpotImages.forEach(image => {
             imagesArr.push(image.url)
         });
@@ -75,7 +77,7 @@ const SpotDetails = () => {
     }
 
     let previewImage = []
-    if(spot.SpotImages){
+    if(spot.SpotImages && typeof spot.SpotImages === 'object'){
         spot.SpotImages.forEach(image => {
             if(image.preview === true){
                 previewImage.push(image.url)

@@ -1,0 +1,48 @@
+
+.dropDown{
+    position: relative;
+}
+
+.homeButton{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    justify-content: space-evenly;
+    list-style-type: none;
+    margin: 5px 0;
+    padding: 0;
+    border-radius: 25px;
+    border: 1px solid lightgrey;
+    width: 100px;
+    height: 40px;
+    background-color: white;
+}
+
+.homeButton i{
+    size: 30px;
+}
+
+.homepagePullDown{
+    position: absolute;
+    margin: 5px 0;
+    padding: 0;
+    border-radius: 10px;
+    box-shadow: 0px 0px 2px 2px lightgray;
+    width: 150px;
+}
+
+.logInButton{
+    background-color: white;
+    text-decoration: none;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.signUpButton{
+    background-color: white;
+    padding-bottom: 15px;
+}
+
+.signUpButton:hover{
+    background-color: lightgray;
+}

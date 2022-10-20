@@ -271,8 +271,8 @@ router.get('/', async (req,res,next) => {
 router.post('/', requireAuth, async (req,res,next) => {
     const {address, city, state, country, lat, lng, name, description, price} = req.body;
     const userId = req.user.id;
-
-    if(!address || !city || !state || !country || !lat || !lng || !name || !description || !price){
+    console.log("******************",req.body)
+    if(!address || !city || !state || !country || !name || !description || !price){
 
         return next({
             status:400,
@@ -283,8 +283,6 @@ router.post('/', requireAuth, async (req,res,next) => {
                 "city": "City is required",
                 "state": "State is required",
                 "country": "Country is required",
-                "lat": "Latitude is not valid",
-                "lng": "Longitude is not valid",
                 "name": "Name must be less than 50 characters",
                 "description": "Description is required",
                 "price": "Price per day is required"
