@@ -1,0 +1,12 @@
+
+
+
+.hostModal a{
+    color: black;
+    border: 1px solid lightgray;
+    box-shadow: 0 0 1px 1px grey;
+}
+
+.hostModal a:hover{
+    box-shadow: 0 0 2px 2px lightcoral;
+}

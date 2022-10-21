@@ -14,17 +14,17 @@ function Navigation({ isLoaded }) {
     let sessionLinks;
     if (sessionUser) {
         sessionLinks = (
-            <>
-            <HostModal />
-            <ProfileButton user={sessionUser} />
-            </>
+            <div className='loggedInNav'>
+                <HostModal />
+                <ProfileButton user={sessionUser} />
+            </div>
         );
     } else {
         sessionLinks = (
-            <>
+            <div className='standardNav'>
                 <LoginFormModal />
                 <SignupModal />
-            </>
+            </div>
         );
     }
                 // {/* <LoginFormModal />

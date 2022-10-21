@@ -19,6 +19,7 @@ const ReviewComponent = () => {
 
     const reviewsList = useSelector(state => state.reviews)
     const reviewsListArr = Object.values(reviewsList)
+
     useEffect(() => {
         dispatch(getReviews(spotId))
     }, [dispatch])
@@ -31,7 +32,7 @@ const ReviewComponent = () => {
         })
     }
 
-    console.log('what do reviews look like per spot', reviewArray)
+    console.log('array', reviewArray)
 
     let createReviewLink;
     if (sessionUser && sessionUser.id !== spot.ownerId) {

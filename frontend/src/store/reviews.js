@@ -19,27 +19,6 @@ export const getReviews = (id) => async dispatch => {
 }
 
 
-// //load one review
-// const LOAD_REVIEW = '/reviews/LOAD_REVIEW'
-
-// const loadOneReview = data => ({
-//     type:LOAD_REVIEW,
-//     data
-// })
-
-// export const loadReview = (id) => async dispatch => {
-//     const response = await csrfFetch(`/api/reviews/${id}`)
-
-//     if(response.ok){
-//         const data = await response.json()
-//         dispatch(loadOneReview(data))
-//         return data
-//     }
-// }
-
-
-
-
 //create review
 const ADD_REVIEW = '/api/ADD_REVIEW'
 
@@ -92,6 +71,10 @@ const reviewsReducer = (state = initialState, action) => {
     let newState = {};
     switch(action.type){
         case LOAD_REVIEWS:
+            state.spots = {}
+            // newState.reviews = {}
+            // state.reviews = {}
+            state.reviews = {}
         action.reviews.forEach(review => {
             newState[review.id] = review
         });
