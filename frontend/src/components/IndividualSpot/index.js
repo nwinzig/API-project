@@ -3,28 +3,43 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
-
+import UpdateSpotModal from '../UpdateSpot/UpdateSpotModal';
 import { getSpot } from '../../store/spots';
 import './individualSpot.css'
 
 
 const SpotDetails = () => {
     const dispatch = useDispatch();
-    const {spotId} = useParams();
-
+    const { spotId } = useParams();
+    const sessionUser = useSelector(state => state.session.user)
     let spot = useSelector(state => state.spots)
 
     useEffect(() => {
         dispatch(getSpot(spotId))
-    },[spotId, dispatch])
+    }, [spotId, dispatch])
 
-    const ownerObj = {...spot.Owner}
-    // console.log('the spot', spot)
+    const ownerObj = { ...spot.Owner }
+    console.log('the spot', spot)
     // console.log('owner', ownerObj)
+
+    let createUpdateLink;
+    if (sessionUser && sessionUser.id === spot.ownerId) {
+        createUpdateLink = (
+            <UpdateSpotModal />
+        )
+    }
+    // else {
+    //     createUpdateLink = (
+    //         <div className='red'>
+    //             You cannot edit this spot
+    //         </div>
+    //     )
+    // }
+
 
     let imagesArr = [];
 
-    if(spot.SpotImages && typeof spot.SpotImages === 'object'){
+    if (spot.SpotImages && typeof spot.SpotImages === 'object') {
         spot.SpotImages.forEach(image => {
             imagesArr.push(image.url)
         });
@@ -32,7 +47,7 @@ const SpotDetails = () => {
 
 
     let firstInnerImage;
-    if(imagesArr[1]){
+    if (imagesArr[1]) {
         firstInnerImage = (
             <img src={imagesArr[1]} alt='spot picture'></img>
         )
@@ -43,7 +58,7 @@ const SpotDetails = () => {
     }
 
     let secondInnerImage;
-    if(imagesArr[2]){
+    if (imagesArr[2]) {
         secondInnerImage = (
             <img src={imagesArr[2]} alt='spot picture'></img>
         )
@@ -54,7 +69,7 @@ const SpotDetails = () => {
     }
 
     let thirdInnerImage;
-    if(imagesArr[3]){
+    if (imagesArr[3]) {
         thirdInnerImage = (
             <img src={imagesArr[3]} alt='spot picture'></img>
         )
@@ -65,7 +80,7 @@ const SpotDetails = () => {
     }
 
     let fourthInnerImage;
-    if(imagesArr[4]){
+    if (imagesArr[4]) {
         fourthInnerImage = (
             <img src={imagesArr[4]} alt='spot picture'></img>
         )
@@ -76,9 +91,9 @@ const SpotDetails = () => {
     }
 
     let previewImage = []
-    if(spot.SpotImages && typeof spot.SpotImages === 'object'){
+    if (spot.SpotImages && typeof spot.SpotImages === 'object') {
         spot.SpotImages.forEach(image => {
-            if(image.preview === true){
+            if (image.preview === true) {
                 previewImage.push(image.url)
             }
         });
@@ -92,17 +107,20 @@ const SpotDetails = () => {
     return (
         <div className='spotWrapper'>
             <div className='titleWrapper'>
-                <div>
+                <div className='handleUpdate'>
                     <h1 className='spotTitle'>{spot.name}</h1>
+                    <div className='updateButton'>
+                        {createUpdateLink}
+                    </div>
                 </div>
                 <div className='spotHeaderDetails'>
-                <i className="fa-solid fa-star"></i>{`${spot.avgStarReviews}`}
-                <Link to={'/'}>
-                    {`${spot.numReviews} reviews`}
-                </Link>
-                <div>
-                    {`${spot.city}, ${spot.state}, ${spot.country}`}
-                </div>
+                    <i className="fa-solid fa-star"></i>{`${spot.avgStarReviews}`}
+                    <Link to={'/'}>
+                        {`${spot.numReviews} reviews`}
+                    </Link>
+                    <div>
+                        {`${spot.city}, ${spot.state}, ${spot.country}`}
+                    </div>
                 </div>
             </div>
             <div className='imageWrapper'>

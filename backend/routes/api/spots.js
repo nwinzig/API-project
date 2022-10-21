@@ -846,7 +846,7 @@ router.put('/:spotId', requireAuth, async (req,res,next) => {
     const userId = req.user.id;
 
     //validation error
-    if(!address || !city || !state || !country || !lat || !lng || !name || !description || !price){
+    if(!address || !city || !state || !country || !name || !description || !price){
         return next({
             status:400,
             "message": "Validation Error",
@@ -856,8 +856,6 @@ router.put('/:spotId', requireAuth, async (req,res,next) => {
                 "city": "City is required",
                 "state": "State is required",
                 "country": "Country is required",
-                "lat": "Latitude is not valid",
-                "lng": "Longitude is not valid",
                 "name": "Name must be less than 50 characters",
                 "description": "Description is required",
                 "price": "Price per day is required"

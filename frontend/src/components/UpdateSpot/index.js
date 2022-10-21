@@ -1,20 +1,17 @@
+import { useDispatch, useSelector } from "react-redux"
+import { useHistory, useParams } from "react-router-dom"
+import { useState } from "react"
+import { updateSpot } from "../../store/spots"
 
-
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-
-import { Link, useHistory } from 'react-router-dom';
-
-import { createSpot } from '../../store/spots';
-import './CreateaSpot.css'
-
-const HostASpot = ({ data }) => {
+const UpdateASpot = ({setShowModal}) => {
     const history = useHistory()
     const dispatch = useDispatch()
     const sessionUser = useSelector(state => state.session.user)
-    if (!sessionUser) {
-        history.push('/')
-    }
+
+    const {spotId} = useParams()
+    let spot = useSelector(state => state.spots)
+    console.log('spot to update', spot)
+
     const [address, setAddress] = useState('')
     const [city, setCity] = useState('')
     const [state, setState] = useState('')
@@ -41,28 +38,22 @@ const HostASpot = ({ data }) => {
             description,
             price
         }
-        // console.log("should be collected info", payload)
-        let createdSpot = await dispatch(createSpot(payload))
-        if (createdSpot) {
 
-            history.push(`/`)
+        console.log('updated payload', payload)
+
+        let updatedSpot = await dispatch(updateSpot(payload, spotId))
+
+        if(updatedSpot){
+            setShowModal(false)
+            window.location.reload()
         }
     }
-    let errorMessage;
-    if (errors.length >= 1) {
-        errorMessage = (
-            <ul>
-                {errors.map((error, idx) => <li key={idx}>{error}</li>)}
-            </ul>
-        )
-    }
+
+
     return (
         <div className='formWrapper'>
-            <div className='title'>
-                Please Fill out to start Hosting
-            </div>
+
             <form onSubmit={handleSubmit}>
-                {errorMessage}
                 <label>
                     Address
                     <input
@@ -147,12 +138,12 @@ const HostASpot = ({ data }) => {
                         onChange={(e) => setPrice(e.target.value)}
                     />
                 </label>
-                <button type="submit">Host this spot</button>
+                <button type="submit">Update this spot</button>
             </form>
         </div>
     )
-
 }
 
 
-export default HostASpot
+
+export default UpdateASpot;

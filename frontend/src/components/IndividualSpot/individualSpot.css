@@ -23,10 +23,21 @@ h2{
 .spotTitle{
     font-weight: 500;
 }
+
+.handleUpdate{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.updateButton{
+    top: 0px;
+}
 .spotHeaderDetails{
     display: flex;
     font-weight: 400;
     padding-top: 1rem;
+
 }
 .spotHeaderDetails div{
     padding-left: 10px;
@@ -39,7 +50,8 @@ h2{
 }
 
 .imageWrapper{
-    /* padding-top: 1rem; */
+    margin-top: 10px;
+    padding-top: 2rem;
     /* background-color: green; */
     height: 30%;
     border-radius: 10%;
@@ -124,4 +136,8 @@ h2{
 
 .noImage{
     background-color: grey;
+}
+
+.red{
+    color: red
 }
