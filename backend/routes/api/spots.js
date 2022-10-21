@@ -247,7 +247,7 @@ router.get('/', async (req,res,next) => {
         }
         //no reviews
             if(!spot.avgRating){
-            spot.avgRating = "There are currently no reviews for this spot."
+            spot.avgRating = "No Reviews"
             delete spot.Reviews
         }
 
