@@ -6,6 +6,7 @@ import { Modal } from '../../context/Modal';
 
 import { getReviews } from '../../store/reviews';
 import CreateReviewModal from '../CreateReview/CreateReviewModal';
+import HandleReviewDelete from '../DeleteReview';
 
 import './reviewForSpot.css'
 
@@ -17,7 +18,6 @@ const ReviewComponent = () => {
     let spot = useSelector(state => state.spots)
 
     const reviewsList = useSelector(state => state.reviews)
-
     const reviewsListArr = Object.values(reviewsList)
     useEffect(() => {
         dispatch(getReviews(spotId))
@@ -31,6 +31,7 @@ const ReviewComponent = () => {
         })
     }
 
+    console.log('what do reviews look like per spot', reviewArray)
 
     let createReviewLink;
     if (sessionUser && sessionUser.id !== spot.ownerId) {
@@ -68,9 +69,14 @@ const ReviewComponent = () => {
             <div className='reviewWrapper'>
                 {reviewArray?.map(review => (
                     <div>
+                        <div className='reviewTitleWrapper'>
                         <h3>
                             {review?.User?.firstName}
                         </h3>
+                        <div className='deleteWrapper'>
+                        {sessionUser.id === review.userId && (<HandleReviewDelete reviewId={review.id}/>)}
+                        </div>
+                        </div>
                         <p>
                             {review?.review}
                         </p>

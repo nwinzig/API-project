@@ -23,6 +23,18 @@
     padding-bottom: 50px;
 }
 
+.reviewTitleWrapper{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.deleteWrapper{
+    color: red;
+    font-size: small;
+    text-decoration: underline;
+}
+
 
 .red{
     color: red;

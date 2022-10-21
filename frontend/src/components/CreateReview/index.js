@@ -35,6 +35,7 @@ function CreateReviewForm({setShowModal}) {
             setStars('')
             await dispatch(getReviews(spotId))
             setShowModal(false)
+            window.location.reload()
         }
     }
 
@@ -57,7 +58,7 @@ function CreateReviewForm({setShowModal}) {
             <label>
                 How would you rate your stay?
                 <select onChange={(e) => setStars(e.target.value)}>
-                    <option value="" disabled>
+                    <option value="">
                         Please choose a number
                     </option>
                     <option value='5'>

@@ -82,6 +82,25 @@ export const updateSpot = (payload, spotId) => async dispatch => {
     }
 }
 
+
+//delete
+const DELETE_SPOT = 'spots/DELETE_SPOT'
+
+const actionDelete = spotId => ({
+    type: DELETE_SPOT,
+    spotId
+})
+
+export const deleteSpot = (spotId) => async dispatch => {
+    const response = await csrfFetch(`/api/spots/${spotId}`, {
+        method: 'DELETE'
+    })
+
+    if(response.ok){
+        dispatch(actionDelete(spotId))
+    }
+}
+
 //initial state
 const initialState = {}
 
@@ -105,6 +124,11 @@ const spotReducer = (state = initialState, action) => {
         case UPDATE_SPOT:{
             newState = {...state, [action.data.id]: action.data}
             return newState;
+        }
+        case DELETE_SPOT:{
+            newState = {...state}
+            delete newState[action.spotId]
+            return newState
         }
         default:
             return state

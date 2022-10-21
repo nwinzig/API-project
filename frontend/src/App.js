@@ -41,6 +41,13 @@ function App() {
         <FooterComp />
         </Route>
 
+        {/* <Route exact path={`/reviews/:reviewId`}>
+        <Navigation isLoaded={isLoaded} />
+
+
+        <FooterComp />
+        </Route> */}
+
       </Switch>
 
     </>

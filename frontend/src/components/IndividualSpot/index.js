@@ -28,13 +28,6 @@ const SpotDetails = () => {
             <UpdateSpotModal />
         )
     }
-    // else {
-    //     createUpdateLink = (
-    //         <div className='red'>
-    //             You cannot edit this spot
-    //         </div>
-    //     )
-    // }
 
 
     let imagesArr = [];

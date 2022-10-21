@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { useHistory, useParams } from "react-router-dom"
 import { useState } from "react"
 import { updateSpot } from "../../store/spots"
+import DeleteSpotModal from "../DeleteSpot/DeleteSpotModal"
 
 const UpdateASpot = ({setShowModal}) => {
     const history = useHistory()
@@ -139,7 +140,11 @@ const UpdateASpot = ({setShowModal}) => {
                     />
                 </label>
                 <button type="submit">Update this spot</button>
+                <div>
+                    <DeleteSpotModal />
+                </div>
             </form>
+
         </div>
     )
 }
