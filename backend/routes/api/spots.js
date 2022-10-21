@@ -478,7 +478,7 @@ router.get('/:spotId/reviews', async (req,res,next) => {
     if(reviews.length < 1){
         return next({
             status:404,
-            "message": "Spot couldn't be found",
+            "message": "No Reviews",
             statusCode: 404
             })
     }
