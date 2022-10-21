@@ -44,7 +44,7 @@ const addSpot = data => ({
     data
 })
 
-export const createSpot = (payload) => async dispatch => {
+export const createSpot = (payload, image) => async dispatch => {
     const response = await csrfFetch('/api/spots', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
@@ -52,10 +52,19 @@ export const createSpot = (payload) => async dispatch => {
     })
 
     if(response.ok){
-        const data = await response.json()
+        let data = await response.json()
+        const spotId = data.id
+        const newResponse = await csrfFetch(`/api/spots/${spotId}/images`, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(image)
+        })
 
-        dispatch(addSpot(data))
-        return data
+        if(newResponse.ok){
+            data = await newResponse.json()
+            dispatch(addSpot(data))
+            return data
+        }
     }
 }
 

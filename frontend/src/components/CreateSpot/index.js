@@ -24,6 +24,10 @@ const HostASpot = ({ data }) => {
     const [name, setName] = useState('')
     const [description, setDescription] = useState('')
     const [price, setPrice] = useState('')
+
+    const [url, setUrl] = useState('')
+
+
     const [errors, setErrors] = useState([]);
 
     const handleSubmit = async (e) => {
@@ -41,8 +45,13 @@ const HostASpot = ({ data }) => {
             description,
             price
         }
+
+        const image = {
+            url,
+            preview:true
+        }
         // console.log("should be collected info", payload)
-        let createdSpot = await dispatch(createSpot(payload))
+        let createdSpot = await dispatch(createSpot(payload, image))
         if (createdSpot) {
 
             history.push(`/`)
@@ -128,6 +137,15 @@ const HostASpot = ({ data }) => {
                         type="text"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
+                    />
+                </label>
+                <label>
+                    Image URL
+                    <input
+                        placeholder='Image URL'
+                        type="text"
+                        value={url}
+                        onChange={(e) => setUrl(e.target.value)}
                     />
                 </label>
                 <label>
