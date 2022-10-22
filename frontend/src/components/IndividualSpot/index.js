@@ -121,17 +121,25 @@ const SpotDetails = () => {
                     <img src={previewImage} alt='preview'></img>
                 </div>
                 <div className='imageBlock'>
-                    <div className='firstinnerImage'>
+                    <div className='imgContainer'>
+                        <div className='firstImage'>
                         {firstInnerImage}
+                        </div>
                     </div>
-                    <div className='secondinnerImage'>
+                    <div className='imgContainer'>
+                        <div className='secondImage'>
                         {secondInnerImage}
+                        </div>
                     </div>
-                    <div className='thirdinnerImage'>
+                    <div className='imgContainer'>
+                        <div className='thirdImage'>
                         {thirdInnerImage}
+                        </div>
                     </div>
-                    <div className='fourthinnerImage'>
+                    <div className='imgContainer'>
+                        <div className='fourthImage'>
                         {fourthInnerImage}
+                        </div>
                     </div>
                 </div>
             </div>
