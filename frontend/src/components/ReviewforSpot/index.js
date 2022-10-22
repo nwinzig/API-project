@@ -35,11 +35,11 @@ const ReviewComponent = () => {
     console.log('array', reviewArray)
 
     let createReviewLink;
-    if (sessionUser && sessionUser.id !== spot.ownerId) {
+    if (sessionUser && sessionUser?.id !== spot?.ownerId) {
         createReviewLink = (
             <CreateReviewModal />
         )
-    } else if(sessionUser && sessionUser.id === spot.ownerId){
+    } else if(sessionUser && sessionUser?.id === spot?.ownerId){
         createReviewLink = (
             <>
             <div className='red'>
@@ -75,7 +75,7 @@ const ReviewComponent = () => {
                             {review?.User?.firstName}
                         </h3>
                         <div className='deleteWrapper'>
-                        {sessionUser.id === review.userId && (<HandleReviewDelete reviewId={review.id}/>)}
+                        {sessionUser?.id === review?.userId && (<HandleReviewDelete reviewId={review.id}/>)}
                         </div>
                         </div>
                         <p>

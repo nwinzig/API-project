@@ -7,7 +7,7 @@ function UpdateSpotModal() {
 
     return (
         <div className="updateButtonWrapper">
-            <div className='updateButton' onClick={() => setShowModal(true)}>Update your spot</div>
+            <div className='updateButton' onClick={() => setShowModal(true)}>Update Spot</div>
             {showModal && (
                 <Modal onClose={() => setShowModal(false)}>
                     <UpdateASpot setShowModal={setShowModal}/>
