@@ -10,8 +10,9 @@ const loadReviews = reviews => ({
 })
 
 export const getReviews = (id) => async dispatch => {
+    console.log('what about here')
     const response = await csrfFetch(`/api/spots/${id}/reviews`)
-
+    console.log('what happens here', response)
     if(response.ok){
         const data = await response.json()
         dispatch(loadReviews(data.Reviews))
@@ -71,10 +72,8 @@ const reviewsReducer = (state = initialState, action) => {
     let newState = {};
     switch(action.type){
         case LOAD_REVIEWS:
-            state.spots = {}
-            // newState.reviews = {}
-            // state.reviews = {}
-            state.reviews = {}
+
+            newState = {}
         action.reviews.forEach(review => {
             newState[review.id] = review
         });

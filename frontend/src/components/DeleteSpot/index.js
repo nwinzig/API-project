@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { useHistory, useParams } from "react-router-dom"
 import { useState } from "react"
 import { deleteSpot } from "../../store/spots"
-
+import './deleteSpot.css'
 
 const DeleteASpot = ({setShowModal}) => {
     const history = useHistory()
@@ -29,7 +29,7 @@ const DeleteASpot = ({setShowModal}) => {
     }
 
     return (
-        <div className="deleteWrapper">
+        <div className="deleteButtonWrapper">
             <h2 className="deleteWarning">
                 Warning: Delete Cannot Be Undone
             </h2>

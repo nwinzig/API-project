@@ -108,9 +108,9 @@ const SpotDetails = () => {
                 </div>
                 <div className='spotHeaderDetails'>
                     <i className="fa-solid fa-star"></i>{`${spot.avgStarReviews}`}
-                    <Link to={'/'}>
+                    <div>
                         {`${spot.numReviews} reviews`}
-                    </Link>
+                    </div>
                     <div>
                         {`${spot.city}, ${spot.state}, ${spot.country}`}
                     </div>

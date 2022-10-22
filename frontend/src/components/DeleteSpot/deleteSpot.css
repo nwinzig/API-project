@@ -1,11 +1,27 @@
 
+.deleteHolder{
+    display: flex;
+    justify-content: center;
+
+}
+
+
 .redWarning{
     color: red;
     font-weight: bold;
     border: 1px red solid;
+
+
 }
 
 .redWarning:hover{
     box-shadow: 0 0 2px 2px black;
     background-color: lightgrey;
+}
+
+.deleteButtonWrapper{
+    border: 2px black solid;
+    background-color: white;
+    height: 100px;
+    border-radius: 5px;
 }

@@ -7,14 +7,14 @@ function DeleteSpotModal () {
     const [showModal, setShowModal] = useState(false)
 
     return (
-        <>
+        <div className="deleteHolder">
             <button className='redWarning' onClick={() => setShowModal(true)}>Delete your spot</button>
             {showModal && (
                 <Modal onClose={() => setShowModal(false)}>
                     <DeleteASpot setShowModal={setShowModal} />
                 </Modal>
             )}
-        </>
+        </div>
     )
 
 }
