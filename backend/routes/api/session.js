@@ -21,7 +21,7 @@ const validateLogin = [
     handleValidationErrors
 ];
 
-router.post('/', async (req, res, next) => {
+router.post('/', validateLogin, async (req, res, next) => {
     const { credential, password } = req.body;
 
     if(!credential || !password){
@@ -40,8 +40,10 @@ router.post('/', async (req, res, next) => {
     if (!user) {
         return next({
             status: 401,
-            "message": "Invalid Credentials",
-            "statusCode": 401
+            message: "Invalid Credentials",
+            statusCode: 401,
+            errors: "Invalid Username or Password",
+
         })
     }
 

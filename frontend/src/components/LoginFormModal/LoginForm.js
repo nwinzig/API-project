@@ -14,7 +14,12 @@ function LoginForm() {
         return dispatch(sessionActions.login({ credential, password })).catch(
             async (res) => {
                 const data = await res.json();
-                if (data && data.errors) setErrors(data.errors);
+                // console.log('is there data here', data)
+                // console.log('does this catch errors', data.errors)
+                // console.log('what happens here', typeof data.errors)
+                // if (data && data.errors) setErrors(data.errors);
+                if (data) setErrors([data.errors]);
+                // console.log('what does errors look like', errors)
             }
         );
     };
@@ -22,9 +27,9 @@ function LoginForm() {
     return (
         <form onSubmit={handleSubmit}>
             <ul>
-                {errors.map((error, idx) => (
+                {errors.map((error, idx) =>
                     <li key={idx}>{error}</li>
-                ))}
+                )}
             </ul>
             <label>
                 Username or Email
