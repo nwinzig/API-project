@@ -167,7 +167,7 @@ const UpdateASpot = ({setShowModal}) => {
                         required
                         placeholder='Please provide a description for your location.'
                         type="text"
-                        max='250'
+                        maxLength='125'
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
                     />
