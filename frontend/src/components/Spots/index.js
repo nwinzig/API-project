@@ -14,7 +14,7 @@ const SpotCards = () => {
 
     const spots = Object.values(spotsObj)
     // console.log(spots)
-    console.log('spots', spots)
+    // console.log('spots', spots)
 
     useEffect(() => {
         dispatch(getSpots())
