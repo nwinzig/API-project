@@ -925,9 +925,7 @@ router.post('/:spotId/reviews', requireAuth, async (req,res,next) => {
             status:400,
             "message": "Validation Error",
             statusCode: 400,
-            "errors": {
-                "stars": "Stars must be an integer from 1 to 5"
-            }
+            errors: "Please select a rating"
             })
     }
     if(!review){
