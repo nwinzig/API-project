@@ -32,7 +32,7 @@ const ReviewComponent = () => {
         })
     }
 
-    console.log('array', reviewArray)
+    // console.log('array', reviewArray)
 
     let createReviewLink;
     if (sessionUser && sessionUser?.id !== spot?.ownerId) {

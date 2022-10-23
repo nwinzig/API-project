@@ -865,12 +865,21 @@ router.put('/:spotId', requireAuth, async (req,res,next) => {
                 "city": "City is required",
                 "state": "State is required",
                 "country": "Country is required",
-                "name": "Name must be less than 50 characters",
+                "name": "Name is required",
                 "description": "Description is required",
                 "price": "Price per day is required"
             }
             })
     }
+    // if (name.length >= 50) {
+    //     return next({
+    //         status: 400,
+    //         message: "Name too long",
+    //         statusCode: 400,
+    //         errors: "Name must be less than 50 characters",
+
+    //     })
+    // }
   //find spot
     let desiredSpot = await Spot.findByPk(spotId)
     //couldn't find spot or isnt valid owner

@@ -127,6 +127,7 @@ const HostASpot = ({ data }) => {
                         type="number"
                         min='-90'
                         max='90'
+                        step="0.0001"
                         value={lat}
                         onChange={(e) => setLat(e.target.value)}
                     />
@@ -138,6 +139,7 @@ const HostASpot = ({ data }) => {
                         type="number"
                         min='-180'
                         max='180'
+                        step="0.0001"
                         value={lng}
                         onChange={(e) => setLng(e.target.value)}
                     />
@@ -148,6 +150,7 @@ const HostASpot = ({ data }) => {
                         placeholder='Name of the Location'
                         type="text"
                         value={name}
+                        maxLength='50'
                         onChange={(e) => setName(e.target.value)}
                         required
                     />
@@ -178,6 +181,7 @@ const HostASpot = ({ data }) => {
                         type="number"
                         value={price}
                         min='0'
+                        step="0.01"
                         onChange={(e) => setPrice(e.target.value)}
                         required
                     />
