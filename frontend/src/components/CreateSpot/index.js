@@ -45,18 +45,20 @@ const HostASpot = ({ data }) => {
             description,
             price
         }
-
+        console.log('payload', payload)
         const image = {
             url,
             preview:true
         }
+        console.log('image', image)
         // console.log("should be collected info", payload)
         let createdSpot = await dispatch(createSpot(payload, image)).catch(
             async(res) => {
                 const data = await res.json();
                 if (data) setErrors([data.errors]);
-                // console.log('data', data)
-                // console.log('errors', errors)
+                console.log('data', data)
+                console.log('data.errors', data.errors)
+                console.log('errors', errors)
             }
         )
 
