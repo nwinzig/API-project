@@ -51,7 +51,15 @@ const HostASpot = ({ data }) => {
             preview:true
         }
         // console.log("should be collected info", payload)
-        let createdSpot = await dispatch(createSpot(payload, image))
+        let createdSpot = await dispatch(createSpot(payload, image)).catch(
+            async(res) => {
+                const data = await res.json();
+                if (data) setErrors([data.errors]);
+                // console.log('data', data)
+                // console.log('errors', errors)
+            }
+        )
+
         if (createdSpot) {
 
             history.push(`/`)
@@ -116,7 +124,9 @@ const HostASpot = ({ data }) => {
                     Latitude
                     <input
                         placeholder='Latitude(not required)'
-                        type="text"
+                        type="number"
+                        min='-90'
+                        max='90'
                         value={lat}
                         onChange={(e) => setLat(e.target.value)}
                     />
@@ -125,7 +135,9 @@ const HostASpot = ({ data }) => {
                     Longitude
                     <input
                         placeholder='Longitude(not required)'
-                        type="text"
+                        type="number"
+                        min='-180'
+                        max='180'
                         value={lng}
                         onChange={(e) => setLng(e.target.value)}
                     />
@@ -143,8 +155,8 @@ const HostASpot = ({ data }) => {
                 <label>
                     Image URL
                     <input
-                        placeholder='Image URL'
-                        type="text"
+                        placeholder='https://example.com'
+                        type="url"
                         value={url}
                         onChange={(e) => setUrl(e.target.value)}
                         required
@@ -165,6 +177,7 @@ const HostASpot = ({ data }) => {
                     <input
                         type="number"
                         value={price}
+                        min='0'
                         onChange={(e) => setPrice(e.target.value)}
                         required
                     />
