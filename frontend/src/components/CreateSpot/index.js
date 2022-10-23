@@ -171,6 +171,7 @@ const HostASpot = ({ data }) => {
                         placeholder='Please provide a description for your location.'
                         type="text"
                         value={description}
+                        max='250'
                         onChange={(e) => setDescription(e.target.value)}
                         required
                     />
