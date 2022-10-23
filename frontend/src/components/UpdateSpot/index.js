@@ -3,6 +3,7 @@ import { useHistory, useParams } from "react-router-dom"
 import { useState } from "react"
 import { updateSpot } from "../../store/spots"
 import DeleteSpotModal from "../DeleteSpot/DeleteSpotModal"
+import './update.css'
 
 const UpdateASpot = ({setShowModal}) => {
     const history = useHistory()
@@ -116,15 +117,19 @@ const UpdateASpot = ({setShowModal}) => {
                 <label>
                     Name
                     <input
+                        required
                         placeholder='Name of the Location'
                         type="text"
                         value={name}
+
                         onChange={(e) => setName(e.target.value)}
                     />
+
                 </label>
                 <label>
                     Description
                     <textarea
+                        required
                         placeholder='Please provide a description for your location.'
                         type="text"
                         value={description}
@@ -134,13 +139,14 @@ const UpdateASpot = ({setShowModal}) => {
                 <label>
                     Price
                     <input
-                        type="text"
+                        required
+                        type="number"
                         value={price}
                         onChange={(e) => setPrice(e.target.value)}
                     />
                 </label>
-                <button type="submit">Update this spot</button>
-                <div>
+                <button className="updateSubmit" type="submit">Update this spot</button>
+                <div className="updateDelete">
                     <DeleteSpotModal />
                 </div>
             </form>

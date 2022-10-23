@@ -1,0 +1,28 @@
+.updateButton{
+    border: 2px light lightgrey solid;
+    background-color: white;
+}
+
+.updateButton:hover{
+    cursor: pointer;
+    box-shadow: 0 0 2px 2px lightcoral;
+}
+
+.updateButtonWrapper{
+    border: 1px lightgray solid;
+}
+
+.updateSubmit{
+    margin-top: 5px;
+    background-color: white;
+    height: 50px;
+    font-size: 20px;
+}
+
+.updateSubmit:hover{
+    cursor: pointer;
+    box-shadow: 0 0 2px 2px lightcoral;
+}
+.formWrapper{
+    margin: 0;
+}

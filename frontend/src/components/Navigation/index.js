@@ -14,21 +14,22 @@ function Navigation({ isLoaded }) {
     let sessionLinks;
     if (sessionUser) {
         sessionLinks = (
-            <>
-            <HostModal />
-            <ProfileButton user={sessionUser} />
-            </>
+            <div className='loggedInNav'>
+                <HostModal />
+                <ProfileButton user={sessionUser} />
+            </div>
         );
     } else {
         sessionLinks = (
-            <>
+            <div className='standardNav'>
+                <div className='loginModalWrapper'>
                 <LoginFormModal />
+                </div>
                 <SignupModal />
-            </>
+            </div>
         );
     }
-                // {/* <LoginFormModal />
-                // <SignupModal /> */}
+
     return (
         <div className='homeBar'>
             <div className='homeLogo'>
@@ -47,24 +48,5 @@ function Navigation({ isLoaded }) {
         </div>
     );
 }
-//testing
-// return (
-//     <div className='homeBar'>
-//         <div className='homeLogo'>
-//             <NavLink exact to="/">
-//                 <div>
-//                     <i className="fa-brands fa-airbnb"></i>
-//                 </div>
-//                 <div className='logoTitle'>
-//                     BnB
-//                 </div>
-//             </NavLink>
-//         </div>
-//         <div className='signlogbuttons'>
-//         {isLoaded && sessionLinks}
-//         </div>
-//     </div>
-// );
-// }
 
 export default Navigation;

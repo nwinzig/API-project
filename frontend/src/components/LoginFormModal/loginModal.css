@@ -1,11 +1,11 @@
-.signupmodalButton{
+.loginModalButton{
     border: 1px lightgray solid;
     background-color: white;
     height: 30px;
     font-family: 'Montserrat', sans-serif;
 }
 
-.signupmodalButton:hover{
+.loginModalButton:hover{
     cursor: pointer;
     box-shadow: 0 0 2px 2px lightcoral;
 }

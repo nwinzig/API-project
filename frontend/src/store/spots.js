@@ -54,6 +54,7 @@ export const createSpot = (payload, image) => async dispatch => {
     if(response.ok){
         let data = await response.json()
         const spotId = data.id
+        console.log('id in action',spotId)
         const newResponse = await csrfFetch(`/api/spots/${spotId}/images`, {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
@@ -119,14 +120,19 @@ const spotReducer = (state = initialState, action) => {
     let newState = {};
     switch(action.type){
         case LOAD_SPOTS:{
+            state = {}
+            newState ={}
         action.spots.Spots.forEach(spot => {
             newState[spot.id] = spot
         });
         return newState;}
         case LOAD_SPOT:{
-        newState = {...state}
+
+        newState = {}
+
         newState = action.data
-        return newState;}
+        return newState;
+    }
         case ADD_SPOT:{
             newState = {...state, [action.data.id]: action.data}
             return newState;}

@@ -1,0 +1,30 @@
+.buttonFace{
+    width: 50px;
+    height: 40px;
+    border: 1px lightgray solid;
+    border-radius: 5px;
+    font-size: 30px;
+}
+
+.buttonFace:hover{
+    cursor: pointer;
+    box-shadow: 0 0 2px 2px lightcoral;
+}
+
+.profile-dropdown{
+    list-style: none;
+    width: 80%;
+    border: 1px solid black;
+    position: absolute;
+    margin-top: 200px;
+    background-color: white;
+    border-radius: 5px;
+    padding-left: 0px;
+    font-size: 20px;
+    height: 80px;
+}
+
+.logOutButton{
+    border-top: 1px lightgray solid;
+    font-size: 20px;
+}

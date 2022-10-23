@@ -137,6 +137,7 @@ const HostASpot = ({ data }) => {
                         type="text"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
+                        required
                     />
                 </label>
                 <label>
@@ -146,6 +147,7 @@ const HostASpot = ({ data }) => {
                         type="text"
                         value={url}
                         onChange={(e) => setUrl(e.target.value)}
+                        required
                     />
                 </label>
                 <label>
@@ -155,17 +157,19 @@ const HostASpot = ({ data }) => {
                         type="text"
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
+                        required
                     />
                 </label>
                 <label>
                     Price
                     <input
-                        type="text"
+                        type="number"
                         value={price}
                         onChange={(e) => setPrice(e.target.value)}
+                        required
                     />
                 </label>
-                <button type="submit">Host this spot</button>
+                <button className='hostButton' type="submit">Host this spot</button>
             </form>
         </div>
     )

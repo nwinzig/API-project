@@ -1,19 +1,19 @@
 import React, { useState } from 'react';
 import { Modal } from '../../context/Modal';
 import UpdateASpot from './index';
-
+import './update.css'
 function UpdateSpotModal() {
     const [showModal, setShowModal] = useState(false);
 
     return (
-        <>
-            <button onClick={() => setShowModal(true)}>Update your spot</button>
+        <div className="updateButtonWrapper">
+            <div className='updateButton' onClick={() => setShowModal(true)}>Update Spot</div>
             {showModal && (
                 <Modal onClose={() => setShowModal(false)}>
                     <UpdateASpot setShowModal={setShowModal}/>
                 </Modal>
             )}
-        </>
+        </div>
     );
 }
 
