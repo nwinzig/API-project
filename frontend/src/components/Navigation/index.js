@@ -22,7 +22,9 @@ function Navigation({ isLoaded }) {
     } else {
         sessionLinks = (
             <div className='standardNav'>
+                <div className='loginModalWrapper'>
                 <LoginFormModal />
+                </div>
                 <SignupModal />
             </div>
         );

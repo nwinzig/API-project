@@ -40,3 +40,10 @@
     position: absolute;
     /* padding-right: 5%; */
 }
+
+.standardNav{
+    display: flex;
+}
+.loginModalWrapper{
+    margin-right: 20px;
+}
