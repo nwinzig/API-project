@@ -159,7 +159,7 @@ const HostASpot = ({ data }) => {
                     Image URL
                     <input
                         placeholder='https://example.com'
-                        type="url"
+                        type="text"
                         value={url}
                         onChange={(e) => setUrl(e.target.value)}
                         required
