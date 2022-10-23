@@ -19,7 +19,7 @@ const SpotDetails = () => {
     }, [spotId, dispatch])
 
     const ownerObj = { ...spot.Owner }
-    console.log('the spot', spot)
+    // console.log('the spot', spot)
     // console.log('owner', ownerObj)
 
     let createUpdateLink;

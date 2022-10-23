@@ -12,7 +12,18 @@ const UpdateASpot = ({setShowModal}) => {
 
     const {spotId} = useParams()
     let spot = useSelector(state => state.spots)
-    console.log('spot to update', spot)
+    // console.log('spot to update', spot)
+
+    // const [address, setAddress] = useState(spot.address)
+    // const [city, setCity] = useState(spot.city)
+    // const [state, setState] = useState(spot.state)
+    // const [country, setCountry] = useState(spot.country)
+    // const [lat, setLat] = useState(spot.lat)
+    // const [lng, setLng] = useState(spot.lng)
+    // const [name, setName] = useState(spot.name)
+    // const [description, setDescription] = useState(spot.description)
+    // const [price, setPrice] = useState(spot.price)
+    // const [errors, setErrors] = useState([]);
 
     const [address, setAddress] = useState('')
     const [city, setCity] = useState('')
@@ -41,9 +52,16 @@ const UpdateASpot = ({setShowModal}) => {
             price
         }
 
-        console.log('updated payload', payload)
+        // console.log('updated payload', payload)
 
-        let updatedSpot = await dispatch(updateSpot(payload, spotId))
+        let updatedSpot = await dispatch(updateSpot(payload, spotId)).catch(
+            async(res) => {
+                const data = await res.json();
+                if (data) setErrors([data.errors]);
+                // console.log('data', data)
+                // console.log('errors', errors)
+            }
+        )
 
         if(updatedSpot){
             setShowModal(false)
@@ -52,10 +70,21 @@ const UpdateASpot = ({setShowModal}) => {
     }
 
 
+
+    let errorMessage;
+    if (errors.length >= 1) {
+        errorMessage = (
+            <ul>
+                {errors.map((error, idx) => <li key={idx}>{error}</li>)}
+            </ul>
+        )
+    }
+
     return (
         <div className='formWrapper'>
 
             <form onSubmit={handleSubmit}>
+                {errorMessage}
                 <label>
                     Address
                     <input
@@ -100,7 +129,10 @@ const UpdateASpot = ({setShowModal}) => {
                     Latitude
                     <input
                         placeholder='Latitude(not required)'
-                        type="text"
+                        type="number"
+                        min='-90'
+                        max='90'
+                        step="0.0001"
                         value={lat}
                         onChange={(e) => setLat(e.target.value)}
                     />
@@ -109,7 +141,10 @@ const UpdateASpot = ({setShowModal}) => {
                     Longitude
                     <input
                         placeholder='Longitude(not required)'
-                        type="text"
+                        type="number"
+                        min='-180'
+                        max='180'
+                        step="0.0001"
                         value={lng}
                         onChange={(e) => setLng(e.target.value)}
                     />
@@ -121,7 +156,7 @@ const UpdateASpot = ({setShowModal}) => {
                         placeholder='Name of the Location'
                         type="text"
                         value={name}
-
+                        maxLength='50'
                         onChange={(e) => setName(e.target.value)}
                     />
 
@@ -142,6 +177,8 @@ const UpdateASpot = ({setShowModal}) => {
                         required
                         type="number"
                         value={price}
+                        min='0'
+                        step="0.01"
                         onChange={(e) => setPrice(e.target.value)}
                     />
                 </label>

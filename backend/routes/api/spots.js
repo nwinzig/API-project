@@ -283,13 +283,22 @@ router.post('/', requireAuth, async (req,res,next) => {
                 "city": "City is required",
                 "state": "State is required",
                 "country": "Country is required",
-                "name": "Name must be less than 50 characters",
+                "name": "Name is required",
                 "description": "Description is required",
                 "price": "Price per day is required"
             }
             })
     }
 
+    if (name.length >= 50) {
+        return next({
+            status: 400,
+            message: "Name too long",
+            statusCode: 400,
+            errors: "Name must be less than 50 characters",
+
+        })
+    }
 
 
     let newSpot = await Spot.create({
@@ -856,12 +865,21 @@ router.put('/:spotId', requireAuth, async (req,res,next) => {
                 "city": "City is required",
                 "state": "State is required",
                 "country": "Country is required",
-                "name": "Name must be less than 50 characters",
+                "name": "Name is required",
                 "description": "Description is required",
                 "price": "Price per day is required"
             }
             })
     }
+    // if (name.length >= 50) {
+    //     return next({
+    //         status: 400,
+    //         message: "Name too long",
+    //         statusCode: 400,
+    //         errors: "Name must be less than 50 characters",
+
+    //     })
+    // }
   //find spot
     let desiredSpot = await Spot.findByPk(spotId)
     //couldn't find spot or isnt valid owner
@@ -925,9 +943,7 @@ router.post('/:spotId/reviews', requireAuth, async (req,res,next) => {
             status:400,
             "message": "Validation Error",
             statusCode: 400,
-            "errors": {
-                "stars": "Stars must be an integer from 1 to 5"
-            }
+            errors: "Please select a rating"
             })
     }
     if(!review){
@@ -964,6 +980,7 @@ router.post('/:spotId/reviews', requireAuth, async (req,res,next) => {
             status:403,
             message: "User already has a review for this spot",
             statusCode: 403,
+            errors: "You already reviewed this spot."
         })
     }
 

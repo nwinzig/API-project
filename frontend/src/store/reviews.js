@@ -10,9 +10,9 @@ const loadReviews = reviews => ({
 })
 
 export const getReviews = (id) => async dispatch => {
-    console.log('what about here')
+    // console.log('what about here')
     const response = await csrfFetch(`/api/spots/${id}/reviews`)
-    console.log('what happens here', response)
+    // console.log('what happens here', response)
     if(response.ok){
         const data = await response.json()
         dispatch(loadReviews(data.Reviews))

@@ -26,9 +26,16 @@ function CreateReviewForm({setShowModal}) {
             stars
         }
 
-        console.log('should be the payload', payload)
-
-        let createdReview = await dispatch(createReview(payload, spotId))
+        // console.log('should be the payload', payload)
+        // let createdReview = await dispatch(createReview(payload, spotId))
+        let createdReview = await dispatch(createReview(payload, spotId)).catch(
+            async(res) => {
+                const data = await res.json();
+                if (data) setErrors([data.errors]);
+                // console.log('data', data)
+                // console.log('errors', errors)
+            }
+        )
 
         if (createdReview) {
             setReview('')
