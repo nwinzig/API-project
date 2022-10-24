@@ -15,11 +15,12 @@ BnB is a clone of AirBnB. It is a web application for users to find a location t
 ## To use the application in its current state: ##
 ### [Project Link](https://bnb-project.herokuapp.com/) ###
 #### Home Page ####
-![Home Page](/assets/Screen%20Shot%202022-10-23%20at%209.27.23%20PM.png)
+![Home Page](/assets/Screen%20Shot%202022-10-24%20at%209.14.07%20AM.png)
 From the Home Page there are several routes.
 
     1. Sign Up as a new user with the 'sign up' button
     2. Login as an existing user(there is a demo user, whose credentials are below)
+        * you may also login as the demo user by using the provided button
         *username: Demo-lition
         *password: password
     3. Choose any spot to view
