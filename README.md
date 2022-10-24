@@ -53,6 +53,9 @@ To have access to the project repo:
 2. Clone the link below
 
 ### [BnB Clone](https://github.com/nwinzig/API-project.git) ###
+    *in root: npm install
+    *in frontEnd: npm install , npm start
+    *in backend: npm install, npm run db:setup , npm start
 
 
 ## Contact Info ##
