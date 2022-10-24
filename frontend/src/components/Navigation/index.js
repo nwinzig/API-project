@@ -7,6 +7,7 @@ import './Navigation.css';
 import  SignupModal from '../SignupFormModal';
 import MyButton from './BnBButton';
 import HostModal from '../CreateSpotModal';
+import DemoLoginButton from '../LoginFormPage/DemoLogin';
 
 function Navigation({ isLoaded }) {
     const sessionUser = useSelector(state => state.session.user);
@@ -22,6 +23,9 @@ function Navigation({ isLoaded }) {
     } else {
         sessionLinks = (
             <div className='standardNav'>
+                <div className='demoButtonWrapper'>
+                    <DemoLoginButton />
+                </div>
                 <div className='loginModalWrapper'>
                 <LoginFormModal />
                 </div>

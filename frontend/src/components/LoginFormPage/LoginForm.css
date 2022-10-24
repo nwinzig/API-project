@@ -1,3 +1,15 @@
-button{
+/* button{
     border-color: black;
+} */
+
+.demoButton{
+    border: 1px lightgray solid;
+    height: 30px;
+    background-color: white;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.demoButton:hover{
+    cursor: pointer;
+    box-shadow: 0 0 2px 2px lightcoral;
 }

@@ -50,6 +50,7 @@ function SignupForm() {
                 <input
                     type="text"
                     value={username}
+                    maxLength='25'
                     onChange={(e) => setUsername(e.target.value)}
                     required
                 />
@@ -58,6 +59,7 @@ function SignupForm() {
                 First Name
                 <input
                     type="text"
+                    maxLength='25'
                     value={firstName}
                     onChange={(e) => setFirstName(e.target.value)}
                     required
@@ -67,6 +69,7 @@ function SignupForm() {
                 Last Name
                 <input
                     type="text"
+                    maxLength='25'
                     value={lastName}
                     onChange={(e) => setLastName(e.target.value)}
                     required
