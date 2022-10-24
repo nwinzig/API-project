@@ -123,8 +123,8 @@ router.get('/current', requireAuth, async (req,res,next) => {
         review.Spot.previewImage = review.Spot.SpotImages[imagesIndex].url
         delete review.Spot.SpotImages
 
-        console.log(review)
-        console.log(review.Spot.SpotImages)
+        // console.log(review)
+        // console.log(review.Spot.SpotImages)
     })
 
 

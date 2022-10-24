@@ -43,9 +43,9 @@ router.get('/current', requireAuth, async (req,res,next) => {
 
     allBookings.forEach(booking => {
         let desiredSpot = booking.Spot
-        console.log(desiredSpot)
-        console.log(desiredSpot.SpotImages)
-        console.log(desiredSpot.SpotImages.length)
+        // console.log(desiredSpot)
+        // console.log(desiredSpot.SpotImages)
+        // console.log(desiredSpot.SpotImages.length)
 
         if(desiredSpot.SpotImages.length>0){
         desiredSpot.previewImage = desiredSpot.SpotImages[0].url

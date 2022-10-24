@@ -33,11 +33,11 @@ export async function csrfFetch(url, options = {}) {
         }
         options.headers['XSRF-TOKEN'] = Cookies.get('XSRF-TOKEN');
     }
-    console.log('url in csrf', url)
-    console.log('options in csrf', options)
-    console.log('do we hit here 1')
+    // console.log('url in csrf', url)
+    // console.log('options in csrf', options)
+    // console.log('do we hit here 1')
     const res = await window.fetch(url, options);
-    console.log('do we hit here 2')
+    // console.log('do we hit here 2')
     if (res.status >= 400) throw res;
 
     return res;

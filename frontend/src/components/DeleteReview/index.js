@@ -14,7 +14,7 @@ const HandleReviewDelete = ({reviewId}) => {
     const handleClick = async (e) => {
         e.preventDefault()
 
-        console.log('review id from handle review delete', reviewId)
+        // console.log('review id from handle review delete', reviewId)
 
         dispatch(deleteReview(reviewId))
         window.location.reload()
