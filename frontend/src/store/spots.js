@@ -54,7 +54,7 @@ export const createSpot = (payload, image) => async dispatch => {
     if(response.ok){
         let data = await response.json()
         const spotId = data.id
-        console.log('id in action',spotId)
+
         const newResponse = await csrfFetch(`/api/spots/${spotId}/images`, {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},

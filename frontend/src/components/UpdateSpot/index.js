@@ -29,8 +29,8 @@ const UpdateASpot = ({setShowModal}) => {
     const [city, setCity] = useState('')
     const [state, setState] = useState('')
     const [country, setCountry] = useState('')
-    const [lat, setLat] = useState('')
-    const [lng, setLng] = useState('')
+    // const [lat, setLat] = useState('')
+    // const [lng, setLng] = useState('')
     const [name, setName] = useState('')
     const [description, setDescription] = useState('')
     const [price, setPrice] = useState('')
@@ -45,8 +45,8 @@ const UpdateASpot = ({setShowModal}) => {
             city,
             state,
             country,
-            lat,
-            lng,
+            // lat,
+            // lng,
             name,
             description,
             price
@@ -125,7 +125,7 @@ const UpdateASpot = ({setShowModal}) => {
                         required
                     />
                 </label>
-                <label>
+                {/* <label>
                     Latitude
                     <input
                         placeholder='Latitude(not required)'
@@ -148,7 +148,7 @@ const UpdateASpot = ({setShowModal}) => {
                         value={lng}
                         onChange={(e) => setLng(e.target.value)}
                     />
-                </label>
+                </label> */}
                 <label>
                     Name
                     <input

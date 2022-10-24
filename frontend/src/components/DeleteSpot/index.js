@@ -10,19 +10,19 @@ const DeleteASpot = ({setShowModal}) => {
     const dispatch = useDispatch()
 
     const {spotId} = useParams()
-    console.log('spotId from delete', spotId)
+    // console.log('spotId from delete', spotId)
 
     // let spot = useSelector(state => state.spots)
     // console.log("spot from delete", spot)
 
     const handleDelete = async (e) => {
         e.preventDefault()
-        console.log('before')
+        // console.log('before')
         dispatch(deleteSpot(spotId))
-        console.log('what do i get from deletedSpot')
+        // console.log('what do i get from deletedSpot')
 
         if(deleteSpot){
-            console.log('do we get here')
+            // console.log('do we get here')
             history.push('/')
         }
 

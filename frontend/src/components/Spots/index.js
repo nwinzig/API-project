@@ -24,21 +24,21 @@ const SpotCards = () => {
     return (
         <div className='cardHolder'>
             {spots.map(spot => (
-                <Link to={`/spots/${spot.id}`} className='card' key={spot.id}>
+                <Link to={`/spots/${spot?.id}`} className='card' key={spot?.id}>
                     <div className='cardImage'>
-                        <img src={spot.previewImage} alt='Spot preview'></img>
+                        <img src={spot?.previewImage} alt='Spot preview'></img>
                     </div>
                     <div className='cardInfo'>
                         <div className='location-rating'>
                             <div>
-                                {spot.city}, {spot.state}
+                                {spot?.city}, {spot?.state}
                             </div>
                             <div>
-                                <i className="fa-solid fa-star"></i>  {spot.avgRating}
+                                <i className="fa-solid fa-star"></i>  {spot?.avgRating}
                             </div>
                         </div>
                         <div>
-                            <span className='cardPrice'>${spot.price}</span> night
+                            <span className='cardPrice'>${spot?.price}</span> night
                         </div>
                     </div>
                 </Link>

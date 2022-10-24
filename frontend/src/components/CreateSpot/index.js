@@ -19,8 +19,8 @@ const HostASpot = ({ data }) => {
     const [city, setCity] = useState('')
     const [state, setState] = useState('')
     const [country, setCountry] = useState('')
-    const [lat, setLat] = useState('')
-    const [lng, setLng] = useState('')
+    // const [lat, setLat] = useState('')
+    // const [lng, setLng] = useState('')
     const [name, setName] = useState('')
     const [description, setDescription] = useState('')
     const [price, setPrice] = useState('')
@@ -39,8 +39,8 @@ const HostASpot = ({ data }) => {
             city,
             state,
             country,
-            lat,
-            lng,
+            // lat,
+            // lng,
             name,
             description,
             price
@@ -56,9 +56,9 @@ const HostASpot = ({ data }) => {
             async(res) => {
                 const data = await res.json();
                 if (data) setErrors([data.errors]);
-                console.log('data', data)
-                console.log('data.errors', data.errors)
-                console.log('errors', errors)
+                // console.log('data', data)
+                // console.log('data.errors', data.errors)
+                // console.log('errors', errors)
             }
         )
 
@@ -122,7 +122,7 @@ const HostASpot = ({ data }) => {
                         required
                     />
                 </label>
-                <label>
+                {/* <label>
                     Latitude
                     <input
                         placeholder='Latitude(not required)'
@@ -145,7 +145,7 @@ const HostASpot = ({ data }) => {
                         value={lng}
                         onChange={(e) => setLng(e.target.value)}
                     />
-                </label>
+                </label> */}
                 <label>
                     Name
                     <input
@@ -161,7 +161,7 @@ const HostASpot = ({ data }) => {
                     Image URL
                     <input
                         placeholder='https://example.com'
-                        type="text"
+                        type="url"
                         value={url}
                         onChange={(e) => setUrl(e.target.value)}
                         required
