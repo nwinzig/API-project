@@ -43,10 +43,10 @@ In the future I would like to extend the features my web application to be close
 
 ## Repo Use ##
 To have access to the project repo:
-    1. Checkout my GitHub, the current repo is titles API-project
+1. Checkout my GitHub, the current repo is titles API-project
 
-    ### [GitHub Link](https://github.com/nwinzig) ###
+### [GitHub Link](https://github.com/nwinzig) ###
 
-    2. Clone the link below
+2. Clone the link below
 
-    ### [BnB Clone](https://github.com/nwinzig/API-project.git) ###
+### [BnB Clone](https://github.com/nwinzig/API-project.git) ###
