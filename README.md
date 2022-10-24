@@ -28,6 +28,7 @@ Enjoy!
 ## Road Map ##
 In the future I would like to extend the features my web application to be closer to those offered by AirBnB.
     These include but are not limited to:
+
     1.Reviews
         * ability to update created reviews
         * limit users to only create reviews for spots they have stayed
@@ -43,7 +44,9 @@ In the future I would like to extend the features my web application to be close
 ## Repo Use ##
 To have access to the project repo:
     1. Checkout my GitHub, the current repo is titles API-project
+
     ### [GitHub Link](https://github.com/nwinzig) ###
 
     2. Clone the link below
+
     ### [BnB Clone](https://github.com/nwinzig/API-project.git) ###
