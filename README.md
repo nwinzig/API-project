@@ -50,3 +50,8 @@ To have access to the project repo:
 2. Clone the link below
 
 ### [BnB Clone](https://github.com/nwinzig/API-project.git) ###
+
+
+## Contact Info ##
+### [GitHub Link](https://github.com/nwinzig) ###
+Email: noahwinzig@gmail.com
