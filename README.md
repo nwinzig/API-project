@@ -14,3 +14,5 @@ BnB is a clone of AirBnB. It is a web application for users to find a location t
 
 ## To use the application in its current state: ##
 ### [Project Link](https://bnb-project.herokuapp.com/) ###
+#### Home Page ####
+![Home Page](/assets/Screen%20Shot%202022-10-23%20at%209.27.23%20PM.png)
