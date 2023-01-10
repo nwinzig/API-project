@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
@@ -21,6 +21,13 @@ function Navigation({ isLoaded }) {
         dispatch(getSpots())
     }, [dispatch])
 
+
+    //for search
+    const [searchFilter, setSearchFilter] = useState('')
+
+    const handleSearch = function(){
+
+    }
 
     //changing links in nav depending if the user is logged in
     let sessionLinks;
@@ -56,6 +63,15 @@ function Navigation({ isLoaded }) {
                         BnB
                     </div>
                 </NavLink>
+            </div>
+            <div>
+                <form className='searchForm' onSubmit={handleSearch}>
+                    <input type='search' placeholder='Start your search' className='searchField'>
+                    </input>
+                    <button type='submit'>
+                        <i className="fa-solid fa-magnifying-glass fa-xl"></i>
+                    </button>
+                </form>
             </div>
             <div className='signlogbuttons'>
             {isLoaded && sessionLinks}

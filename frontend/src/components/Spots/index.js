@@ -10,10 +10,10 @@ const SpotCards = () => {
     const dispatch = useDispatch()
 
     const spotsObj = useSelector(state => state.spots)
-    // console.log('what is spots object', spotsObj)
+
     //usiong Object.values to turn object into array of objects
     const spots = Object.values(spotsObj)
-    // console.log('what is spots', spots)
+
 
     useEffect(() => {
         dispatch(getSpots())
@@ -29,6 +29,9 @@ const SpotCards = () => {
                     </div>
                     <div className='cardInfo'>
                         <div className='location-rating'>
+                            {/* <div>
+                                {spot?.name}
+                            </div> */}
                             <div>
                                 {spot?.city}, {spot?.state}
                             </div>
