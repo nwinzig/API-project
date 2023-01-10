@@ -17,17 +17,35 @@ function Navigation({ isLoaded }) {
     const spotsObj = useSelector(state => state.spots)
     const spots = Object.values(spotsObj)
 
+    const [searchFilter, setSearchFilter] = useState('')
+    const [searchItems, setSearchItems] = useState([])
+
     useEffect(() => {
         dispatch(getSpots())
     }, [dispatch])
 
-
-    //for search
-    const [searchFilter, setSearchFilter] = useState('')
-
-    const handleSearch = function(){
-
+    // testing search filter calling a function on change rather than use effect
+    const loadItems = function(search){
+        setSearchFilter(search)
+        if(search.length){
+            setSearchItems(spots.filter((el) => el.name.includes(searchFilter)))
+        } else{
+            setSearchItems([])
+        }
+        return
     }
+    console.log('spots im working with', spots)
+    //for search
+    console.log('does this populate with items', searchItems)
+    console.log('this is search value', searchFilter)
+    const handleSearch = async function(e){
+        e.preventDefault()
+        console.log('this is search value', searchFilter)
+        setSearchFilter('')
+        //direct user to a search page using the search filter results as an array passed down as prop
+    }
+    //need to build search dropdown component
+        // will be a filter method to create an array by comparing to products in spots
 
     //changing links in nav depending if the user is logged in
     let sessionLinks;
@@ -66,7 +84,13 @@ function Navigation({ isLoaded }) {
             </div>
             <div>
                 <form className='searchForm' onSubmit={handleSearch}>
-                    <input type='search' placeholder='Start your search' className='searchField'>
+                    <input
+                        type='search'
+                        placeholder='Start your search'
+                        className='searchField'
+                        onChange={(e) => loadItems(e.target.value)}
+                        value={searchFilter}
+                    >
                     </input>
                     <button type='submit'>
                         <i className="fa-solid fa-magnifying-glass fa-xl"></i>

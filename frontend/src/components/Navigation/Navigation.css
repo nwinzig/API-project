@@ -60,6 +60,7 @@
     flex-direction: row;
     border: 1px solid lightgray;
     width: 25rem;
+    padding-left: 5px;
 }
 .searchForm button{
     background-color: white;
