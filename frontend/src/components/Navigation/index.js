@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import LoginFormModal from '../LoginFormModal';
 import './Navigation.css';
@@ -8,10 +8,21 @@ import  SignupModal from '../SignupFormModal';
 import MyButton from './BnBButton';
 import HostModal from '../CreateSpotModal';
 import DemoLoginButton from '../LoginFormPage/DemoLogin';
+import { getSpots } from '../../store/spots';
+
 
 function Navigation({ isLoaded }) {
+    const dispatch = useDispatch()
     const sessionUser = useSelector(state => state.session.user);
+    const spotsObj = useSelector(state => state.spots)
+    const spots = Object.values(spotsObj)
 
+    useEffect(() => {
+        dispatch(getSpots())
+    }, [dispatch])
+
+
+    //changing links in nav depending if the user is logged in
     let sessionLinks;
     if (sessionUser) {
         sessionLinks = (

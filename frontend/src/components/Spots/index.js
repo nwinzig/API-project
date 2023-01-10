@@ -1,20 +1,19 @@
 
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-
 import {Link } from 'react-router-dom';
-
 import { getSpots } from '../../store/spots';
-
 import './spots.css'
+
+
 const SpotCards = () => {
     const dispatch = useDispatch()
 
     const spotsObj = useSelector(state => state.spots)
-
+    // console.log('what is spots object', spotsObj)
+    //usiong Object.values to turn object into array of objects
     const spots = Object.values(spotsObj)
-    // console.log(spots)
-    // console.log('spots', spots)
+    // console.log('what is spots', spots)
 
     useEffect(() => {
         dispatch(getSpots())
