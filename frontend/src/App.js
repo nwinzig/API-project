@@ -10,6 +10,7 @@ import SpotDetails from "./components/IndividualSpot";
 import FooterComp from "./components/Footer";
 import ReviewComponent from "./components/ReviewforSpot";
 import HostASpot from "./components/CreateSpot";
+import SearchResults from "./components/SearchResults";
 
 function App() {
   const dispatch = useDispatch();
@@ -33,6 +34,11 @@ function App() {
         <HostASpot />
         <FooterComp />
         </Route>
+        <Route exact path={'/spots/search'}>
+          <Navigation isLoaded={isLoaded} />
+          <SearchResults />
+          <FooterComp />
+        </Route>
 
         <Route exact path={`/spots/:spotId`}>
         <Navigation isLoaded={isLoaded} />
@@ -40,7 +46,6 @@ function App() {
         <ReviewComponent />
         <FooterComp />
         </Route>
-
         {/* <Route exact path={`/reviews/:reviewId`}>
         <Navigation isLoaded={isLoaded} />
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import LoginFormModal from '../LoginFormModal';
@@ -12,6 +12,7 @@ import { getSpots } from '../../store/spots';
 
 
 function Navigation({ isLoaded }) {
+    const history = useHistory()
     const dispatch = useDispatch()
     const sessionUser = useSelector(state => state.session.user);
     const spotsObj = useSelector(state => state.spots)
@@ -34,15 +35,20 @@ function Navigation({ isLoaded }) {
         }
         return
     }
-    console.log('spots im working with', spots)
+    // console.log('spots im working with', spots)
     //for search
-    console.log('does this populate with items', searchItems)
-    console.log('this is search value', searchFilter)
+    // console.log('does this populate with items', searchItems)
+    // console.log('this is search value', searchFilter)
     const handleSearch = async function(e){
         e.preventDefault()
         console.log('this is search value', searchFilter)
         setSearchFilter('')
         //direct user to a search page using the search filter results as an array passed down as prop
+        return history.push({
+            pathname: '/spots/search',
+            state:{searchItems}
+        })
+
     }
     //need to build search dropdown component
         // will be a filter method to create an array by comparing to products in spots
