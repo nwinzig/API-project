@@ -15,9 +15,10 @@ function Navigation({ isLoaded }) {
     const history = useHistory()
     const dispatch = useDispatch()
     const sessionUser = useSelector(state => state.session.user);
-    const spotsObj = useSelector(state => state.spots)
-    const spots = Object.values(spotsObj)
+    const spotsforSearchObj = useSelector(state => state.spots)
+    const searchSpots = Object.values(spotsforSearchObj)
 
+    const [dropDown, setDropDown] = useState(false)
     const [searchFilter, setSearchFilter] = useState('')
     const [searchItems, setSearchItems] = useState([])
 
@@ -25,45 +26,68 @@ function Navigation({ isLoaded }) {
         dispatch(getSpots())
     }, [dispatch])
 
-    // testing search filter calling a function on change rather than use effect
     const loadItems = function(search){
-        console.log('what is search', search)
         setSearchFilter(search)
+        //items that filter from search input
+        // console.log('is it grabbing data', search)
+
+        // console.log(search.length)
+        // console.log(typeof(search))
         if(search.length){
-            setSearchItems(spots.filter((el) => el.name.includes(search)))
+            setDropDown(true)
+            setSearchItems(searchSpots.filter((el) => el?.name.includes(search)))
+            // console.log('is this changing to true', dropDown)
         } else{
             setSearchItems([])
         }
         return
-        // console.log('does search filter change', searchFilter)
-        // setSearchItems(spots.filter((el) => el.name.includes(search)))
-
     }
-    console.log('what are search items', searchItems)
+
+    const dropdownResults = [];
+        if(searchItems?.length){
+            let i=0;
+            while(i<searchItems.length && i<5){
+                dropdownResults.push(searchItems[i])
+                i++
+            }
+        }
+
     const handleSearch = async function(e){
         e.preventDefault()
-        console.log('this is search value', searchFilter)
         setSearchFilter('')
-
+        setDropDown(false)
         return history.push({
             pathname: '/spots/search',
             state:{searchItems}
         })
-
     }
-    //need to build search dropdown component
-        // will be a filter method to create an array by comparing to products in spots
-    // const dropdownResults = [];
-    // const setdropDown = function(){
-    //     if(searchItems?.length){
-    //         let i=0;
-    //         while(i<searchItems.length && i<5){
-    //             dropdownResults.push(searchItems[i])
-    //             i++
-    //         }
-    //     }
-    // }
-    // console.log('this will be my dropdown items', dropdownResults)
+
+
+
+    // conditionally rendered components //
+
+    let dropdownComp;
+    if(dropdownResults?.length){
+        dropdownComp =(
+            <div className='dropDownSearch'>
+                {dropdownResults?.map(spot => (
+                    <NavLink
+                    to={`/spots/${spot?.id}`}
+                    key={spot?.id}
+                    className='dropItem'
+                    onClick={() =>{
+                        setDropDown(false)
+                        setSearchFilter('')
+                    }}
+                    >
+                    <i className="fa-solid fa-magnifying-glass fa-l" id='addMarginRight'></i>
+                    {spot?.name}
+                    </NavLink>
+                ))}
+            </div>
+        )
+    }
+
     let resultsComp;
     if(searchItems?.length){
         resultsComp = (
@@ -73,6 +97,11 @@ function Navigation({ isLoaded }) {
         )
     }
 
+    //adding event to close dropdown if user clicks away
+    let root = document.getElementById('root')
+    if(dropDown){
+        root.addEventListener('click', () => {setDropDown(false)})
+    }
 
     //changing links in nav depending if the user is logged in
     let sessionLinks;
@@ -98,36 +127,40 @@ function Navigation({ isLoaded }) {
     }
 
     return (
-        <div className='homeBar'>
-            <div className='homeLogo'>
-                <NavLink exact to="/">
-                    <div>
-                        <i className="fa-brands fa-airbnb"></i>
-                    </div>
-                    <div className='logoTitle'>
-                        BnB
-                    </div>
-                </NavLink>
+        <>
+            <div className='homeBar' id='bar'>
+                <div className='homeLogo'>
+                    <NavLink exact to="/">
+                        <div>
+                            <i className="fa-brands fa-airbnb"></i>
+                        </div>
+                        <div className='logoTitle'>
+                            BnB
+                        </div>
+                    </NavLink>
+                </div>
+                <div className='searchAndDrop'>
+                    <form className='searchForm' onSubmit={handleSearch}>
+                        <input
+                            type='search'
+                            placeholder='Start your search'
+                            className='searchField'
+                            onChange={(e) => loadItems(e.target.value)}
+                            value={searchFilter}
+                            >
+                        </input>
+                        <button type='submit'>
+                            <i className="fa-solid fa-magnifying-glass fa-xl"></i>
+                        </button>
+                    </form>
+                </div>
+                    {dropDown && dropdownComp}
+                <div className='signlogbuttons'>
+                {isLoaded && sessionLinks}
+                </div>
             </div>
-            <div>
-                <form className='searchForm' onSubmit={handleSearch}>
-                    <input
-                        type='search'
-                        placeholder='Start your search'
-                        className='searchField'
-                        onChange={(e) => loadItems(e.target.value)}
-                        value={searchFilter}
-                    >
-                    </input>
-                    <button type='submit'>
-                        <i className="fa-solid fa-magnifying-glass fa-xl"></i>
-                    </button>
-                </form>
-            </div>
-            <div className='signlogbuttons'>
-            {isLoaded && sessionLinks}
-            </div>
-        </div>
+            {/* {dropdownComp} */}
+        </>
     );
 }
 

@@ -4,7 +4,7 @@
     display: flex;
     background-color: white;
     justify-content: center;
-    justify-content: space-between;
+    /* justify-content: space-between; */
     align-items: center;
     height: 80px;
     border-bottom: 1px lightgrey solid;
@@ -12,7 +12,8 @@
 }
 
 .homeLogo{
-
+    margin-left: auto;
+    margin-right: auto;
     font-size: 2rem;
     padding-left: 5%;
 }
@@ -37,6 +38,8 @@
 .signlogbuttons{
     width: 20%;
     right: 5%;
+    margin-left: auto;
+    margin-right: auto;
     /* position: absolute; */
     /* padding-right: 5%; */
 }
@@ -54,7 +57,18 @@
 
 
 /* search */
+.searchAndDrop{
+    position: relative;
+    display: inline-block;
+    /* width: 100%; */
+    margin-left: auto;
+    margin-right: auto;
+}
 .searchForm{
+    position: relative;
+    /* bottom: 2px; */
+    /* left: 10px; */
+    /* right: -222px; */
     box-shadow: none;
     display: flex;
     flex-direction: row;
@@ -99,4 +113,41 @@
     /* height: 2rem; */
     outline-width: 0;
     /* border: 1px solid black; */
+}
+
+/* dropdown */
+.dropDownSearch{
+    border: 1px solid lightgray;
+    box-shadow: 0 0 1px 1px lightgray;
+    position: absolute;
+    top: 80px;
+    left: 32.1rem;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    width:25rem;
+    z-index: 2;
+    padding: 10px;
+}
+.dropItem{
+    color: black;
+    /* background-color: white; */
+    font-size: 1.2rem;
+    /* padding: 10px; */
+    border-bottom: 1px solid lightgrey;
+    margin-bottom: 2px;
+    /* position: absolute; */
+    z-index: 2;
+}
+.dropItem:last-child{
+    border: none;
+}
+.dropItem:hover{
+    cursor: pointer;
+    background-color: lightgray;
+}
+
+
+#addMarginRight{
+    margin-right: 10px;
 }
