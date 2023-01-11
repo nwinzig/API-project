@@ -9,6 +9,7 @@
     height: 80px;
     border-bottom: 1px lightgrey solid;
     width: 100%;
+    z-index: 1;
 }
 
 .homeLogo{

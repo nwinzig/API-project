@@ -21,7 +21,7 @@ function Navigation({ isLoaded }) {
     const [dropDown, setDropDown] = useState(false)
     const [searchFilter, setSearchFilter] = useState('')
     const [searchItems, setSearchItems] = useState([])
-
+    console.log('this is state', spotsforSearchObj)
     useEffect(() => {
         dispatch(getSpots())
     }, [dispatch])

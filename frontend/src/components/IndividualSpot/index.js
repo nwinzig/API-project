@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import UpdateSpotModal from '../UpdateSpot/UpdateSpotModal';
-import { getSpot } from '../../store/spots';
+import { getSpot, getSpots } from '../../store/spots';
 import './individualSpot.css'
 
 
@@ -19,8 +19,6 @@ const SpotDetails = () => {
     }, [spotId, dispatch])
 
     const ownerObj = { ...spot.Owner }
-    // console.log('the spot', spot)
-    // console.log('owner', ownerObj)
 
     let createUpdateLink;
     if (sessionUser && sessionUser.id === spot.ownerId) {
@@ -28,8 +26,6 @@ const SpotDetails = () => {
             <UpdateSpotModal />
         )
     }
-
-
     let imagesArr = [];
 
     if (spot.SpotImages && typeof spot.SpotImages === 'object') {
@@ -37,7 +33,6 @@ const SpotDetails = () => {
             imagesArr.push(image.url)
         });
     }
-
 
     let firstInnerImage;
     if (imagesArr[1]) {
