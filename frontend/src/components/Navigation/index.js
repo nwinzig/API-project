@@ -27,23 +27,24 @@ function Navigation({ isLoaded }) {
 
     // testing search filter calling a function on change rather than use effect
     const loadItems = function(search){
+        console.log('what is search', search)
         setSearchFilter(search)
         if(search.length){
-            setSearchItems(spots.filter((el) => el.name.includes(searchFilter)))
+            setSearchItems(spots.filter((el) => el.name.includes(search)))
         } else{
             setSearchItems([])
         }
         return
+        // console.log('does search filter change', searchFilter)
+        // setSearchItems(spots.filter((el) => el.name.includes(search)))
+
     }
-    // console.log('spots im working with', spots)
-    //for search
-    // console.log('does this populate with items', searchItems)
-    // console.log('this is search value', searchFilter)
+    console.log('what are search items', searchItems)
     const handleSearch = async function(e){
         e.preventDefault()
         console.log('this is search value', searchFilter)
         setSearchFilter('')
-        //direct user to a search page using the search filter results as an array passed down as prop
+
         return history.push({
             pathname: '/spots/search',
             state:{searchItems}
@@ -52,6 +53,26 @@ function Navigation({ isLoaded }) {
     }
     //need to build search dropdown component
         // will be a filter method to create an array by comparing to products in spots
+    // const dropdownResults = [];
+    // const setdropDown = function(){
+    //     if(searchItems?.length){
+    //         let i=0;
+    //         while(i<searchItems.length && i<5){
+    //             dropdownResults.push(searchItems[i])
+    //             i++
+    //         }
+    //     }
+    // }
+    // console.log('this will be my dropdown items', dropdownResults)
+    let resultsComp;
+    if(searchItems?.length){
+        resultsComp = (
+            <div className='searchDropDown'>
+
+            </div>
+        )
+    }
+
 
     //changing links in nav depending if the user is logged in
     let sessionLinks;
