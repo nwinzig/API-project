@@ -1,12 +1,18 @@
 import { useEffect, useState } from "react"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { Link, NavLink } from "react-router-dom"
 import { useLocation } from "react-router-dom"
+import { getSpots } from "../../store/spots"
 import './search.css'
 
 const SearchResults = () => {
+    const dispatch = useDispatch()
+
     const location = useLocation()
     const [spots, setSpots] = useState([])
+    useEffect(() => {
+        dispatch(getSpots())
+    }, [dispatch])
 
     useEffect(() => {
         console.log('trying to access a prop moved by history push', location.state)
