@@ -29,10 +29,11 @@ function Navigation({ isLoaded }) {
     const loadItems = function(search){
         setSearchFilter(search)
         //items that filter from search input
-        // console.log('is it grabbing data', search)
+        console.log('is it grabbing data', search)
 
-        // console.log(search.length)
-        // console.log(typeof(search))
+        console.log(search.length)
+        console.log(typeof(search))
+        console.log('is there searchSpots', searchSpots)
         if(search.length){
             setDropDown(true)
             setSearchItems(searchSpots.filter((el) => el?.name.includes(search)))
