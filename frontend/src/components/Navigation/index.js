@@ -22,6 +22,10 @@ function Navigation({ isLoaded }) {
     const [searchFilter, setSearchFilter] = useState('')
     const [searchItems, setSearchItems] = useState([])
     console.log('this is state', spotsforSearchObj)
+
+    // try using an async function to directly grab spots instead of using state
+    // this would immediately set the array onto a useState, which will allow us
+    // to go around state which is used on the individual spot page
     useEffect(() => {
         dispatch(getSpots())
     }, [dispatch])
