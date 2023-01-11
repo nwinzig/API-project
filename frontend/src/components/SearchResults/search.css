@@ -1,0 +1,7 @@
+.noSearchResults{
+    font-size: 1.25rem;
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+    flex-direction: column;
+}
