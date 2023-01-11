@@ -1,28 +1,39 @@
-.cardHolder{
+/* .cardHolder{
     padding-top: 30px;
     padding-right: 40px;
     padding-left: 40px;
     display: grid;
-    /* grid-template-columns: repeat(3, 1fr); */
     grid-template-columns: repeat(auto-fit, minmax(300px,1fr));
     grid-gap: 1rem;
     background-color: white;
     height: 100%;
     padding-bottom: 250px;
     margin-bottom: 10px;
-    /* z-index: 0; */
+} */
+.cardHolder{
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 80%;
 }
-
 a{
     text-decoration: none;
 }
-.card{
+/* .card{
     border-radius: 7%;
     display: flex;
     flex-direction: column;
     max-height: 100%;
+} */
+.card{
+    height: 20rem;
+    width: 22rem;
+    margin-right: auto;
+    margin-left: auto;
 }
-
 .cardImage{
     height: 70%;
 
@@ -33,7 +44,7 @@ a{
     border-radius: 7%;
 }
 
-.cardInfo{
+/* .cardInfo{
     padding-top: 10px;
     display: grid;
     grid-template-rows: auto;
@@ -41,14 +52,29 @@ a{
     color: black;
     text-decoration: none;
     margin-bottom: 50px;
-
+} */
+.cardInfo{
+    padding-top: 10px;
+    display: flex;
+    flex-direction: column;
+    color: black;
+    text-decoration: none;
+}
+.cardTitle{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.cardTitle div:first-child{
+    margin-left: 15px;
+    font-weight: bold;
+}
+.cardTitle div:last-child{
+    margin-right: 15px;
 }
 
-.location-rating{
-    display: flex;
-    justify-content: space-between;
-    text-decoration: none;
-
+#addCardLeftMargin{
+    margin-left: 15px;
 }
 .cardPrice{
     font-weight: bold;

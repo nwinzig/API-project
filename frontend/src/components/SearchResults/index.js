@@ -21,7 +21,9 @@ const SearchResults = () => {
             <>
             <div className='searchCardContainer'>
                 {spots?.map(spot => (
-                    <Link to={`/spots/${spot?.id}`} className='searchCard' key={spot?.id}>
+                    <Link to={`/spots/${spot?.id}`} className='searchCard' key={spot?.id}
+                    onClick={() => window.scrollTo(0,0)}
+                    >
                         <div className='searchCardImage'>
                             <img src={spot?.previewImage} alt='Spot preview'></img>
                         </div>

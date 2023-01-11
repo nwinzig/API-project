@@ -23,23 +23,25 @@ const SpotCards = () => {
     return (
         <div className='cardHolder'>
             {spots.map(spot => (
-                <Link to={`/spots/${spot?.id}`} className='card' key={spot?.id}>
+                <Link to={`/spots/${spot?.id}`} className='card' key={spot?.id}
+                onClick={() => window.scrollTo(0,0)}
+                >
                     <div className='cardImage'>
                         <img src={spot?.previewImage} alt='Spot preview'></img>
                     </div>
                     <div className='cardInfo'>
-                        <div className='location-rating'>
-                            {/* <div>
-                                {spot?.name}
-                            </div> */}
+                        <div className='cardTitle'>
                             <div>
-                                {spot?.city}, {spot?.state}
+                                {spot?.name}
                             </div>
                             <div>
                                 <i className="fa-solid fa-star"></i>  {spot?.avgRating}
                             </div>
                         </div>
-                        <div>
+                        <div id='addCardLeftMargin'>
+                            {spot?.city}, {spot?.state}
+                        </div>
+                        <div id='addCardLeftMargin'>
                             <span className='cardPrice'>${spot?.price}</span> night
                         </div>
                     </div>

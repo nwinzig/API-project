@@ -50,7 +50,6 @@
     flex-direction: column;
     color: black;
     text-decoration: none;
-    /* margin-bottom: 50px; */
 }
 .cardTitle{
     display: flex;
