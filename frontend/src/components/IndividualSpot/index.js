@@ -42,44 +42,44 @@ const SpotDetails = () => {
     let firstInnerImage;
     if (imagesArr[1]) {
         firstInnerImage = (
-            <img src={imagesArr[1]} alt='spot picture'></img>
+            <img src={imagesArr[1]} alt='spot picture' id='first'></img>
         )
     } else {
         firstInnerImage = (
-            <img src='https://res.cloudinary.com/dydhvazpw/image/upload/v1666272842/istockphoto-1357365823-612x612_p6siif.jpg' alt='spot picture'></img>
+            <img src='https://res.cloudinary.com/dydhvazpw/image/upload/v1666272842/istockphoto-1357365823-612x612_p6siif.jpg' alt='spot picture' id='first'></img>
         )
     }
 
     let secondInnerImage;
     if (imagesArr[2]) {
         secondInnerImage = (
-            <img src={imagesArr[2]} alt='spot picture'></img>
+            <img src={imagesArr[2]} alt='spot picture' id='second'></img>
         )
     } else {
         secondInnerImage = (
-            <img src='https://res.cloudinary.com/dydhvazpw/image/upload/v1666272842/istockphoto-1357365823-612x612_p6siif.jpg' alt='spot picture'></img>
+            <img src='https://res.cloudinary.com/dydhvazpw/image/upload/v1666272842/istockphoto-1357365823-612x612_p6siif.jpg' alt='spot picture' id='second'></img>
         )
     }
 
     let thirdInnerImage;
     if (imagesArr[3]) {
         thirdInnerImage = (
-            <img src={imagesArr[3]} alt='spot picture'></img>
+            <img src={imagesArr[3]} alt='spot picture' id='third'></img>
         )
     } else {
         thirdInnerImage = (
-            <img src='https://res.cloudinary.com/dydhvazpw/image/upload/v1666272842/istockphoto-1357365823-612x612_p6siif.jpg' alt='spot picture'></img>
+            <img src='https://res.cloudinary.com/dydhvazpw/image/upload/v1666272842/istockphoto-1357365823-612x612_p6siif.jpg' alt='spot picture' id='third'></img>
         )
     }
 
     let fourthInnerImage;
     if (imagesArr[4]) {
         fourthInnerImage = (
-            <img src={imagesArr[4]} alt='spot picture'></img>
+            <img src={imagesArr[4]} alt='spot picture' id='fourth'></img>
         )
     } else {
         fourthInnerImage = (
-            <img src='https://res.cloudinary.com/dydhvazpw/image/upload/v1666272842/istockphoto-1357365823-612x612_p6siif.jpg' alt='spot picture'></img>
+            <img id='fourth' src='https://res.cloudinary.com/dydhvazpw/image/upload/v1666272842/istockphoto-1357365823-612x612_p6siif.jpg' alt='spot picture'></img>
         )
     }
 
@@ -132,14 +132,13 @@ const SpotDetails = () => {
                         </div>
                     </div>
                     <div className='imgContainer'>
-                        <div className='thirdImage'>
                         {thirdInnerImage}
-                        </div>
                     </div>
                     <div className='imgContainer'>
-                        <div className='fourthImage'>
+                        {/* <div className='fourthImage'>
                         {fourthInnerImage}
-                        </div>
+                        </div> */}
+                        {fourthInnerImage}
                     </div>
                 </div>
             </div>
