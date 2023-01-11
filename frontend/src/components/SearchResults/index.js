@@ -18,31 +18,33 @@ const SearchResults = () => {
     let searchResultsComp;
     if (spots?.length) {
         searchResultsComp = (
-            <div className='cardHolder'>
+            <>
+            <div className='searchCardContainer'>
                 {spots?.map(spot => (
-                    <Link to={`/spots/${spot?.id}`} className='card' key={spot?.id}>
-                        <div className='cardImage'>
+                    <Link to={`/spots/${spot?.id}`} className='searchCard' key={spot?.id}>
+                        <div className='searchCardImage'>
                             <img src={spot?.previewImage} alt='Spot preview'></img>
                         </div>
-                        <div className='cardInfo'>
-                            <div className='location-rating'>
-                                {/* <div>
-                                {spot?.name}
-                            </div> */}
+                        <div className='searchCardInfo'>
+                            <div className="cardTitle">
                                 <div>
-                                    {spot?.city}, {spot?.state}
+                                    {spot?.name}
                                 </div>
                                 <div>
                                     <i className="fa-solid fa-star"></i>  {spot?.avgRating}
                                 </div>
                             </div>
-                            <div>
+                            <div id="addCardLeftMargin">
+                                {spot?.city}, {spot?.state}
+                            </div>
+                            <div id="addCardLeftMargin">
                                 <span className='cardPrice'>${spot?.price}</span> night
                             </div>
                         </div>
                     </Link>
                 ))}
             </div>
+            </>
         )
     } else {
         searchResultsComp =(
