@@ -1,22 +1,18 @@
 .noSearchResults{
     font-size: 1.25rem;
     display: flex;
-    /* justify-content: center; */
     align-items: center;
     flex-direction: column;
+    margin-top: 25px;
 }
-/* .searchCardContainer{
-    padding-top: 30px;
-    padding-right: 40px;
-    padding-left: 40px;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px,1fr));
-    grid-gap: 1rem;
-    background-color: white;
-    height: 100%;
-    padding-bottom: 250px;
-    margin-bottom: 10px;
-} */
+.backHome{
+    color: black;
+    margin-top: 10px;
+}
+.backHome:hover{
+    cursor: pointer;
+    text-decoration: underline;
+}
 .searchCardContainer{
     margin-top: 20px;
     margin-left: auto;
@@ -32,10 +28,6 @@
     margin-right: auto;
     margin-left: auto;
 }
-/* .searchCard:hover{
-    height: 21rem;
-    width: 22rem;
-} */
 .searchCardImage{
     height: 70%;
 }

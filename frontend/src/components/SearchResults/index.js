@@ -15,16 +15,13 @@ const SearchResults = () => {
     }, [dispatch])
 
     useEffect(() => {
-        console.log('trying to access a prop moved by history push', location.state)
         setSpots(location.state.searchItems)
     },[location])
-    console.log('what is spots if none are found', spots)
 
     //creating conditional component to render a different page if there are no results
     let searchResultsComp;
     if (spots?.length) {
         searchResultsComp = (
-            <>
             <div className='searchCardContainer'>
                 {spots?.map(spot => (
                     <Link to={`/spots/${spot?.id}`} className='searchCard' key={spot?.id}
@@ -52,7 +49,6 @@ const SearchResults = () => {
                     </Link>
                 ))}
             </div>
-            </>
         )
     } else {
         searchResultsComp =(
@@ -66,6 +62,7 @@ const SearchResults = () => {
                 >
                     Back Home
                 </NavLink>
+                <img src="https://res.cloudinary.com/dydhvazpw/image/upload/v1673538707/360_F_387370928_uxePPpjy9FtcCCU3oTjHbPsKjl36mOaX_l17wlf.jpg"></img>
             </div>
         )
     }
