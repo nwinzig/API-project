@@ -4,6 +4,7 @@
     border: 1px lightgray solid;
     border-radius: 5px;
     font-size: 30px;
+    background-color: white;
 }
 
 .buttonFace:hover{

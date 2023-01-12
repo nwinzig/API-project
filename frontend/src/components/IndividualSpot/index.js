@@ -97,9 +97,7 @@ const SpotDetails = () => {
             <div className='titleWrapper'>
                 <div className='handleUpdate'>
                     <h1 className='spotTitle'>{spot.name}</h1>
-                    <div className='updateButton'>
                         {createUpdateLink}
-                    </div>
                 </div>
                 <div className='spotHeaderDetails'>
                     <i className="fa-solid fa-star"></i>{`${spot.avgStarReviews}`}

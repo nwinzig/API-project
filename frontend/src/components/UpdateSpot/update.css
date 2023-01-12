@@ -1,6 +1,6 @@
 .updateButton{
-    border: 2px light lightgrey solid;
-    background-color: white;
+    font-size: 16px;
+    padding: 5px;
 }
 .updateButton:hover{
     cursor: pointer;
