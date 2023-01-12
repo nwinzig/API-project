@@ -9,39 +9,33 @@ import MyButton from './BnBButton';
 import HostModal from '../CreateSpotModal';
 import DemoLoginButton from '../LoginFormPage/DemoLogin';
 import { getSpots } from '../../store/spots';
+import { csrfFetch } from '../../store/csrf';
 
 
 function Navigation({ isLoaded }) {
     const history = useHistory()
     const dispatch = useDispatch()
     const sessionUser = useSelector(state => state.session.user);
-    const spotsforSearchObj = useSelector(state => state.spots)
-    const searchSpots = Object.values(spotsforSearchObj)
-
     const [dropDown, setDropDown] = useState(false)
     const [searchFilter, setSearchFilter] = useState('')
     const [searchItems, setSearchItems] = useState([])
-    console.log('this is state', spotsforSearchObj)
+    const [searchSpots, setSearchSpots] = useState([])
 
-    // try using an async function to directly grab spots instead of using state
-    // this would immediately set the array onto a useState, which will allow us
-    // to go around state which is used on the individual spot page
+
     useEffect(() => {
-        dispatch(getSpots())
+        async function fetchSpots(){
+            const request = await csrfFetch('/api/spots')
+            const newRequest = await request.json()
+            setSearchSpots(newRequest.Spots)
+        }
+        fetchSpots()
     }, [dispatch])
 
     const loadItems = function(search){
         setSearchFilter(search)
-        //items that filter from search input
-        console.log('is it grabbing data', search)
-
-        console.log(search.length)
-        console.log(typeof(search))
-        console.log('is there searchSpots', searchSpots)
         if(search.length){
             setDropDown(true)
             setSearchItems(searchSpots.filter((el) => el?.name.includes(search)))
-            // console.log('is this changing to true', dropDown)
         } else{
             setSearchItems([])
         }
@@ -66,8 +60,6 @@ function Navigation({ isLoaded }) {
             state:{searchItems}
         })
     }
-
-
 
     // conditionally rendered components //
 
