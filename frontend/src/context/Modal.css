@@ -26,6 +26,6 @@
 #modal form{
     margin: 0;
     height: auto;
-    width: 300px;
+    /* width: 300px; */
     box-shadow: 0 0 3px 3px lightcoral;
 }

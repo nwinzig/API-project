@@ -2,7 +2,6 @@
     border: 2px light lightgrey solid;
     background-color: white;
 }
-
 .updateButton:hover{
     cursor: pointer;
     box-shadow: 0 0 2px 2px lightcoral;
@@ -13,10 +12,14 @@
 }
 
 .updateSubmit{
+    margin-left: 3rem;
+    margin-right: 5px;
     margin-top: 5px;
     background-color: white;
-    height: 50px;
-    font-size: 20px;
+    height: 1.6rem;
+    font-size: 18px;
+    width: 8rem;
+    border: 1px solid black;
 }
 
 .updateSubmit:hover{
@@ -25,4 +28,49 @@
 }
 .formWrapper{
     margin: 0;
+}
+
+.updateSpotForm{
+    margin-right: 20%;
+    margin-left: 20%;
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+    font-family: 'Montserrat', sans-serif;
+    justify-content: center;
+    box-shadow: 0 0 2px 2px lightcoral;
+    width: 25rem;
+}
+.updateSpotForm label{
+    margin-left: auto;
+    padding-top: 5px;
+    top: 0px;
+    margin-right: auto;
+    font-weight: bold;
+}
+.updateSpotForm textarea{
+    justify-content: center;
+    display: flex;
+    width: 20rem;
+    height: 4rem;
+    resize: none;
+}
+.updateSpotForm textarea:focus{
+    outline-width: 0;
+}
+.updateSpotForm input{
+    justify-content: center;
+    display: flex;
+    width: 20rem;
+    height: 25px
+}
+.updateSpotForm input:focus{
+    outline-width: 0;
+}
+.updateButtonContainer{
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 5px;
+    align-items: center;
+    justify-content: space-between;
 }

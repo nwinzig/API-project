@@ -8,24 +8,14 @@ import './deleteSpot.css'
 const DeleteASpot = ({setShowModal}) => {
     const history = useHistory()
     const dispatch = useDispatch()
-
     const {spotId} = useParams()
-    // console.log('spotId from delete', spotId)
-
-    // let spot = useSelector(state => state.spots)
-    // console.log("spot from delete", spot)
 
     const handleDelete = async (e) => {
         e.preventDefault()
-        // console.log('before')
         dispatch(deleteSpot(spotId))
-        // console.log('what do i get from deletedSpot')
-
         if(deleteSpot){
-            // console.log('do we get here')
             history.push('/')
         }
-
     }
 
     return (
@@ -33,7 +23,8 @@ const DeleteASpot = ({setShowModal}) => {
             <h2 className="deleteWarning">
                 Warning: Delete Cannot Be Undone
             </h2>
-            <button onClick={handleDelete}>DELETE</button>
+            <button onClick={handleDelete} className='finalDelete'>Delete</button>
+            <button onClick={() => setShowModal(false)} className='cancelDelete'>Cancel</button>
         </div>
     )
 }

@@ -12,25 +12,10 @@ const UpdateASpot = ({setShowModal}) => {
 
     const {spotId} = useParams()
     let spot = useSelector(state => state.spots)
-    // console.log('spot to update', spot)
-
-    // const [address, setAddress] = useState(spot.address)
-    // const [city, setCity] = useState(spot.city)
-    // const [state, setState] = useState(spot.state)
-    // const [country, setCountry] = useState(spot.country)
-    // const [lat, setLat] = useState(spot.lat)
-    // const [lng, setLng] = useState(spot.lng)
-    // const [name, setName] = useState(spot.name)
-    // const [description, setDescription] = useState(spot.description)
-    // const [price, setPrice] = useState(spot.price)
-    // const [errors, setErrors] = useState([]);
-
     const [address, setAddress] = useState('')
     const [city, setCity] = useState('')
     const [state, setState] = useState('')
     const [country, setCountry] = useState('')
-    // const [lat, setLat] = useState('')
-    // const [lng, setLng] = useState('')
     const [name, setName] = useState('')
     const [description, setDescription] = useState('')
     const [price, setPrice] = useState('')
@@ -45,31 +30,21 @@ const UpdateASpot = ({setShowModal}) => {
             city,
             state,
             country,
-            // lat,
-            // lng,
             name,
             description,
             price
         }
-
-        // console.log('updated payload', payload)
-
         let updatedSpot = await dispatch(updateSpot(payload, spotId)).catch(
             async(res) => {
                 const data = await res.json();
                 if (data) setErrors([data.errors]);
-                // console.log('data', data)
-                // console.log('errors', errors)
             }
         )
-
         if(updatedSpot){
             setShowModal(false)
             window.location.reload()
         }
     }
-
-
 
     let errorMessage;
     if (errors.length >= 1) {
@@ -82,8 +57,7 @@ const UpdateASpot = ({setShowModal}) => {
 
     return (
         <div className='formWrapper'>
-
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className='updateSpotForm'>
                 {errorMessage}
                 <label>
                     Address
@@ -125,30 +99,6 @@ const UpdateASpot = ({setShowModal}) => {
                         required
                     />
                 </label>
-                {/* <label>
-                    Latitude
-                    <input
-                        placeholder='Latitude(not required)'
-                        type="number"
-                        min='-90'
-                        max='90'
-                        step="0.0001"
-                        value={lat}
-                        onChange={(e) => setLat(e.target.value)}
-                    />
-                </label>
-                <label>
-                    Longitude
-                    <input
-                        placeholder='Longitude(not required)'
-                        type="number"
-                        min='-180'
-                        max='180'
-                        step="0.0001"
-                        value={lng}
-                        onChange={(e) => setLng(e.target.value)}
-                    />
-                </label> */}
                 <label>
                     Name
                     <input
@@ -183,9 +133,11 @@ const UpdateASpot = ({setShowModal}) => {
                         onChange={(e) => setPrice(e.target.value)}
                     />
                 </label>
-                <button className="updateSubmit" type="submit">Update this spot</button>
-                <div className="updateDelete">
-                    <DeleteSpotModal />
+                <div className="updateButtonContainer">
+                    <button className="updateSubmit" type="submit">Update spot</button>
+                    <div className="updateDelete">
+                        <DeleteSpotModal />
+                    </div>
                 </div>
             </form>
 

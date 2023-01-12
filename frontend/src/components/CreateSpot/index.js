@@ -1,10 +1,6 @@
-
-
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-
 import { Link, useHistory } from 'react-router-dom';
-
 import { createSpot } from '../../store/spots';
 import './CreateaSpot.css'
 
@@ -19,15 +15,10 @@ const HostASpot = ({ data }) => {
     const [city, setCity] = useState('')
     const [state, setState] = useState('')
     const [country, setCountry] = useState('')
-    // const [lat, setLat] = useState('')
-    // const [lng, setLng] = useState('')
     const [name, setName] = useState('')
     const [description, setDescription] = useState('')
     const [price, setPrice] = useState('')
-
     const [url, setUrl] = useState('')
-
-
     const [errors, setErrors] = useState([]);
 
     const handleSubmit = async (e) => {
@@ -39,8 +30,6 @@ const HostASpot = ({ data }) => {
             city,
             state,
             country,
-            // lat,
-            // lng,
             name,
             description,
             price
@@ -51,22 +40,17 @@ const HostASpot = ({ data }) => {
             preview:true
         }
         console.log('image', image)
-        // console.log("should be collected info", payload)
         let createdSpot = await dispatch(createSpot(payload, image)).catch(
             async(res) => {
                 const data = await res.json();
                 if (data) setErrors([data.errors]);
-                // console.log('data', data)
-                // console.log('data.errors', data.errors)
-                // console.log('errors', errors)
             }
         )
-
         if (createdSpot) {
-
             history.push(`/`)
         }
     }
+
     let errorMessage;
     if (errors.length >= 1) {
         errorMessage = (
@@ -80,7 +64,7 @@ const HostASpot = ({ data }) => {
             <div className='title'>
                 Please Fill out to start Hosting
             </div>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className='createSpotForm'>
                 {errorMessage}
                 <label>
                     Address
@@ -122,30 +106,6 @@ const HostASpot = ({ data }) => {
                         required
                     />
                 </label>
-                {/* <label>
-                    Latitude
-                    <input
-                        placeholder='Latitude(not required)'
-                        type="number"
-                        min='-90'
-                        max='90'
-                        step="0.0001"
-                        value={lat}
-                        onChange={(e) => setLat(e.target.value)}
-                    />
-                </label>
-                <label>
-                    Longitude
-                    <input
-                        placeholder='Longitude(not required)'
-                        type="number"
-                        min='-180'
-                        max='180'
-                        step="0.0001"
-                        value={lng}
-                        onChange={(e) => setLng(e.target.value)}
-                    />
-                </label> */}
                 <label>
                     Name
                     <input
@@ -170,7 +130,7 @@ const HostASpot = ({ data }) => {
                 <label>
                     Description
                     <textarea
-                        placeholder='Please provide a description for your location.'
+                        placeholder='Please provide a brief description.'
                         type="text"
                         value={description}
                         maxLength='125'
