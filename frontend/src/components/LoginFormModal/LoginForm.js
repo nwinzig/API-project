@@ -14,18 +14,13 @@ function LoginForm() {
         return dispatch(sessionActions.login({ credential, password })).catch(
             async (res) => {
                 const data = await res.json();
-                // console.log('is there data here', data)
-                // console.log('does this catch errors', data.errors)
-                // console.log('what happens here', typeof data.errors)
-                // if (data && data.errors) setErrors(data.errors);
                 if (data) setErrors([data.errors]);
-                // console.log('what does errors look like', errors)
             }
         );
     };
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className='signUpForm'>
             <ul>
                 {errors.map((error, idx) =>
                     <li key={idx}>{error}</li>
@@ -34,6 +29,7 @@ function LoginForm() {
             <label>
                 Username or Email
                 <input
+                    placeholder="Username or Email"
                     type="text"
                     value={credential}
                     onChange={(e) => setCredential(e.target.value)}
@@ -43,13 +39,14 @@ function LoginForm() {
             <label>
                 Password
                 <input
+                    placeholder="Password"
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
                 />
             </label>
-            <button type="submit">Log In</button>
+            <button type="submit" className="signUpConfirm">Log In</button>
         </form>
     );
 }
