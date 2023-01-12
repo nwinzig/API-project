@@ -69,7 +69,7 @@ const ReviewComponent = () => {
             </div>
             <div className='reviewWrapper'>
                 {reviewArray?.map(review => (
-                    <div>
+                    <div key={review?.id}>
                         <div className='reviewTitleWrapper'>
                         <h3>
                             {review?.User?.firstName}
