@@ -1,3 +1,47 @@
+.signUpForm{
+    margin-right: 20%;
+    margin-left: 20%;
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+    font-family: 'Montserrat', sans-serif;
+    justify-content: center;
+    box-shadow: 0 0 2px 2px lightcoral;
+    width: 25rem;
+}
+.signUpForm label{
+    margin-left: auto;
+    padding-top: 5px;
+    top: 0px;
+    margin-right: auto;
+    font-weight: bold;
+}
+.signUpForm input{
+    justify-content: center;
+    display: flex;
+    width: 20rem;
+    height: 25px
+}
+.signUpForm input:focus{
+    outline-width: 0;
+}
+.signUpConfirm{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 10px;
+    border: 1px lightgray solid;
+    height: 1.8rem;
+    width: 10rem;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 10px;
+    background-color: white;
+}
+.signUpConfirm:hover{
+    cursor: pointer;
+    box-shadow: 0 0 2px 2px lightcoral;
+}
 .signupmodalButton{
     border: 1px lightgray solid;
     background-color: white;

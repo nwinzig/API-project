@@ -1,13 +1,11 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-// import { Redirect } from "react-router-dom";
 import * as sessionActions from "../../store/session";
-
-
+import './signupModal.css'
 
 function SignupForm() {
     const dispatch = useDispatch();
-    // const sessionUser = useSelector((state) => state.session.user);
+
     const [email, setEmail] = useState("");
     const [username, setUsername] = useState("");
     const [firstName, setFirstName] = useState("")
@@ -15,8 +13,6 @@ function SignupForm() {
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [errors, setErrors] = useState([]);
-
-    // if (sessionUser) return <Redirect to="/" />;
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -32,13 +28,14 @@ function SignupForm() {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className='signUpForm'>
             <ul>
                 {errors.map((error, idx) => <li key={idx}>{error}</li>)}
             </ul>
             <label>
                 Email
                 <input
+                    placeholder="Email"
                     type="text"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
@@ -48,6 +45,7 @@ function SignupForm() {
             <label>
                 Username
                 <input
+                    placeholder="Username"
                     type="text"
                     value={username}
                     maxLength='25'
@@ -58,6 +56,7 @@ function SignupForm() {
             <label>
                 First Name
                 <input
+                    placeholder="First Name"
                     type="text"
                     maxLength='25'
                     value={firstName}
@@ -68,6 +67,7 @@ function SignupForm() {
             <label>
                 Last Name
                 <input
+                    placeholder="Last Name"
                     type="text"
                     maxLength='25'
                     value={lastName}
@@ -78,6 +78,7 @@ function SignupForm() {
             <label>
                 Password
                 <input
+                    placeholder="Password"
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
@@ -87,13 +88,14 @@ function SignupForm() {
             <label>
                 Confirm Password
                 <input
+                    placeholder="Confirm Password"
                     type="password"
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     required
                 />
             </label>
-            <button type="submit">Sign Up</button>
+            <button type="submit" className="signUpConfirm">Sign Up</button>
         </form>
     );
 }
