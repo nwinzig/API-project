@@ -73,6 +73,7 @@
     /* right: -222px; */
     box-shadow: none;
     display: flex;
+    /* justify-content: space-between; */
     flex-direction: row;
     border: 1px solid lightgray;
     width: 25rem;
@@ -100,7 +101,7 @@
     color:black
 }
 .searchField{
-    /* width: 25rem; */
+    width:23rem;
     height: 3rem;
     font-size: 1.5rem;
     /* border: 1px solid lightgray; */
