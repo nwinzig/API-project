@@ -14,13 +14,10 @@ function ProfileButton({ user }) {
 
     useEffect(() => {
         if (!showMenu) return;
-
         const closeMenu = () => {
             setShowMenu(false);
         };
-
         document.addEventListener('click', closeMenu);
-
         return () => document.removeEventListener("click", closeMenu);
     }, [showMenu]);
 
@@ -38,8 +35,8 @@ function ProfileButton({ user }) {
                 <ul className="profile-dropdown">
                     <li>{user.username}</li>
                     <li>{user.email}</li>
-                    <li className="logOutButton">
-                        <button onClick={logout}>Log Out</button>
+                    <li id="addTopBorder">
+                        <button onClick={logout} className="logOutButton">Log Out</button>
                     </li>
                 </ul>
             )}

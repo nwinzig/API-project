@@ -13,18 +13,28 @@
 
 .profile-dropdown{
     list-style: none;
-    width: 80%;
+    width: 15rem;
     border: 1px solid black;
     position: absolute;
-    margin-top: 200px;
+    margin-top: 150px;
     background-color: white;
     border-radius: 5px;
     padding-left: 0px;
+    right: 1rem;
     font-size: 20px;
-    height: 80px;
+    height: fit-content;
 }
-
-.logOutButton{
+#addTopBorder{
     border-top: 1px lightgray solid;
-    font-size: 20px;
+}
+.logOutButton{
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-left: 5px;
+    background-color: white;
+    border: 1px solid black;
+}
+.logOutButton:hover{
+    cursor: pointer;
+    box-shadow: 0 0 2px 2px lightcoral;
 }
