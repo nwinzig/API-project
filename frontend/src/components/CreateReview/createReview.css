@@ -1,0 +1,55 @@
+.createReviewForm{
+    margin-right: 20%;
+    margin-left: 20%;
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+    font-family: 'Montserrat', sans-serif;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 2px 2px lightcoral;
+    width: 25rem;
+}
+.createReviewForm h2{
+    margin-top: 10px;
+}
+.createReviewForm label{
+    margin-left: 10%;
+    padding-top: 5px;
+    font-size: 18px;
+    top: 0px;
+    margin-right: auto;
+    font-weight: bold;
+}
+.createReviewForm select{
+    height: 2rem;
+    font-size: 16px;
+}
+.createReviewForm select:focus{
+    outline-width: 0;
+}
+.createReviewForm textarea{
+    justify-content: center;
+    display: flex;
+    width: 20rem;
+    height: 4rem;
+    resize: none;
+}
+.createReviewForm textarea:focus{
+    outline-width: 0;
+}
+.leaveReviewButton{
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    background-color: white;
+    height: 1.6rem;
+    font-size: 18px;
+    width: 10rem;
+    border: 1px solid black;
+}
+.leaveReviewButton:hover{
+    cursor: pointer;
+    box-shadow: 0 0 2px 2px lightcoral;
+}

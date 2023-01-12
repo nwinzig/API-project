@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import { createReview , getReviews} from "../../store/reviews";
+import './createReview.css'
 
 function CreateReviewForm({setShowModal}) {
 
@@ -10,8 +11,6 @@ function CreateReviewForm({setShowModal}) {
     const dispatch = useDispatch()
     const { spotId } = useParams()
     const sessionUser = useSelector(state => state.session.user)
-
-
 
     const [review, setReview] = useState('')
     const [stars, setStars] = useState('')
@@ -26,14 +25,10 @@ function CreateReviewForm({setShowModal}) {
             stars
         }
 
-        // console.log('should be the payload', payload)
-        // let createdReview = await dispatch(createReview(payload, spotId))
         let createdReview = await dispatch(createReview(payload, spotId)).catch(
             async(res) => {
                 const data = await res.json();
                 if (data) setErrors([data.errors]);
-                // console.log('data', data)
-                // console.log('errors', errors)
             }
         )
 
@@ -56,17 +51,20 @@ function CreateReviewForm({setShowModal}) {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
-            <ul>
+        <form onSubmit={handleSubmit} className='createReviewForm'>
+            <h2>
+                Leave a Review
+            </h2>
+            {errors && <ul>
                 {errors.map((error, idx) => (
                     <li key={idx}>{error}</li>
                 ))}
-            </ul>
+            </ul>}
             <label>
                 How would you rate your stay?
                 <select onChange={(e) => setStars(e.target.value)}>
                     <option value="">
-                        Please choose a number
+                        Please select an option
                     </option>
                     <option value='5'>
                         5
@@ -96,7 +94,7 @@ function CreateReviewForm({setShowModal}) {
                 >
                 </textarea>
             </label>
-            <button type="submit">Create Review</button>
+            <button type="submit" className="leaveReviewButton">Create Review</button>
         </form>
     )
 }
